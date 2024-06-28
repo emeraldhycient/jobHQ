@@ -8,15 +8,19 @@ function Sidebar() {
             <ul>
                 <li>
                     <RiHomeLine />
-                    <span>Dashboard</span>
+                    <span>Home</span>
                 </li>
                 <li>
                     <RiHomeLine />
-                    <span>Dashboard</span>
+                    <span>Post Job</span>
                 </li>
                 <li>
                     <RiHomeLine />
-                    <span>Dashboard</span>
+                    <span>Interview Prep</span>
+                </li>
+                <li>
+                    <RiHomeLine />
+                    <span>Learning Path</span>
                 </li>
                 <li>
                     <RiHomeLine />
