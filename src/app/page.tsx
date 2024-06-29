@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import Image from 'next/image';
+import { FaSun, FaMoon, FaLaptopCode, FaGraduationCap, FaSuitcase, FaTwitter, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa';
 
 const Home = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -15,97 +15,95 @@ const Home = () => {
   };
 
   return (
-    <div className={`${isDarkMode ? 'dark' : ''}`}>
-      <div className="bg-white dark:bg-black">
-        <header className="bg-gray-100 dark:bg-gray-900 py-4 shadow-lg">
+    <div className={`${isDarkMode ? 'dark' : ''} transition-colors duration-500`}>
+      <div className="bg-white dark:bg-blackBg transition-colors duration-500 min-h-screen">
+        <header className="py-3 shadow-md transition-colors duration-500">
           <div className="container mx-auto flex justify-between items-center px-4">
-            <h1 className="text-3xl font-extrabold text-gray-800 dark:text-white">JobConnect AI</h1>
+            <h1 className="text-lg font-extrabold text-gray-800 dark:text-lightText">JobHQ AI</h1>
             <button
               onClick={toggleDarkMode}
-              className="text-gray-800 dark:text-white bg-gray-300 dark:bg-gray-700 px-3 py-2 rounded-lg transition duration-300 ease-in-out"
+              className="text-gray-800 dark:text-lightText bg-gray-300 dark:bg-gray-600 px-3 py-1 rounded-md transition duration-300 ease-in-out flex items-center"
             >
-              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              {isDarkMode ? <FaSun /> : <FaMoon />}
+              <span className="ml-2 text-sm">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
             </button>
           </div>
         </header>
-        <main className="container">
-          <section
-            className="text-center relative px-4 py-20"
-            style={{
-              backgroundImage: 'url("/pattern.svg"), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))',
-              backgroundBlendMode: 'overlay',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
+        <main className="container mx-auto px-4">
+          <section className="text-center relative px-4 py-20 bg-gradient-to-b from-blackBg to-darkBg">
             <div className="relative z-10 py-20">
-              <h2 className="text-5xl font-extrabold text-gray-800 dark:text-white mb-4">Welcome to JobConnect AI</h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-                Revolutionizing the job search and interview preparation process with AI.
+              <h2 className="text-2xl font-extrabold text-lightText mb-4 animate__animated animate__fadeInDown">Welcome to JobConnect AI</h2>
+              <p className="text-sm text-grayText mb-6 animate__animated animate__fadeInUp">
+                Revolutionizing the job search and interviewy preparation process with AI-powered insights and personalized learning paths.
               </p>
-              <button className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105">
+              <p className="text-sm text-grayText mb-8 animate__animated animate__fadeInUp">
+                Discover your dream job, prepare like a pro, and learn the skills you need to succeed, all in one place.
+              </p>
+              <button className="bg-neonGreen text-black px-6 py-3 rounded-full hover:bg-green-400 transition duration-300 ease-in-out transform hover:scale-105 animate__animated animate__bounceIn">
                 Get Started
               </button>
             </div>
           </section>
 
-          <section className="mt-32 text-center">
-            <h2 className="text-4xl font-extrabold text-gray-800 dark:text-white mb-12">Features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <div className="bg-gray-100 dark:bg-gray-900 p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
-                <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">AI Interview Preparation</h3>
-                <p className="text-lg text-gray-600 dark:text-gray-300">Get ready for your interviews with our AI-driven mock interviews and feedback system.</p>
+          <section className="mt-20 text-center">
+            <h2 className="text-xl font-extrabold text-gray-800 dark:text-lightText mb-8">Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-gray-100 dark:bg-cardBg p-6 rounded-md shadow-lg transform transition duration-500 hover:scale-105">
+                <FaLaptopCode className="text-3xl text-neonGreen mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-gray-800 dark:text-lightText mb-2">AI Interview Preparation</h3>
+                <p className="text-xs text-gray-600 dark:text-grayText">Get ready for your interviews with our AI-driven mock interviews and feedback system.</p>
               </div>
-              <div className="bg-gray-100 dark:bg-gray-900 p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
-                <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Personalized Learning Paths</h3>
-                <p className="text-lg text-gray-600 dark:text-gray-300">Receive customized learning paths to help you upskill efficiently.</p>
+              <div className="bg-gray-100 dark:bg-cardBg p-6 rounded-md shadow-lg transform transition duration-500 hover:scale-105">
+                <FaGraduationCap className="text-3xl text-neonGreen mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-gray-800 dark:text-lightText mb-2">Personalized Learning Paths</h3>
+                <p className="text-xs text-gray-600 dark:text-grayText">Receive customized learning paths to help you upskill efficiently.</p>
               </div>
-              <div className="bg-gray-100 dark:bg-gray-900 p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
-                <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Comprehensive Job Listings</h3>
-                <p className="text-lg text-gray-600 dark:text-gray-300">Find your ideal job from our extensive list of job postings.</p>
-              </div>
-            </div>
-          </section>
-
-          <section className="mt-32 text-center">
-            <h2 className="text-4xl font-extrabold text-gray-800 dark:text-white mb-12">Testimonials</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-              <div className="bg-gray-100 dark:bg-gray-900 p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
-                <p className="text-xl text-gray-800 dark:text-white mb-4">"JobConnect AI helped me land my dream job. The AI-powered interview preparation was incredibly helpful!"</p>
-                <p className="mt-4 text-sm font-bold text-gray-600 dark:text-gray-400">- Jane Doe, Software Engineer</p>
-              </div>
-              <div className="bg-gray-100 dark:bg-gray-900 p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
-                <p className="text-xl text-gray-800 dark:text-white mb-4">"The personalized learning paths were a game changer. I was able to upskill quickly and efficiently."</p>
-                <p className="mt-4 text-sm font-bold text-gray-600 dark:text-gray-400">- John Smith, Data Scientist</p>
-              </div>
-              <div className="bg-gray-100 dark:bg-gray-900 p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105">
-                <p className="text-xl text-gray-800 dark:text-white mb-4">"As an employer, I found the platform incredibly useful for finding well-prepared candidates."</p>
-                <p className="mt-4 text-sm font-bold text-gray-600 dark:text-gray-400">- Sarah Lee, HR Manager</p>
+              <div className="bg-gray-100 dark:bg-cardBg p-6 rounded-md shadow-lg transform transition duration-500 hover:scale-105">
+                <FaSuitcase className="text-3xl text-neonGreen mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-gray-800 dark:text-lightText mb-2">Comprehensive Job Listings</h3>
+                <p className="text-xs text-gray-600 dark:text-grayText">Find your ideal job from our extensive list of job postings.</p>
               </div>
             </div>
           </section>
 
-          <section className="mt-32 text-center bg-gray-100 dark:bg-gray-900 py-20">
-            <h2 className="text-4xl font-extrabold text-gray-800 dark:text-white mb-12">Contact Us</h2>
-            <form className="max-w-xl mx-auto">
-              <div className="mb-4">
-                <label htmlFor="name" className="block text-gray-800 dark:text-white text-left">Name</label>
-                <input type="text" id="name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white" />
+          <section className="mt-20 text-center">
+            <h2 className="text-xl font-extrabold text-gray-800 dark:text-lightText mb-8">Testimonials</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-gray-100 dark:bg-cardBg p-6 rounded-md shadow-lg transform transition duration-500 hover:scale-105">
+                <p className="text-xs text-gray-800 dark:text-lightText mb-4">"JobConnect AI helped me land my dream job. The AI-powered interview preparation was incredibly helpful!"</p>
+                <p className="mt-4 text-xs font-bold text-gray-600 dark:text-grayText">- Jane Doe, Software Engineer</p>
               </div>
-              <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-800 dark:text-white text-left">Email</label>
-                <input type="email" id="email" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white" />
+              <div className="bg-gray-100 dark:bg-cardBg p-6 rounded-md shadow-lg transform transition duration-500 hover:scale-105">
+                <p className="text-xs text-gray-800 dark:text-lightText mb-4">"The personalized learning paths were a game changer. I was able to upskill quickly and efficiently."</p>
+                <p className="mt-4 text-xs font-bold text-gray-600 dark:text-grayText">- John Smith, Data Scientist</p>
               </div>
-              <div className="mb-4">
-                <label htmlFor="message" className="block text-gray-800 dark:text-white text-left">Message</label>
-                <textarea id="message" rows="4" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white"></textarea>
+              <div className="bg-gray-100 dark:bg-cardBg p-6 rounded-md shadow-lg transform transition duration-500 hover:scale-105">
+                <p className="text-xs text-gray-800 dark:text-lightText mb-4">"As an employer, I found the platform incredibly useful for finding well-prepared candidates."</p>
+                <p className="mt-4 text-xs font-bold text-gray-600 dark:text-grayText">- Sarah Lee, HR Manager</p>
               </div>
-              <button type="submit" className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105">Send Message</button>
-            </form>
+            </div>
+          </section>
+
+          <section className="mt-20 text-center bg-gray-100 dark:bg-darkBg py-16 rounded-md shadow-lg">
+            <h2 className="text-xl font-extrabold text-gray-800 dark:text-lightText mb-8">Connect with Us</h2>
+            <div className="flex justify-center space-x-4">
+              <a href="#" className="text-gray-800 dark:text-lightText hover:text-neonGreen transition-colors duration-300">
+                <FaTwitter className="text-xl" />
+              </a>
+              <a href="#" className="text-gray-800 dark:text-lightText hover:text-neonGreen transition-colors duration-300">
+                <FaLinkedin className="text-xl" />
+              </a>
+              <a href="#" className="text-gray-800 dark:text-lightText hover:text-neonGreen transition-colors duration-300">
+                <FaFacebook className="text-xl" />
+              </a>
+              <a href="#" className="text-gray-800 dark:text-lightText hover:text-neonGreen transition-colors duration-300">
+                <FaInstagram className="text-xl" />
+              </a>
+            </div>
           </section>
         </main>
-        <footer className="bg-gray-100 dark:bg-gray-900 py-8 text-center shadow-inner">
-          <p className="text-gray-600 dark:text-gray-300">&copy; 2024 JobConnect AI. All rights reserved.</p>
+        <footer className="bg-gray-100 dark:bg-darkBg py-6 text-center shadow-inner transition-colors duration-500">
+          <p className="text-xs text-gray-600 dark:text-grayText">&copy; 2024 JobConnect AI. All rights reserved.</p>
         </footer>
       </div>
     </div>
