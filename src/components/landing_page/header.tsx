@@ -1,12 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import { Button } from '../ui/button'
+import Image from 'next/image'
 
 function Header() {
   return (
     <nav className='w-screen flex justify-between items-center px-6 md:px-24 py-5'>
       <Link href={"/"}>
-        <img src="/logo/jobHQ_logo.svg" alt="" />
+        <Image height={100} width={100} src="/logo/jobHQ_logo.svg" alt="" />
       </Link>
       <div className="flex gap-x-5">
         <Link href={""}>
