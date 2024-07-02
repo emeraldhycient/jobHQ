@@ -4,7 +4,7 @@ import { Button } from '../ui/button'
 
 function Header() {
   return (
-    <nav className='w-screen flex justify-between items-center px-24 py-5'>
+    <nav className='w-screen flex justify-between items-center px-6 md:px-24 py-5'>
       <Link href={"/"}>
         <img src="/logo/jobHQ_logo.svg" alt="" />
       </Link>
