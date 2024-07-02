@@ -9,11 +9,9 @@ import FeaturedJobs from '@/components/landing_page/featured_jobs';
 
 const Home = () => {
   const { setTheme } = useTheme()
-
-
   useLayoutEffect(() => {
     setTheme("dark")
-  }, [])
+  }, [setTheme])
 
   return (
     <div className="">
