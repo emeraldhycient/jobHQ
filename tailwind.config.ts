@@ -23,7 +23,8 @@ const config = {
           primary:"#1E88E5"
         },
         gray: {
-          1:"#E0E0E0"
+          1: "#E0E0E0",
+          2:"#1E1E1E"
         }
       },
       keyframes: {
@@ -35,10 +36,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        sparkle: {
+          '0%, 100%': { transform: 'scale(1)', opacity: "1" },
+          '50%': { transform: 'scale(1.5)', opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        sparkle: 'sparkle 1s infinite',
       },
       backgroundImage: {
         'hero-image': "url('/images/Image.png')",

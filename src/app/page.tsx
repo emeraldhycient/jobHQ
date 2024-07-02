@@ -4,6 +4,7 @@ import Header from '@/components/landing_page/header';
 import { useTheme } from "next-themes"
 import { FaSun, FaMoon, FaLaptopCode, FaGraduationCap, FaSuitcase, FaTwitter, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa';
 import HeroSection from '@/components/landing_page/hero';
+import Section2 from '@/components/landing_page/section2';
 
 const Home = () => {
   const { setTheme } = useTheme()
@@ -16,7 +17,8 @@ const Home = () => {
   return (
     <div className="">
       <Header />
-      <HeroSection/>
+      <HeroSection />
+      <Section2/>
     </div>
   );
 };
