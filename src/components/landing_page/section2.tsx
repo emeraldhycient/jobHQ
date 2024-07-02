@@ -42,7 +42,7 @@ function Section2() {
             <section className='px-24 text-white pt-6 pb-10'>
                 <h4 className='text-xl font-semibold'>For Employers</h4>
                 <div className="w-[45%] my-3">
-                    <h6 className='text-[14px] font-medium'>Experience AI-driven preparation with personalized guidance and proven results, ensuring you land your dream job.</h6>
+                    <h6 className='text-[14px] font-medium'>Unlock top talent with AI-powered candidate preparation. Our personalized guidance and proven results ensure you hire the best, effortlessly.</h6>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div className="h-[100px] bg-gray-2 px-4 py-6 rounded">

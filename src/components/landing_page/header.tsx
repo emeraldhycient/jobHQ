@@ -10,15 +10,15 @@ function Header() {
       </Link>
       <div className="flex gap-x-5">
         <Link href={""}>
-          <h6 className='text-white'>Resources</h6>
+          <h6 className='text-white text-sm font-semibold'>Resources</h6>
         </Link>
         <Link href={""}>
-          <h6 className='text-white'>Pricing</h6>
+          <h6 className='text-white text-sm font-semibold'>Pricing</h6>
         </Link>
       </div>
       <div className="flex gap-x-3">
         <Button variant={'ghost'} asChild>
-          <Link href="/login" className='text-white'>Sign In</Link>
+          <Link href="/login" className='text-white text-sm font-semibold'>Sign In</Link>
         </Button>
         <Button variant={'outline'} size={'sm'}>
           <Link href="/login"> Create Account</Link>
