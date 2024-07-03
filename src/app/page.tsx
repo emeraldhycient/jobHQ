@@ -6,6 +6,7 @@ import { FaSun, FaMoon, FaLaptopCode, FaGraduationCap, FaSuitcase, FaTwitter, Fa
 import HeroSection from '@/components/landing_page/hero';
 import Section2 from '@/components/landing_page/section2';
 import FeaturedJobs from '@/components/landing_page/featured_jobs';
+import Testimonies from '@/components/landing_page/testimonies';
 
 const Home = () => {
   const { setTheme } = useTheme()
@@ -18,7 +19,8 @@ const Home = () => {
       <Header />
       <HeroSection />
       <Section2 />
-      <FeaturedJobs/>
+      <FeaturedJobs />
+      <Testimonies/>
     </div>
   );
 };

@@ -27,7 +27,7 @@ function JobCard() {
                 <h6 className='font-normal text-sm'>Lagos, Nigeria</h6>
             </div>
             <div className="">
-                <h6 className='font-normal text-base my-5s'>Senior Software Engineer</h6>
+                <h6 className='font-normal text-base my-5'>Senior Software Engineer</h6>
                 <p className='font-normal text-base'>Tech Innovators Inc. is seeking a highly skilled Senior Software Engineer to join our dynamic team. You will be responsible for designing, developing, and implementing software solutions.</p>
             </div>
             <div className="flex justify-between items-center mt-8">
