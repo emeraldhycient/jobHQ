@@ -24,7 +24,8 @@ const config = {
         },
         gray: {
           1: "#E0E0E0",
-          2:"#1E1E1E"
+          2: "#1E1E1E",
+          3:"#B0B0B0"
         }
       },
       keyframes: {
