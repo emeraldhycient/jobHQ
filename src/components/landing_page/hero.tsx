@@ -6,7 +6,7 @@ import { Button } from '../ui/button'
 
 function HeroSection() {
     return (
-        <section className='text-white lg:h-[90vh] w-screens px-6 md:px-20 lg:px-32 py-16 relative'>
+        <section className='text-gray-1 lg:h-[90vh] w-screens px-6 md:px-20 lg:px-32 py-16 relative'>
             <div className="w-full h-full mb-4 md:mb-0 md:flex">
                 <div className="lg:px-20 md:w-[90%] lg:w-[50%] flex flex-col justify-center items-center">
                     <h4 className='font-bold text-4xl'>Explore Opportunities, Upskill for Success, and Master Interviews</h4>

@@ -43,7 +43,7 @@ const employerItems = [
 
 function Section2() {
     return (
-        <section className='px-6 md:px-24'>
+        <section className='px-6 md:px-24 text-gray-1'>
             <section className='text-white pt-6 mb-6'>
                 <h4 className='text-xl font-semibold'>For Job Seekers</h4>
                 <div className="md:w-[75%] lg:ww-[45%] my-3">
