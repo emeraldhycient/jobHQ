@@ -8,7 +8,7 @@ function FeaturedJobs() {
                 <h4 className='text-xl font-semibold'>Explore Featured Jobs</h4>
                 <h6 className='text-[14px] font-medium my-3 text-center'>Explore available jobs and find your perfect and suitable job</h6>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 md:gap-x-4 md:gap-y-6 mt-6">
                 <JobCard/>
                 <JobCard/>
                 <JobCard/>
