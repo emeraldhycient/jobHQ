@@ -47,7 +47,7 @@ function Section2() {
             <section className='text-white pt-6 mb-6'>
                 <h4 className='text-xl font-semibold'>For Job Seekers</h4>
                 <div className="md:w-[75%] lg:ww-[45%] my-3">
-                    <h6 className='text-[14px] font-medium'>Experience AI-driven preparation with personalized guidance and proven results, ensuring you land your dream job.</h6>
+                    <h6 className='text-[14px] font-normal'>Experience AI-driven prep and personalized guidance to land your dream job.</h6>
                 </div>
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
                     {jobSeekerItems.map((item, index) => (
@@ -64,7 +64,7 @@ function Section2() {
             <section className='text-white pt-6 pb-10'>
                 <h4 className='text-xl font-semibold'>For Employers</h4>
                 <div className="md:w-[75%] lg:ww-[45%] my-3">
-                    <h6 className='text-[14px] font-medium'>Unlock top talent with AI-powered candidate preparation. Our personalized guidance and proven results ensure you hire the best, effortlessly.</h6>
+                    <h6 className='text-[14px] font-normal'>Unlock top talent effortlessly with AI-powered candidate preparation.</h6>
                 </div>
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
                     {employerItems.map((item, index) => (
