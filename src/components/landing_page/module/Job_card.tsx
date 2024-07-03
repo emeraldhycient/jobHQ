@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from "next/image"
 import { FaLocationDot } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,9 @@ import Link from 'next/link';
 
 
 function JobCard() {
+
+    const [isSaved, setisSaved] = useState(false)
+
     return (
         <div className="bg-gray-2 px-6 py-8 rounded">
             <div className="flex justify-between items-center pb-8 border-b-[0.5px] border-gray-3">
@@ -34,7 +37,7 @@ function JobCard() {
                         <Link href={"/jobs/1234567890"}>Apply</Link>
                     </Button>
                 </div>
-                <FaRegHeart />
+                <FaRegHeart className={`${isSaved ? "text-blue-primary" : ""}`} onClick={() => setisSaved(true)} />
             </div>
         </div>
     )
