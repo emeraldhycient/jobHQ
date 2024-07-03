@@ -17,7 +17,7 @@ function HeroSection() {
                     <Image src={"/images/Image.png"} width={100} height={100} className='w-full h-full' alt='' />
                 </div>
             </div>
-            <section className='md:absolute bg-white p-3 md:w-[67%] lg:w-[66%] bottom-4 right-[250px] flex gap-x-3'>
+            <section className='md:absolute bg-white p-3 md:w-[67%] lg:w-[66%] bottom-4 right-[250px] flex flex-col md:flex-row gap-3'>
                 <Input placeholder='Job Title, Skills or Company' />
                 <Input placeholder='City, State or Remote' />
                 <Button size={"lg"}>Search Jobs</Button>
