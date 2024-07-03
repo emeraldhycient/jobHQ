@@ -11,10 +11,10 @@ function JobCard() {
     const [isSaved, setisSaved] = useState(false)
 
     return (
-        <div className="bg-gray-2 px-6 py-8 rounded">
+        <div className="bg-gray-2 px-6 py-8 rounded text-gray-1">
             <div className="flex justify-between items-center pb-8 border-b-[0.5px] border-gray-3">
                 <Image src={"/images/logo.svg"} height={100} width={100} className='w-[50px] h-[50px] ' alt='company logo' />
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 text-gray-3">
                     <h6 className='font-normal text-sm'>5 days ago</h6>
                     <div className="flex items-center space-x-2">
                         <div className="h-2 w-2 bg-gray-3 rounded-full"></div>

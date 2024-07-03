@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 function TestimonyCard() {
     return (
-        <div className="bg-black px-6 py-8 rounded">
+        <div className="bg-black px-6 py-8 rounded text-gray-1">
             <div className="flex space-x-3 items-center pb-4">
                 <Image src={"/images/testimony.png"} height={100} width={100} className='w-[50px] h-[50px] ' alt='company logo' />
                 <div className="flex flex-col justify-center">
