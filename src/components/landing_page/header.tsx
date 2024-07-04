@@ -30,7 +30,7 @@ function Header() {
                   <Link href="/auth/login" className='text-white text-sm font-semibold'>Sign In</Link>
                 </Button>
                 <Button variant={'outline'} size={'sm'}>
-                  <Link href="/login">Create Account</Link>
+                  <Link href="/auth/create-account">Create Account</Link>
                 </Button>
               </div>
               <div className="flex md:hidden">
@@ -56,7 +56,7 @@ function Header() {
                 <Link href="/auth/login" className='text-white text-sm font-semibold'>Sign In</Link>
               </Button>
               <Button variant={'outline'} size={'sm'}>
-                <Link href="/login">Create Account</Link>
+                <Link href="/auth/create-account">Create Account</Link>
               </Button>
             </div>
           </Disclosure.Panel>
