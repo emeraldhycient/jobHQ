@@ -29,10 +29,10 @@ function Login() {
             <div className="w-[95%] md:w-[50%] mx-auto space-y-5 mt-10">
                 <div className="my-10 grid grid-cols-2">
                     <div onClick={toggleIsJobSeeker} className={`${isJobSeeker ? "border-b-2 border-blue-primary" : "border-b-[0.3px] border-gray-3"} flex justify-center items-center py-3 transition-all duration-300 ease-in-out cursor-pointer`}>
-                        <h6 className='text-sm font-normal'>I'm a Job Seeker</h6>
+                        <h6 className='text-sm font-normal'>I&apos;m a Job Seeker</h6>
                     </div>
                     <div onClick={toggleIsJobSeeker} className={`${!isJobSeeker ? "border-b-2 border-blue-primary" : "border-b-[0.3px] border-gray-3"} flex justify-center items-center py-3 transition-all duration-300 ease-in-out cursor-pointer`}>
-                        <h6 className='text-sm font-normal'>I'm an Employer</h6>
+                        <h6 className='text-sm font-normal'>I&apos;m an Employer</h6>
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-6 md:px-4 mt-10">
