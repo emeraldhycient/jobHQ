@@ -1,4 +1,5 @@
 'use client'
+import Header from '@/components/auth/header'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import Image from 'next/image'
@@ -16,15 +17,7 @@ function Login() {
 
     return (
         <section className='px-2 md:px-24 text-gray-1'>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
-                <div className="flex items-center justify-between h-16">
-                    <div className="flex items-center">
-                        <Link href={"/"}>
-                            <Image height={100} width={100} src="/logo/jobHQ_logo.svg" alt="JobHQ Logo" />
-                        </Link>
-                    </div>
-                </div>
-            </div>
+            <Header />
             <h4 className='text-xl font-semibold md:text-center px-4 md:px-0'>Sign In</h4>
             <div className="w-[95%] md:w-[50%] mx-auto space-y-5 mt-10">
                 <div className="my-10 grid grid-cols-2">
