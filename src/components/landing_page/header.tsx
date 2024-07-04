@@ -29,7 +29,7 @@ function Header() {
                 <Button variant={'ghost'} asChild>
                   <Link href="/auth/login" className='text-white text-sm font-semibold'>Sign In</Link>
                 </Button>
-                <Button variant={'outline'} size={'sm'}>
+                <Button variant={'outline'} size={'lg'}>
                   <Link href="/auth/create-account">Create Account</Link>
                 </Button>
               </div>

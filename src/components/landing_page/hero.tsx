@@ -8,7 +8,7 @@ function HeroSection() {
     return (
         <section className='text-gray-1 lg:h-[90vh] w-screens px-6 md:px-20 lg:px-32 py-16 relative'>
             <div className="w-full h-full mb-4 md:mb-0 md:flex">
-                <div className="lg:px-20 md:w-[90%] lg:w-[50%] flex flex-col justify-center items-center">
+                <div className="w-full lg:px-20 md:w-[90%] lg:w-[50%] flex flex-col justify-center items-center">
                     <h4 className='font-bold text-3xl md:text-4xl'>Explore Opportunities, Upskill for Success, and Master Interviews</h4>
                     <Image src={"/icons/line.svg"} width={100} height={100} className='w-[100px]' alt='' />
                     <h6 className='text-sm font-normal mt-8'>The All-in-One AI-Powered Platform for Job Seekers & Employers. Discover Jobs, Upskill with AI, Prepare for Interviews, and Hire Top Talent Effortlessly.</h6>
