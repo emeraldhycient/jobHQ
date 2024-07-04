@@ -27,7 +27,7 @@ function Header() {
               </div>
               <div className="hidden md:flex items-center space-x-3">
                 <Button variant={'ghost'} asChild>
-                  <Link href="/login" className='text-white text-sm font-semibold'>Sign In</Link>
+                  <Link href="/auth/login" className='text-white text-sm font-semibold'>Sign In</Link>
                 </Button>
                 <Button variant={'outline'} size={'sm'}>
                   <Link href="/login">Create Account</Link>
@@ -42,7 +42,7 @@ function Header() {
             </div>
           </div>
 
-          <Disclosure.Panel className="md:hidden bg-gray-800">
+          <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <Link href={""} className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700">
                 Resources
@@ -53,7 +53,7 @@ function Header() {
             </div>
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 w-[40%] mx-auto">
               <Button variant={'ghost'} asChild>
-                <Link href="/login" className='text-white text-sm font-semibold'>Sign In</Link>
+                <Link href="/auth/login" className='text-white text-sm font-semibold'>Sign In</Link>
               </Button>
               <Button variant={'outline'} size={'sm'}>
                 <Link href="/login">Create Account</Link>
