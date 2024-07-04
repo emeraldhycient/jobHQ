@@ -1,14 +1,15 @@
 "use client";
 import React, { useState, ReactNode } from 'react';
-import { MdPlaylistAddCheckCircle, MdRadioButtonUnchecked } from "react-icons/md"; // Icons for steps
+import { MdPlaylistAddCheckCircle, MdRadioButtonUnchecked } from "react-icons/md";
 import { Transition } from '@headlessui/react';
+import { nextStepChildProps } from '@/constants/interface';
 
 interface StepProps {
-    children: ReactNode[];
-    stepClass?: string; // Custom class for each step container
-    activeStepClass?: string; // Custom class for the active step
-    completedStepClass?: string; // Custom class for completed steps
-    lineClass?: string; // Custom class for the connecting lines
+    children: React.ReactElement<nextStepChildProps>[];
+    stepClass?: string;
+    activeStepClass?: string;
+    completedStepClass?: string;
+    lineClass?: string;
 }
 
 const Step_Counter: React.FC<StepProps> = ({
@@ -22,6 +23,29 @@ const Step_Counter: React.FC<StepProps> = ({
 
     const isStepCompleted = (step: number) => step < currentStep;
     const isCurrentStep = (step: number) => step === currentStep;
+
+    const totalSteps = React.Children.count(children);
+
+
+    const nextStep = () => {
+        if (currentStep < children.length - 1) {
+            setCurrentStep(currentStep + 1);
+        }
+    };
+
+    // Enhancing each child with nextStep function and additional properties
+    const enhancedChildren = React.Children.map(children, (child, index) => {
+        if (React.isValidElement<nextStepChildProps>(child)) {
+            return React.cloneElement(child, {
+                nextStep: nextStep,
+                index: index,
+                isCurrentStep: isCurrentStep(index),
+                isCompleted: isStepCompleted(index),
+            });
+        }
+        return null;  // Safely ignore invalid elements
+    });
+
 
     return (
         <div className="flex flex-col items-center w-full">
@@ -57,7 +81,7 @@ const Step_Counter: React.FC<StepProps> = ({
                                 className={`flex-auto h-0.5 transition-all duration-500 ease-in-out ${lineClass}`}
                                 style={{
                                     backgroundColor: isStepCompleted(index) ? '#3b82f6' : '#e5e7eb',
-                                    width: '100%', // Ensure full coverage between steps
+                                    width: '100%',
                                 }}
                             ></div>
                         )}
@@ -65,9 +89,9 @@ const Step_Counter: React.FC<StepProps> = ({
                 ))}
             </div>
             <div className="mt-10 w-full">
-                {children[currentStep]}
+                {enhancedChildren[currentStep]}
             </div>
-            {currentStep < children.length - 1 && (
+            {currentStep < totalSteps - 1 && (
                 <button className="mt-5 px-4 py-2 rounded bg-blue-500 text-white" onClick={() => setCurrentStep(currentStep + 1)}>
                     Next
                 </button>
