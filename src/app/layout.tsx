@@ -36,7 +36,7 @@ export default function RootLayout({
         <meta property="og:url" content="https://jobhq.cloud" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://jobhq.cloud/logo/jobHQ_logo.svg" />
-        <Script type="application/ld+json">
+        <script type="application/ld+json">
           {JSON.stringify({
             "@context": "http://schema.org",
             "@type": "Organization",
@@ -49,7 +49,7 @@ export default function RootLayout({
               "https://www.linkedin.com/in/yourpage"
             ]
           })}
-        </Script>
+        </script>
       </Head>
       <body className={spaceGrotesk.className}>
         <ThemeProvider
