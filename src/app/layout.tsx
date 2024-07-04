@@ -3,6 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import Head from "next/head";
+import Script from "next/script";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -35,7 +36,7 @@ export default function RootLayout({
         <meta property="og:url" content="https://jobhq.cloud" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://jobhq.cloud/logo/jobHQ_logo.svg" />
-        <script type="application/ld+json">
+        <Script type="application/ld+json">
           {JSON.stringify({
             "@context": "http://schema.org",
             "@type": "Organization",
@@ -48,7 +49,7 @@ export default function RootLayout({
               "https://www.linkedin.com/in/yourpage"
             ]
           })}
-        </script>
+        </Script>
       </Head>
       <body className={spaceGrotesk.className}>
         <ThemeProvider
