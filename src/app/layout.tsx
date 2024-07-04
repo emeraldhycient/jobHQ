@@ -29,19 +29,19 @@ export default function RootLayout({
       <Head>
         <title>JobHQ | Your Career Starts Here</title>
         <meta name="description" content="Kickstart your career with JobHQ, the leading platform for job seeking and professional growth. Find jobs, upskill, and prepare for interviews with our AI-driven tools." />
-        <link rel="canonical" href="https://www.yoursite.com" />
+        <link rel="canonical" href="https://jobhq.cloud" />
         <meta property="og:title" content="JobHQ | Your Career Starts Here" />
         <meta property="og:description" content="Explore and apply to thousands of jobs with JobHQ, your ultimate career partner." />
-        <meta property="og:url" content="https://www.yoursite.com" />
+        <meta property="og:url" content="https://jobhq.cloud" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.yoursite.com/og-image.jpg" />
+        <meta property="og:image" content="https://jobhq.cloud/logo/jobHQ_logo.svg" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "http://schema.org",
             "@type": "Organization",
             "name": "JobHQ",
-            "url": "https://www.yoursite.com",
-            "logo": "https://www.yoursite.com/logo.png",
+            "url": "https://jobhq.cloud",
+            "logo": "https://jobhq.cloud/logo/jobHQ_logo.svg",
             "sameAs": [
               "https://www.facebook.com/yourpage",
               "https://www.twitter.com/yourpage",
