@@ -18,7 +18,7 @@ function Login() {
     return (
         <section className='px-2 md:px-24 text-gray-1'>
             <Header />
-            <h4 className='text-xl font-semibold md:text-center px-4 md:px-0'>Sign In</h4>
+            <h4 className='hidden md:block text-xl font-semibold md:text-center px-4 md:px-0'>Sign In</h4>
             <div className="w-[95%] md:w-[50%] mx-auto space-y-5 mt-10">
                 <div className="my-10 grid grid-cols-2">
                     <div onClick={toggleIsJobSeeker} className={`${isJobSeeker ? "border-b-2 border-blue-primary" : "border-b-[0.3px] border-gray-3"} flex justify-center items-center py-3 transition-all duration-300 ease-in-out cursor-pointer`}>
