@@ -26,7 +26,7 @@ const CurrentExpertise: React.FC<nextStepChildProps> = ({ nextStep, index, isCur
 
   return (
     <div className="w-full max-w-md mx-auto mt-2 mb-10">
-      <h4 className='text-lg font-medium text-center px-4 md:px-0 mb-5'>What is Your Career Goal?</h4>
+      <h4 className='text-lg font-medium text-center px-4 md:px-0 mb-5'>What is Your Expertise?</h4>
       <div className="mb-10">
         {options.map((option, index) => (
           <SelectableOption
