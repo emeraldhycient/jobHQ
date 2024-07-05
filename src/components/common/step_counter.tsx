@@ -20,15 +20,13 @@ const Step_Counter: React.FC<StepProps> = ({
     lineClass = ''
 }) => {
     const [currentStep, setCurrentStep] = useState(0);
+    const totalSteps = React.Children.count(children);
 
     const isStepCompleted = (step: number) => step < currentStep;
     const isCurrentStep = (step: number) => step === currentStep;
 
-    const totalSteps = React.Children.count(children);
-
-
     const nextStep = () => {
-        if (currentStep < children.length - 1) {
+        if (currentStep < totalSteps - 1) {
             setCurrentStep(currentStep + 1);
         }
     };
@@ -46,11 +44,10 @@ const Step_Counter: React.FC<StepProps> = ({
         return null;  // Safely ignore invalid elements
     });
 
-
     return (
         <div className="flex flex-col items-center w-full">
             <div className="flex items-center justify-center w-full">
-                {children.map((_, index) => (
+                {enhancedChildren?.map((_, index) => (
                     <React.Fragment key={index}>
                         <Transition
                             show={true}
@@ -65,7 +62,7 @@ const Step_Counter: React.FC<StepProps> = ({
                         >
                             <div
                                 className={`w-10 h-10 flex items-center justify-center rounded-full text-white cursor-pointer transition-colors duration-300 ease-in-out ${isCurrentStep(index) ? `bg-blue-400 ${activeStepClass}` :
-                                        isStepCompleted(index) ? `bg-blue-500 ${completedStepClass}` : 'bg-gray-300'
+                                    isStepCompleted(index) ? `bg-blue-500 ${completedStepClass}` : 'bg-gray-300'
                                     }`}
                                 onClick={() => setCurrentStep(index)}
                             >
@@ -76,11 +73,11 @@ const Step_Counter: React.FC<StepProps> = ({
                                 )}
                             </div>
                         </Transition>
-                        {index < children.length - 1 && (
+                        {index < enhancedChildren.length - 1 && (
                             <div
                                 className={`flex-auto h-0.5 transition-all duration-500 ease-in-out ${lineClass}`}
                                 style={{
-                                    backgroundColor: isStepCompleted(index) ? '#3b82f6' : '#e5e7eb',
+                                    backgroundColor: isStepCompleted(index + 1) ? '#3b82f6' : '#e5e7eb',
                                     width: '100%',
                                 }}
                             ></div>
@@ -91,11 +88,11 @@ const Step_Counter: React.FC<StepProps> = ({
             <div className="mt-10 w-full">
                 {enhancedChildren[currentStep]}
             </div>
-            {currentStep < totalSteps - 1 && (
-                <button className="mt-5 px-4 py-2 rounded bg-blue-500 text-white" onClick={() => setCurrentStep(currentStep + 1)}>
+            {/* {currentStep < totalSteps - 1 && (
+                <button className="mt-5 px-4 py-2 rounded bg-blue-500 text-white" onClick={nextStep}>
                     Next
                 </button>
-            )}
+            )} */}
         </div>
     );
 };

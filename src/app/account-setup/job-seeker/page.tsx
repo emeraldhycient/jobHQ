@@ -1,17 +1,28 @@
-import Footer from '@/components/common/footer'
+import CareerGoals from '@/components/auth/account-setup/job-seeker/career_goals'
+import CurrentExpertise from '@/components/auth/account-setup/job-seeker/current_expertise'
+import SkillsCertification from '@/components/auth/account-setup/job-seeker/current_skill'
+import CurrentSkill from '@/components/auth/account-setup/job-seeker/current_skill'
+import Resume from '@/components/auth/account-setup/job-seeker/resume'
+import Header from '@/components/auth/header'
 import Step_Counter from '@/components/common/step_counter'
-import HeroSection from '@/components/landing_page/hero'
 import React from 'react'
 
 function page() {
     return (
-        <div>
-            <Step_Counter>
-                <Footer />
-                <HeroSection />
-                <Footer />
-            </Step_Counter>
-        </div>
+        <section className='px-2 md:px-24 text-gray-1'>
+            <Header />
+            <div className="w-[95%] md:w-[50%] mx-auto space-y-5 mt-10">
+                <Step_Counter>
+                    {/*@ts-ignore*/}
+                    <CareerGoals />
+                    {/*@ts-ignore*/}
+                    <CurrentExpertise />
+                    {/*@ts-ignore*/}
+                    <SkillsCertification />
+                    <Resume />
+                </Step_Counter>
+            </div>
+        </section>
     )
 }
 

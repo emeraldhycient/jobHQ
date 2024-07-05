@@ -4,3 +4,10 @@ export interface nextStepChildProps {
     isCurrentStep: boolean;
     isCompleted: boolean;
 }
+
+
+export interface SelectableOptionProps {
+    label: string;
+    selected?: boolean;
+    onSelect?: () => void;
+}
