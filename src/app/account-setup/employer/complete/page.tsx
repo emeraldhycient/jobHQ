@@ -13,7 +13,7 @@ function page() {
                     <MdCheckCircle className="text-8xl mb-6" />
                     <h4 className="text-lg font-medium mb-4 text-center">Congratulations, your profile is 100% complete!</h4>
                     <p className="text-xs font-normal text-center mb-8">
-                        Welcome to JobHQ! Your account has been successfully created. Start posting job listings and find the perfect candidates for your team. Let's get started!
+                        Welcome to JobHQ! Your account has been successfully created. Start posting job listings and find the perfect candidates for your team. Let&apos;s get started!
                     </p>
                     <div className="flex space-x-4">
                         <Button variant="default" size="lg" asChild>
