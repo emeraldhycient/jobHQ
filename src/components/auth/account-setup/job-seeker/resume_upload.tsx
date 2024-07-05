@@ -7,6 +7,7 @@ import CircledCancelIcon from '@/components/icons/CircledCancelIcon';
 import { GoPlusCircle } from "react-icons/go";
 import { Label } from '@/components/ui/label';
 import DocumentIcon from '@/components/icons/DocumentIcon';
+import { useRouter } from 'next/navigation'
 
 interface Certificate {
     name: string;
@@ -36,6 +37,17 @@ const ResumeUpload: React.FC<nextStepChildProps> = ({ nextStep, index, isCurrent
     const handleRemoveFile = (name: string) => {
         setFiles(files.filter(file => file.name !== name));
     };
+
+
+    const router = useRouter()
+
+
+    const changePage = () => {
+        nextStep()
+        router.push('/account-setup/job-seeker/complete')
+    }
+
+
 
     return (
         <div className="w-full max-w-md mx-auto mt-2 mb-10">
@@ -68,7 +80,7 @@ const ResumeUpload: React.FC<nextStepChildProps> = ({ nextStep, index, isCurrent
                     ))}
                 </div>
             </div>
-            <Button variant={'default'} size={'lg'} asChild onClick={nextStep}>
+            <Button variant={'default'} size={'lg'} asChild onClick={changePage}>
                 <p className='block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700'>
                     Save
                 </p>
