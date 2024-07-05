@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button'; // Assuming you have a Button component
-import { MdClose, MdAddCircleOutline } from 'react-icons/md';
+import { Button } from '@/components/ui/button';
 import { nextStepChildProps } from '@/constants/interface';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FiSearch } from "react-icons/fi";
 import CircledCancelIcon from '@/components/icons/CircledCancelIcon.tsx';
+import { predefinedSkills } from '@/constants/data';
 
 interface Certificate {
   name: string;
@@ -18,6 +18,7 @@ const SkillsCertification: React.FC<nextStepChildProps> = ({ nextStep, index, is
   const [skillInput, setSkillInput] = useState<string>('');
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [certificateInput, setCertificateInput] = useState<Certificate | null>(null);
+
 
   const handleSkillAdd = () => {
     if (skillInput && !skills.includes(skillInput)) {
@@ -37,19 +38,6 @@ const SkillsCertification: React.FC<nextStepChildProps> = ({ nextStep, index, is
     }
   };
 
-  // const handleCertificateAdd = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files) {
-  //     const file = event.target.files[0];
-  //     const newCertificate: Certificate = { name: file.name, size: `${(file.size / 1024 / 1024).toFixed(1)} MB` };
-  //     setCertificates([...certificates, newCertificate]);
-  //     setCertificateInput(null); // Reset the input field
-  //   }
-  // };
-
-  // const handleCertificateRemove = (name: string) => {
-  //   setCertificates(certificates.filter(c => c.name !== name));
-  // };
-
   return (
     <div className="w-full max-w-md mx-auto mt-2 mb-10">
       <h4 className='text-lg font-medium text-center px-4 md:px-0 mb-5'>Skills and Certification</h4>
@@ -58,6 +46,7 @@ const SkillsCertification: React.FC<nextStepChildProps> = ({ nextStep, index, is
       <div className="mb-8 space-y-3">
         <Label htmlFor="skill">Add Your Skills</Label>
         <Input
+          list="skills"
           leftIcon={FiSearch}
           id='skill'
           value={skillInput}
@@ -65,7 +54,12 @@ const SkillsCertification: React.FC<nextStepChildProps> = ({ nextStep, index, is
           onKeyPress={handleKeyPress}
           placeholder="Product management"
         />
-        <div className="flex flex-wrap gap-2">
+        <datalist id="skills">
+          {predefinedSkills.map((skill, index) => (
+            <option key={index} value={skill} />
+          ))}
+        </datalist>
+        <div className="flex flex-wrap gap-2 mt-2">
           {skills.map((skill, index) => (
             <div key={index} className="flex items-center bg-gray-2 text-gray-1 px-4 py-3 rounded-lg">
               <span className='text-xs font-normal'>{skill}</span>
