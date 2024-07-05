@@ -2,7 +2,7 @@ import CareerGoals from '@/components/auth/account-setup/job-seeker/career_goals
 import CurrentExpertise from '@/components/auth/account-setup/job-seeker/current_expertise'
 import SkillsCertification from '@/components/auth/account-setup/job-seeker/current_skill'
 import CurrentSkill from '@/components/auth/account-setup/job-seeker/current_skill'
-import Resume from '@/components/auth/account-setup/job-seeker/resume'
+import ResumeUpload from '@/components/auth/account-setup/job-seeker/resume_upload'
 import Header from '@/components/auth/header'
 import Step_Counter from '@/components/common/step_counter'
 import React from 'react'
@@ -19,7 +19,8 @@ function page() {
                     <CurrentExpertise />
                     {/*@ts-ignore*/}
                     <SkillsCertification />
-                    <Resume />
+                    {/*@ts-ignore*/}
+                    <ResumeUpload />
                 </Step_Counter>
             </div>
         </section>

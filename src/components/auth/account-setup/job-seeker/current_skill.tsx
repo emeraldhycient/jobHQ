@@ -5,7 +5,7 @@ import { nextStepChildProps } from '@/constants/interface';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FiSearch } from "react-icons/fi";
-import CircledCancelIcon from '@/components/icons/CircledCancelIcon.tsx';
+import CircledCancelIcon from '@/components/icons/CircledCancelIcon';
 import { predefinedSkills } from '@/constants/data';
 
 interface Certificate {
