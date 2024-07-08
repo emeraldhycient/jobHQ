@@ -1,5 +1,7 @@
-import CareerGoals from '@/components/auth/account-setup/job-seeker/career_goals'
-import CurrentExpertise from '@/components/auth/account-setup/job-seeker/current_expertise'
+import CompanyContactInformation from '@/components/auth/account-setup/employer/company_contact'
+import CompanyInfo from '@/components/auth/account-setup/employer/company_info'
+import CompanyProfileInformation from '@/components/auth/account-setup/employer/company_profile'
+import CompanySocialInformation from '@/components/auth/account-setup/employer/company_socials'
 import SkillsCertification from '@/components/auth/account-setup/job-seeker/current_skill'
 import ResumeUpload from '@/components/auth/account-setup/job-seeker/resume_upload'
 import Header from '@/components/auth/header'
@@ -13,13 +15,13 @@ function page() {
             <div className="w-[95%] md:w-[50%] mx-auto space-y-5 mt-10">
                 <Step_Counter>
                     {/*@ts-ignore*/}
-                    <CareerGoals />
+                    <CompanyInfo />
                     {/*@ts-ignore*/}
-                    <CurrentExpertise />
+                    <CompanyProfileInformation />
                     {/*@ts-ignore*/}
-                    <SkillsCertification />
+                    <CompanySocialInformation />
                     {/*@ts-ignore*/}
-                    <ResumeUpload />
+                    <CompanyContactInformation />
                 </Step_Counter>
             </div>
         </section>
