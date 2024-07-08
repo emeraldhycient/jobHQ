@@ -5,37 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { nextStepChildProps } from '@/constants/interface';
+import { industryTypes, organizationTypes, teamSizes } from '@/constants/data';
 
-const organizationTypes = [
-    'Public Company',
-    'Private Company',
-    'Government Agency',
-    'Non-Profit Organization',
-    'Educational Institution',
-    'Startup',
-    'Sole Proprietorship',
-];
-
-const industryTypes = [
-    'Accounting & Finance',
-    'IT & Technology',
-    'Human Resources',
-    'Non-Profit Organization',
-    'Marketing & Sales',
-    'Government',
-    'E-commerce',
-    'Customer Service',
-    'Healthcare',
-    'Other',
-];
-
-const teamSizes = [
-    '1-10 Employees',
-    '11-50 Employees',
-    '51-200 Employees',
-    '201-500 Employees',
-    '500+ Employees',
-];
 
 const CompanyProfileInformation: React.FC<nextStepChildProps> = ({ nextStep, index, isCurrentStep, isCompleted }) => {
     const [organizationType, setOrganizationType] = useState('');

@@ -133,3 +133,36 @@ export const predefinedSkills = [
     "WordPress",
     "Work Ethic"
 ];
+
+
+
+export const organizationTypes = [
+    'Public Company',
+    'Private Company',
+    'Government Agency',
+    'Non-Profit Organization',
+    'Educational Institution',
+    'Startup',
+    'Sole Proprietorship',
+];
+
+export const industryTypes = [
+    'Accounting & Finance',
+    'IT & Technology',
+    'Human Resources',
+    'Non-Profit Organization',
+    'Marketing & Sales',
+    'Government',
+    'E-commerce',
+    'Customer Service',
+    'Healthcare',
+    'Other',
+];
+
+export const teamSizes = [
+    '1-10 Employees',
+    '11-50 Employees',
+    '51-200 Employees',
+    '201-500 Employees',
+    '500+ Employees',
+];
