@@ -3,17 +3,9 @@ import TopNav from "@/components/dashboard/seeker/layout/topNav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Login",
+    title: "JobHQ | Job Seeker Dashboard",
     description: "Discover your dream job, upskill with cutting-edge resources, and succeed with JobHQ. Start your path to career excellence today!",
-    // og: {
-    //   title: "JobHQ | Empower Your Career",
-    //   type: "website",
-    //   url: "https://www.jobhq.com",
-    //   description: "Explore top jobs, learn with AI-driven resources, and prepare for interviews with JobHQ. Your ultimate career platform.",
-    //   image: "https://www.jobhq.com/og-image.jpg"
-    // }
 };
-
 
 export default function Layout({
     children,
@@ -23,7 +15,7 @@ export default function Layout({
     return (
         <div className="flex h-screen bg-gray-900 w-screen">
             <div className="md:w-[15%]">
-            <Sidebar />
+                <Sidebar />
             </div>
             <div className="flex flex-col flex-1">
                 <TopNav />
@@ -34,5 +26,3 @@ export default function Layout({
         </div>
     );
 }
-
-
