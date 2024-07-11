@@ -88,7 +88,7 @@ const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs }) => {
                                         <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
                                         <h6 className='font-normal text-xs'>Lagos, Nigeria</h6>
                                         <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
-                                        <h6 className="border-none text-xs font-normal">{job.status}</h6>
+                                        <h6 className="border-none text-xs font-normal">Posted 1 month ago</h6>
                                     </div>
                                 </div>
                             </div>
