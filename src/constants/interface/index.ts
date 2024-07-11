@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { IconType } from "react-icons";
 
 export interface nextStepChildProps {
@@ -17,6 +18,6 @@ export interface SelectableOptionProps {
 
 export interface SidebarItem {
     path: string;
-    icon: IconType;
+    icon: IconType | any;
     label: string;
 }

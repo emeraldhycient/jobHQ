@@ -13,13 +13,13 @@ export default function Layout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="flex h-screen w-screen">
+        <div className="flex h-screen bg-gray-900 w-screen">
             <div className="md:w-[15%]">
                 <Sidebar />
             </div>
             <div className="flex flex-col flex-1">
                 <TopNav />
-                <main className="flex-1 p-4 bg-gray-5 rounded-sm overflow-y-auto">
+                <main className="flex-1 p-4 bg-gray-5 rounded overflow-y-auto">
                     {children}
                 </main>
             </div>

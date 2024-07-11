@@ -24,7 +24,7 @@ const Sidebar: FC = () => {
                         <li key={index}>
                             <Link href={item.path}>
                                 <span className={`flex items-center p-2 rounded ${isActive(item.path) ? 'bg-gray-700' : ''}`}>
-                                    <item.icon height={16} width={16} />
+                                    <item.icon className="h-3 w-3" />
                                     <span className="ml-3 text-xs font-normal">{item.label}</span>
                                 </span>
                             </Link>

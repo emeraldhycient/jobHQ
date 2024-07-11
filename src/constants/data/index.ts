@@ -1,5 +1,11 @@
 import { MdDashboard, MdWork, MdSearch, MdBookmark, MdSchool, MdDescription, MdSettings } from 'react-icons/md';
 import { SidebarItem } from '../interface';
+import BoxIcon from '@/components/icons/BoxIcon';
+import BookmarkIcon from '@/components/icons/BookmarkIcon';
+import GridIcon from '@/components/icons/GridIcon';
+import SearchIcon from '@/components/icons/SearchIcon';
+import EducationIcon from '@/components/icons/EducationIcon';
+import AIResumeIcon from '@/components/icons/AiResumeIcon';
 
 
 export const footerSections = [
@@ -178,12 +184,12 @@ export const teamSizes = [
 
 
 export const sidebarItems: SidebarItem[] = [
-    { path: '/', icon: MdDashboard, label: 'Overview' },
-    { path: '/applied-jobs', icon: MdWork, label: 'Applied Jobs' },
+    { path: '/', icon: GridIcon, label: 'Overview' },
+    { path: '/applied-jobs', icon: BoxIcon, label: 'Applied Jobs' },
     { path: '/job-search', icon: MdSearch, label: 'Job Search' },
-    { path: '/bookmarks', icon: MdBookmark, label: 'Bookmarks' },
-    { path: '/learning-paths', icon: MdSchool, label: 'Learning Paths' },
-    { path: '/ai-resume', icon: MdDescription, label: 'AI Resume' },
+    { path: '/bookmarks', icon: BookmarkIcon, label: 'Bookmarks' },
+    { path: '/learning-paths', icon: EducationIcon, label: 'Learning Paths' },
+    { path: '/ai-resume', icon: AIResumeIcon, label: 'AI Resume' },
     { path: '/settings', icon: MdSettings, label: 'Settings' },
 ];
 

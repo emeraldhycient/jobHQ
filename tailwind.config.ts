@@ -20,14 +20,18 @@ const config = {
       colors: {
         black: "#121212",
         blue: {
-          primary:"#1E88E5"
+          primary: "#1E88E5",
+          2: "#1E88E51A",
+          3:"#1E88E5"
         },
         gray: {
           1: "#E0E0E0",
           2: "#1E1E1E",
           3: "#B0B0B0",
-          4:"#898989"
-        }
+          4: "#898989",
+          5: "#121212",
+          6:"#303030"
+        },
       },
       keyframes: {
         "accordion-down": {
