@@ -21,7 +21,7 @@ const TopNav: FC = () => {
                 <>
                     <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                         <div className="relative flex items-center justify-between h-16">
-                            <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                            <div className="flex items-center space-x-3">
                                 <div className="flex-shrink-0 md:hidden">
                                     <Image
                                         src="/images/testimony.png"
@@ -31,19 +31,19 @@ const TopNav: FC = () => {
                                         className="rounded-full h-[30px] w-[30px]"
                                     />
                                 </div>
-                                <div className="ml-4">
+                                <div>
                                     <h1 className="text-base md:text-lg font-bold">Hello, Jessica 👋🏾</h1>
                                     <p className="text-xs font-normal text-gray-4">Welcome back to JobHQ dashboard</p>
                                 </div>
                             </div>
-                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 space-x-4">
                                 <button className="text-xl">
                                     <CallIconCircle />
                                 </button>
-                                <button className="text-xl ml-4">
+                                <button className="text-xl">
                                     <NotificationCicleIcon />
                                 </button>
-                                <div className="hidden md:flex items-center ml-4 space-x-3">
+                                <div className="hidden md:flex items-center space-x-3">
                                     <div className="flex-shrink-0">
                                         <Image
                                             src="/images/testimony.png"
@@ -72,18 +72,7 @@ const TopNav: FC = () => {
 
                     <Disclosure.Panel className="sm:hidden">
                         <div className="px-2 pt-2 pb-3 space-y-1">
-                            {sidebarItems.map((item, index) => (
-                                <Disclosure.Button
-                                    key={index}
-                                    as="a"
-                                    href={item.path}
-                                    className={`block px-3 py-2 rounded-md text-base font-medium ${isActive(item.path) ? 'bg-gray-700 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
-                                >
-                                    <item.icon className="h-6 w-6 inline-block mr-2" />
-                                    {item.label}
-                                </Disclosure.Button>
-                            ))}
-                            <div className="flex items-center mt-4 space-x-3 px-3 py-2 rounded-md bg-gray-900">
+                            <div className="flex items-center space-x-3 px-3 py-2 rounded-md bg-gray-900">
                                 <div className="flex-shrink-0">
                                     <Image
                                         src="/images/testimony.png"
@@ -98,6 +87,17 @@ const TopNav: FC = () => {
                                     <Link href="/my-account" className="text-blue-500 text-xs">My Account</Link>
                                 </div>
                             </div>
+                            {sidebarItems.map((item, index) => (
+                                <Disclosure.Button
+                                    key={index}
+                                    as="a"
+                                    href={item.path}
+                                    className={`block px-3 py-2 rounded-md text-base font-medium ${isActive(item.path) ? 'bg-gray-700 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+                                >
+                                    <item.icon className="h-6 w-6 inline-block mr-2" />
+                                    {item.label}
+                                </Disclosure.Button>
+                            ))}
                         </div>
                     </Disclosure.Panel>
                 </>
