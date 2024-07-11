@@ -82,7 +82,9 @@ const TopNav: FC = () => {
                                     <span className={`${isActive(item?.path) ? "animate-pulse" : ""} mr-3`}>
                                         <item.icon height={16} width={16} />
                                     </span>
-                                    {item.label}
+                                    <span className='text-xs font-normal'>
+                                        {item.label}
+                                    </span>
                                 </Disclosure.Button>
                             ))}
                             <div className="flex items-center space-x-3 px-5 py-5 rounded-md bg-gray-900">
