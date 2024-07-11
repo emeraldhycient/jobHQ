@@ -71,8 +71,21 @@ const TopNav: FC = () => {
                     </div>
 
                     <Disclosure.Panel className="sm:hidden">
-                        <div className="px-2 pt-2 pb-3 space-y-1">
-                            <div className="flex items-center space-x-3 px-3 py-2 rounded-md bg-gray-900">
+                        <div className="pt-2 space-y-1">
+                            {sidebarItems.map((item, index) => (
+                                <Disclosure.Button
+                                    key={index}
+                                    as="a"
+                                    href={item.path}
+                                    className={`flex items-center space-x-2 px-5 py-2 rounded-md text-base font-medium ${isActive(item.path) ? 'bg-gray-700 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+                                >
+                                    <span className={`${isActive(item?.path) ? "animate-pulse" : ""} mr-3`}>
+                                        <item.icon height={16} width={16} />
+                                    </span>
+                                    {item.label}
+                                </Disclosure.Button>
+                            ))}
+                            <div className="flex items-center space-x-3 px-5 py-5 rounded-md bg-gray-900">
                                 <div className="flex-shrink-0">
                                     <Image
                                         src="/images/testimony.png"
@@ -87,19 +100,6 @@ const TopNav: FC = () => {
                                     <Link href="/my-account" className="text-blue-500 text-xs">My Account</Link>
                                 </div>
                             </div>
-                            {sidebarItems.map((item, index) => (
-                                <Disclosure.Button
-                                    key={index}
-                                    as="a"
-                                    href={item.path}
-                                    className={`block px-3 py-2 rounded-md text-base font-medium ${isActive(item.path) ? 'bg-gray-700 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
-                                >
-                                    <span className={`${isActive(item?.path) ? "animate-pulse" : ""}`}>
-                                        <item.icon className="h-6 w-6 inline-block mr-2" />
-                                    </span>
-                                    {item.label}
-                                </Disclosure.Button>
-                            ))}
                         </div>
                     </Disclosure.Panel>
                 </>

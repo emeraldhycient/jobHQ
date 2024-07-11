@@ -10,6 +10,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Image from 'next/image';
+import Link from 'next/link';
+import { IoArrowForwardCircleOutline } from "react-icons/io5";
+
 
 interface Job {
     id: number;
@@ -23,80 +27,146 @@ interface RecentlyAppliedProps {
     jobs: Job[];
 }
 
-const invoices = [
+const appliedJobs = [
     {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
+        id: "INV001",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "Credit Card",
     },
     {
-        invoice: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
+        id: "INV002",
+        date: "Pending",
+        status: "Applied",
+        location: "PayPal",
     },
     {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
+        id: "INV003",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "Bank Transfer",
     },
     {
-        invoice: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
+        id: "INV004",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "Credit Card",
     },
     {
-        invoice: "INV005",
-        paymentStatus: "Paid",
-        totalAmount: "$550.00",
-        paymentMethod: "PayPal",
+        id: "INV005",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "PayPal",
     },
     {
-        invoice: "INV006",
-        paymentStatus: "Pending",
-        totalAmount: "$200.00",
-        paymentMethod: "Bank Transfer",
+        id: "INV006",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "Bank Transfer",
     },
     {
-        invoice: "INV007",
-        paymentStatus: "Unpaid",
-        totalAmount: "$300.00",
-        paymentMethod: "Credit Card",
+        id: "INV007",
+        date: "UnJuly 2nd, 2024",
+        status: "Applied",
+        location: "Credit Card",
     },
 ]
 
-function RecentlyApplied({jobs}:any) {
+const RecentlyApplied: FC<RecentlyAppliedProps> = ({ jobs }) => {
     return (
-        <Table className="border-collapse border-none">
-            <TableCaption className="text-gray-500">A list of your recent invoices.</TableCaption>
-            <TableHeader className="border-none">
-                <TableRow className="border-none">
-                    <TableHead className="text-xs font-normal border-none">Job</TableHead>
-                    <TableHead className="text-xs font-normal border-none">Date Applied</TableHead>
-                    <TableHead className="text-xs font-normal border-none">Status</TableHead>
-                    <TableHead className="text-xs font-normal border-none">Action</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody className="border-none">
-                {invoices.map((invoice) => (
-                    <TableRow key={invoice.invoice} className="border-none">
-                        <TableCell className="font-medium border-none">{invoice.invoice}</TableCell>
-                        <TableCell className="border-none">{invoice.paymentStatus}</TableCell>
-                        <TableCell className="border-none">{invoice.paymentMethod}</TableCell>
-                        <TableCell className="text-right border-none">{invoice.totalAmount}</TableCell>
+        <>
+            <section className='block lg:hidden w-full'>
+                <section className='text-gray-1 flex items-center justify-between mb-5'>
+                    <h5 className='text-sm font-normal'>Recently Applied</h5>
+                    <Link href={"/dashboard/seeker/applied"}>
+                        <h6 className='text-xs font-normal'>View all</h6>
+                    </Link>
+                </section>
+                <section className='w-full'>
+                    {appliedJobs.map((job, index) => (
+                        <section
+                            key={index}
+                            className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
+                        >
+                            <div className="flex space-x-3">
+                                <Image src="/images/Image.png" height={35} width={35} className='rounded-lg' alt='company logo' />
+                                <div className="space-y-1">
+                                    <h4 className='text-sm font-medium'>Product Designer</h4>
+                                    <div className="flex items-center space-x-2">
+                                        <h6 className='font-normal text-xs'>Remote</h6>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
+                                            <h6 className='font-normal text-xs'>Lagos, Nigeria</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 className="border-none text-xs font-normal">{job.date}</h6>
+                            <h6 className="border-none text-xs font-normal">{job.status}</h6>
+                            <div className="border-none text-center">
+                                <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
+                                <span className='hidden lg:block'>
+                                    <Button variant={'lucentblue'} size={'sm'}>View Application</Button>
+                                </span>
+                            </div>
+                        </section>
+                    ))}
+                </section>
+            </section>
+            <Table className="hidden lg:table border-collapse border-none">
+                <TableCaption className="text-gray-500">A list of your recent Jobs.</TableCaption>
+                <TableHeader className="border-none">
+                    <TableRow className="border-none w-full">
+                        <TableCell colSpan={12} className="border-none px-4 py-2">
+                            <section className='text-gray-1 flex items-center justify-between mb-5'>
+                                <h5 className='text-sm font-normal'>Recently Applied</h5>
+                                <Link href={"/dashboard/seeker/applied"}>
+                                    <h6 className='text-xs font-normal'>View all</h6>
+                                </Link>
+                            </section>
+                        </TableCell>
                     </TableRow>
-                ))}
-            </TableBody>
-            <TableFooter className="border-none">
-                <TableRow className="border-none">
-                    <TableCell className="border-none" colSpan={3}>Total</TableCell>
-                    <TableCell className="text-right border-none">$2,500.00</TableCell>
-                </TableRow>
-            </TableFooter>
-        </Table>
+                    <TableRow className="border-none">
+                        <TableHead colSpan={2} className="text-xs font-normal border-none">Job</TableHead>
+                        <TableHead className="text-xs font-normal border-none">Date Applied</TableHead>
+                        <TableHead className="text-xs font-normal border-none">Status</TableHead>
+                        <TableHead className="text-xs font-normal border-none text-center">Action</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody className="border-none">
+                    {appliedJobs.map((job, index) => (
+                        <TableRow
+                            key={index}
+                            className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded-[20px] my-4`}
+                        >
+                            <TableCell colSpan={2} className="border-none">
+                                <div className="flex space-x-3">
+                                    <Image src="/images/Image.png" height={35} width={35} className='rounded-lg' alt='company logo' />
+                                    <div className="space-y-1">
+                                        <h4 className='text-sm font-medium'>Product Designer</h4>
+                                        <div className="flex items-center space-x-2">
+                                            <h6 className='font-normal text-xs'>Remote</h6>
+                                            <div className="flex items-center space-x-2">
+                                                <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
+                                                <h6 className='font-normal text-xs'>Lagos, Nigeria</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TableCell>
+                            <TableCell className="border-none text-xs font-normal">{job.date}</TableCell>
+                            <TableCell className="border-none text-xs font-normal">{job.status}</TableCell>
+                            <TableCell className="border-none text-center">
+                                <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
+                                <span className='hidden lg:block'>
+                                    <Button variant={'lucentblue'} size={'sm'}>View Application</Button>
+                                </span>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </>
     )
 }
 

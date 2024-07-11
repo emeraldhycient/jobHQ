@@ -14,7 +14,7 @@ export default function Layout({
 }>) {
     return (
         <div className="flex h-screen w-screen">
-            <div className="md:w-[15%]">
+            <div className="hidden md:block md:w-[15%]">
                 <Sidebar />
             </div>
             <div className="flex flex-col flex-1">
