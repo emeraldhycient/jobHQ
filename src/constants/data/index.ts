@@ -1,3 +1,6 @@
+import { MdDashboard, MdWork, MdSearch, MdBookmark, MdSchool, MdDescription, MdSettings } from 'react-icons/md';
+import { SidebarItem } from '../interface';
+
 
 export const footerSections = [
     {
@@ -166,3 +169,21 @@ export const teamSizes = [
     '201-500 Employees',
     '500+ Employees',
 ];
+
+
+
+// sidebarItems.ts
+
+
+
+
+export const sidebarItems: SidebarItem[] = [
+    { path: '/', icon: MdDashboard, label: 'Overview' },
+    { path: '/applied-jobs', icon: MdWork, label: 'Applied Jobs' },
+    { path: '/job-search', icon: MdSearch, label: 'Job Search' },
+    { path: '/bookmarks', icon: MdBookmark, label: 'Bookmarks' },
+    { path: '/learning-paths', icon: MdSchool, label: 'Learning Paths' },
+    { path: '/ai-resume', icon: MdDescription, label: 'AI Resume' },
+    { path: '/settings', icon: MdSettings, label: 'Settings' },
+];
+

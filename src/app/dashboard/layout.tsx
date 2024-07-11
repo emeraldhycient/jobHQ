@@ -1,3 +1,5 @@
+import Sidebar from "@/components/dashboard/layout/sidebar";
+import TopNav from "@/components/dashboard/layout/topNav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,8 +21,18 @@ export default function Layout({
     children: React.ReactNode;
 }>) {
     return (
-        <section>
-            {children}
-        </section>
+        <div className="flex h-screen bg-gray-900 w-screen">
+            <div className="md:w-[15%]">
+            <Sidebar />
+            </div>
+            <div className="flex flex-col flex-1">
+                <TopNav />
+                <main className="flex-1 p-4 bg-gray-800 overflow-y-auto">
+                    {children}
+                </main>
+            </div>
+        </div>
     );
 }
+
+

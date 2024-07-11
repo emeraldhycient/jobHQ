@@ -1,3 +1,5 @@
+import { IconType } from "react-icons";
+
 export interface nextStepChildProps {
     nextStep: () => void;
     index: number;
@@ -10,4 +12,11 @@ export interface SelectableOptionProps {
     label: string;
     selected?: boolean;
     onSelect?: () => void;
+}
+
+
+export interface SidebarItem {
+    path: string;
+    icon: IconType;
+    label: string;
 }
