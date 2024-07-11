@@ -1,4 +1,8 @@
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
+import { IoArrowForwardCircleOutline } from 'react-icons/io5';
 
 interface Job {
     id: number;
@@ -13,27 +17,92 @@ interface RecommendedJobsProps {
     jobs: Job[];
 }
 
+
+const appliedJobs = [
+    {
+        id: "INV001",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "Credit Card",
+    },
+    {
+        id: "INV002",
+        date: "Pending",
+        status: "Applied",
+        location: "PayPal",
+    },
+    {
+        id: "INV003",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "Bank Transfer",
+    },
+    {
+        id: "INV004",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "Credit Card",
+    },
+    {
+        id: "INV005",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "PayPal",
+    },
+    {
+        id: "INV006",
+        date: "July 2nd, 2024",
+        status: "Applied",
+        location: "Bank Transfer",
+    },
+    {
+        id: "INV007",
+        date: "UnJuly 2nd, 2024",
+        status: "Applied",
+        location: "Credit Card",
+    },
+]
+
 const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs }) => {
     return (
-        <div className="p-4 bg-gray-700 rounded">
-            <h2 className="text-xl font-bold mb-4">Recommended Jobs</h2>
-            <ul>
-                {jobs.map((job) => (
-                    <li key={job.id} className="mb-2">
-                        <div className="flex justify-between">
-                            <div>
-                                <h3 className="font-bold">{job.title}</h3>
-                                <p>{job.company}</p>
-                                <p>{job.location}</p>
-                                <p>{job.type}</p>
-                                <p>Posted: {job.postedDate}</p>
+        <section className='w-full mt-8'>
+            <section className='text-gray-1 flex items-center justify-between mb-5'>
+                <h5 className='text-sm font-normal'>Recommended Jobs</h5>
+                <Link href={"/dashboard/seeker/applied"}>
+                    <h6 className='text-xs font-normal'>View all</h6>
+                </Link>
+            </section>
+            <section className='w-full'>
+                {appliedJobs.map((job, index) => (
+                    <Link href={"/dashboard/seeker/applied/1234"}
+                        key={index}
+                        className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
+                    >
+                        <div className="flex space-x-3">
+                            <Image src="/images/Image.png" height={35} width={35} className='rounded-lg' alt='company logo' />
+                            <div className="space-y-1">
+                                <h4 className='text-sm font-medium'>Product Designer</h4>
+                                <div className="flex items-center space-x-2">
+                                    <h6 className='font-normal text-xs'>Remote</h6>
+                                    <div className="flex items-center space-x-2">
+                                        <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
+                                        <h6 className='font-normal text-xs'>Lagos, Nigeria</h6>
+                                        <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
+                                        <h6 className="border-none text-xs font-normal">{job.status}</h6>
+                                    </div>
+                                </div>
                             </div>
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded">Apply Now</button>
                         </div>
-                    </li>
+                        <div className="border-none text-center">
+                            <Link href={"/dashboard/seeker/applied/1234"} className='hidden lg:block'>
+                                <Button variant={'lucentblue'} size={'sm'}>Apply Now</Button>
+                            </Link>
+                            <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
+                        </div>
+                    </Link>
                 ))}
-            </ul>
-        </div>
+            </section>
+        </section>
     );
 };
 

@@ -18,13 +18,13 @@ const DashboardPage = () => {
       id: 1,
       title: "Applied Jobs",
       value: appliedJobs,
-      icon: <BoxIcon height={20} width={20}/>
+      icon: <BoxIcon height={20} width={20} />
     },
     {
       id: 2,
       title: "Favorite Jobs",
       value: favoriteJobs,
-      icon: <BookmarkIcon height = { 20 } width = { 20 }/>
+      icon: <BookmarkIcon height={20} width={20} />
 
     },
     {
@@ -59,14 +59,19 @@ const DashboardPage = () => {
 
   return (
     <div className="flex flex-col space-y-4 bg-gray-5 rounded">
-      <Analytics 
+      <Analytics
         data={analyticsData}
       />
-      <div className="flex flex-col lg:flex-row space-y-4 md:space-y-0 md:space-x-4">
-        <RecentlyApplied jobs={recentlyAppliedJobs} />
-        <LearningProgress courses={learningCourses} />
+      <div className="grid grid-cols-1 lg:grid-cols-12 space-y-4 md:space-y-0 md:space-x-4">
+        <div className="col-span-8">
+          <RecentlyApplied jobs={recentlyAppliedJobs} />
+          <RecommendedJobs jobs={recommendedJobs} />
+
+        </div>
+        <div className="col-span-4">
+          <LearningProgress courses={learningCourses} />
+        </div>
       </div>
-      <RecommendedJobs jobs={recommendedJobs} />
     </div>
   );
 };

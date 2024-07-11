@@ -115,7 +115,6 @@ const RecentlyApplied: FC<RecentlyAppliedProps> = ({ jobs }) => {
 
             {/* larger screens  */}
             <Table className="hidden lg:table border-collapse border-none">
-                <TableCaption className="text-gray-500">A list of your recent Jobs.</TableCaption>
                 <TableHeader className="border-none">
                     <TableRow className="border-none w-full">
                         <TableCell colSpan={12} className="border-none px-4 py-2">
