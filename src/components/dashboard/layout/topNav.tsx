@@ -55,7 +55,7 @@ const TopNav: FC = () => {
                                     </div>
                                     <Link href="/my-account" className="flex flex-col items-left">
                                         <span className="text-xs">Jessica</span>
-                                        <a className="text-blue-500 text-xs">My Account</a>
+                                        <span className="text-blue-500 text-xs">My Account</span>
                                     </Link>
                                 </div>
                                 <Disclosure.Button className="inline-flex md:hidden items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
