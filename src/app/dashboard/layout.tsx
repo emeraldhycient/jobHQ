@@ -1,5 +1,5 @@
-import Sidebar from "@/components/dashboard/layout/sidebar";
-import TopNav from "@/components/dashboard/layout/topNav";
+import Sidebar from "@/components/dashboard/seeker/layout/sidebar";
+import TopNav from "@/components/dashboard/seeker/layout/topNav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
