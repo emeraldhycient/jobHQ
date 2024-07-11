@@ -75,6 +75,8 @@ const appliedJobs = [
 const RecentlyApplied: FC<RecentlyAppliedProps> = ({ jobs }) => {
     return (
         <>
+            {/* smaller screens  */}
+
             <section className='block lg:hidden w-full'>
                 <section className='text-gray-1 flex items-center justify-between mb-5'>
                     <h5 className='text-sm font-normal'>Recently Applied</h5>
@@ -84,7 +86,7 @@ const RecentlyApplied: FC<RecentlyAppliedProps> = ({ jobs }) => {
                 </section>
                 <section className='w-full'>
                     {appliedJobs.map((job, index) => (
-                        <section
+                        <Link href={"/dashboard/seeker/applied/1234"}
                             key={index}
                             className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
                         >
@@ -97,22 +99,21 @@ const RecentlyApplied: FC<RecentlyAppliedProps> = ({ jobs }) => {
                                         <div className="flex items-center space-x-2">
                                             <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
                                             <h6 className='font-normal text-xs'>Lagos, Nigeria</h6>
+                                            <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
+                                            <h6 className="border-none text-xs font-normal">{job.status}</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <h6 className="border-none text-xs font-normal">{job.date}</h6>
-                            <h6 className="border-none text-xs font-normal">{job.status}</h6>
                             <div className="border-none text-center">
                                 <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
-                                <span className='hidden lg:block'>
-                                    <Button variant={'lucentblue'} size={'sm'}>View Application</Button>
-                                </span>
                             </div>
-                        </section>
+                        </Link>
                     ))}
                 </section>
             </section>
+
+            {/* larger screens  */}
             <Table className="hidden lg:table border-collapse border-none">
                 <TableCaption className="text-gray-500">A list of your recent Jobs.</TableCaption>
                 <TableHeader className="border-none">
@@ -157,10 +158,9 @@ const RecentlyApplied: FC<RecentlyAppliedProps> = ({ jobs }) => {
                             <TableCell className="border-none text-xs font-normal">{job.date}</TableCell>
                             <TableCell className="border-none text-xs font-normal">{job.status}</TableCell>
                             <TableCell className="border-none text-center">
-                                <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
-                                <span className='hidden lg:block'>
+                                <Link href={"/dashboard/seeker/applied/1234"}>
                                     <Button variant={'lucentblue'} size={'sm'}>View Application</Button>
-                                </span>
+                                </Link>
                             </TableCell>
                         </TableRow>
                     ))}
