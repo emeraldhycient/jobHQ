@@ -33,7 +33,7 @@ const TopNav: FC = () => {
                                 </div>
                                 <div>
                                     <h1 className="text-base md:text-lg font-bold">Hello, Jessica 👋🏾</h1>
-                                    <p className="text-xs font-normal text-gray-4">Welcome back to JobHQ dashboard</p>
+                                    <p className="text-xs font-normal text-gray-4">Welcome back to JobHQ</p>
                                 </div>
                             </div>
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 space-x-4">
