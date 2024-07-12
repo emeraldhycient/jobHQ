@@ -184,10 +184,10 @@ export const teamSizes = [
 
 
 export const sidebarItems: SidebarItem[] = [
-    { path: '/', icon: GridIcon, label: 'Overview' },
+    { path: '/dashboard/seeker', icon: GridIcon, label: 'Overview' },
     { path: '/applied-jobs', icon: BoxIcon, label: 'Applied Jobs' },
-    { path: '/job-search', icon: MdSearch, label: 'Job Search' },
-    { path: '/bookmarks', icon: BookmarkIcon, label: 'Bookmarks' },
+    { path: '/dashboard/seeker/job-search', icon: MdSearch, label: 'Job Search' },
+    { path: '/dashboard/seeker/bookmarks', icon: BookmarkIcon, label: 'Bookmarks' },
     { path: '/learning-paths', icon: EducationIcon, label: 'Learning Paths' },
     { path: '/ai-resume', icon: AIResumeIcon, label: 'AI Resume' },
     { path: '/settings', icon: MdSettings, label: 'Settings' },

@@ -9,7 +9,7 @@ import { FC } from 'react';
 
 const Sidebar: FC = () => {
     const pathname = usePathname();
-    const isActive = (path: string) => pathname.includes(path);
+    const isActive = (path: string) => pathname ===(path);
 
     return (
         <aside className="md:flex flex-col h-full bg-gray-2 text-gray-1 hidden">

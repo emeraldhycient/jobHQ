@@ -13,7 +13,7 @@ import NotificationCicleIcon from '@/components/icons/NotificationCicleIcon';
 
 const TopNav: FC = () => {
     const pathname = usePathname();
-    const isActive = (path: string) => pathname.includes(path);
+    const isActive = (path: string) => pathname === (path);
 
     return (
         <Disclosure as="nav" className="bg-gray-2 text-gray-1">
