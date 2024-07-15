@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { FC } from 'react';
+import PathCard from './fragments/pathCard';
+import Link from 'next/link';
 
 interface Course {
     id: number;
@@ -15,23 +17,19 @@ interface LearningProgressProps {
 
 const LearningProgress: FC<LearningProgressProps> = ({ courses }) => {
     return (
-        <div className="p-4 bg-gray-700 rounded">
-            <h2 className="text-xl font-bold mb-4">Learning Progress</h2>
-            <ul>
+        <section className="rounded">
+            <section className='text-gray-1 flex items-center justify-between mb-5'>
+                <h5 className='text-sm font-normal'>Learning Progress</h5>
+                <Link href={"/dashboard/seeker/applied"}>
+                    <h6 className='text-xs font-normal'>View all</h6>
+                </Link>
+            </section>
+            <section className='space-y-4'>
                 {courses.map((course) => (
-                    <li key={course.id} className="mb-2">
-                        <div className="flex justify-between">
-                            <div>
-                                <h3 className="font-bold">{course.title}</h3>
-                                <p>Modules Completed: {course.modulesCompleted} of {course.totalModules}</p>
-                                <p>{course.category}</p>
-                            </div>
-                            <Button variant={'lucentblue'} size={'sm'}>Resume learning</Button>
-                        </div>
-                    </li>
+                    <PathCard title={course.title}  key={course.id}/>
                 ))}
-            </ul>
-        </div>
+            </section>
+        </section>
     );
 };
 

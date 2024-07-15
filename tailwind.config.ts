@@ -33,6 +33,10 @@ const config = {
           6: "#303030",
           7:"#151515"
         },
+        green: {
+          light: "#9FFF871A",
+          primary:"#9FFF87"
+        }
       },
       keyframes: {
         "accordion-down": {

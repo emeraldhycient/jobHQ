@@ -1,4 +1,5 @@
 import Analytics from "@/components/dashboard/seeker/analytics";
+import PathCard from "@/components/dashboard/seeker/fragments/pathCard";
 import LearningProgress from "@/components/dashboard/seeker/learningProgress";
 import RecentlyApplied from "@/components/dashboard/seeker/recentlyApplied";
 import RecommendedJobs from "@/components/dashboard/seeker/recommendedJobs";
@@ -58,19 +59,12 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="flex flex-col space-y-4 bg-gray-5 rounded">
-      <Analytics
-        data={analyticsData}
-      />
-      <div className="grid grid-cols-1 lg:grid-cols-12 space-y-4 md:space-y-0 md:space-x-4">
-        <div className="col-span-8 sm:order-last md:order-first">
-          <RecentlyApplied jobs={recentlyAppliedJobs} />
-          <RecommendedJobs jobs={recommendedJobs} />
-
-        </div>
-        <div className="col-span-4 sm:order-1 md:order-last">
-          <LearningProgress courses={learningCourses} />
-        </div>
+    <div className="flex flex-col space-y-4 py-8">
+      <h5 className='text-sm font-normal'>Learning Progress</h5>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-y-4 md:space-y-0 md:space-x-4">
+        {learningCourses.map((course) => (
+          <PathCard title={course.title} key={course.id} />
+        ))}
       </div>
     </div>
   );
