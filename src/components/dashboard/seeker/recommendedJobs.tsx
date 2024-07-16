@@ -76,12 +76,16 @@ const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs }) => {
                 {appliedJobs.map((job, index) => (
                     <Link href={"/dashboard/seeker/applied/1234"}
                         key={index}
-                        className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
+                        className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-2 flex justify-between items-center p-4`}
                     >
                         <div className="flex space-x-3">
                             <Image src="/images/Image.png" height={35} width={35} className='rounded-lg' alt='company logo' />
                             <div className="space-y-1">
-                                <h4 className='text-sm font-medium'>Product Designer</h4>
+                                <div className="flex space-x-2 items-center">
+                                    <h4 className='text-sm font-medium'>Product Designer</h4>
+                                    <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
+                                    <h4 className='text-sm font-medium'>Twitter</h4>
+                                </div>
                                 <div className="flex items-center space-x-2">
                                     <h6 className='font-normal text-xs'>Remote</h6>
                                     <div className="flex items-center space-x-2">

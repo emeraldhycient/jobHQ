@@ -61,7 +61,7 @@ const DashboardPage = () => {
   return (
     <div className="flex flex-col space-y-4 py-8">
       <h5 className='text-sm font-normal'>Learning Progress</h5>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-y-4 md:space-y-0 md:space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-y-4 space-x-4">
         {learningCourses.map((course) => (
           <PathCard title={course.title} key={course.id} />
         ))}

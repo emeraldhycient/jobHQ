@@ -9,7 +9,7 @@ type Props = {}
 const AppliedCard = (props: Props) => {
     return (
         <Link href={"/dashboard/seeker/applied/1234"}
-            className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
+            className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-2 flex justify-between items-center p-4`}
         >
             <div className="flex space-x-3">
                 <Image src="/images/Image.png" height={35} width={35} className='rounded-lg' alt='company logo' />
