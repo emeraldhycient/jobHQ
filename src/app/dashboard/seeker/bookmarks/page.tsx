@@ -1,40 +1,11 @@
-import Analytics from "@/components/dashboard/seeker/analytics";
-import LearningProgress from "@/components/dashboard/seeker/learningProgress";
-import RecentlyApplied from "@/components/dashboard/seeker/recentlyApplied";
-import RecommendedJobs from "@/components/dashboard/seeker/recommendedJobs";
-import BellIcon from "@/components/icons/BellIcon";
-import BookmarkIcon from "@/components/icons/BookmarkIcon";
-import BoxIcon from "@/components/icons/BoxIcon";
-import { MdWork } from 'react-icons/md';
+'use client'
+import Pagination from "@/components/dashboard/seeker/fragments/pagination";
+import RecommendedJobCard from "@/components/dashboard/seeker/fragments/recoJobCard";
+import JobSearchComponent from "@/components/dashboard/seeker/fragments/jobSearchFilter";
+import { useState } from "react";
 
 const DashboardPage = () => {
-    const appliedJobs = 100;
-    const favoriteJobs = 100;
-    const jobAlerts = 100;
 
-
-    const analyticsData = [
-        {
-            id: 1,
-            title: "Applied Jobs",
-            value: appliedJobs,
-            icon: <BoxIcon height={20} width={20} />
-        },
-        {
-            id: 2,
-            title: "Favorite Jobs",
-            value: favoriteJobs,
-            icon: <BookmarkIcon height={20} width={20} />
-
-        },
-        {
-            id: 3,
-            title: "Job Alerts",
-            value: jobAlerts,
-            icon: <BellIcon height={20} width={20} />
-
-        },
-    ]
 
     const recentlyAppliedJobs = [
         { id: 1, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
@@ -44,23 +15,30 @@ const DashboardPage = () => {
         { id: 5, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
     ];
 
-    const learningCourses = [
-        { id: 1, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-        { id: 2, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-        { id: 3, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-    ];
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = 130;
 
-    const recommendedJobs = [
-        { id: 1, title: 'Product Designer', company: 'Metalab', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
-        { id: 2, title: 'Product Designer', company: 'SAP', location: 'Lagos, Nigeria', type: 'Hybrid', postedDate: 'Posted 1 Month Ago' },
-        { id: 3, title: 'Product Designer', company: 'Total Energies', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
-        { id: 4, title: 'Product Designer', company: 'Twitter', location: 'Lagos, Nigeria', type: 'Part Time', postedDate: 'Posted 1 Month Ago' },
-    ];
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     return (
-        <div className="flex flex-col space-y-4 bg-gray-5 rounded">
-                    <RecommendedJobs jobs={recommendedJobs} />
-        </div>
+        <section className="flex flex-col space-y-4 bg-gray-5 rounded">
+            <section className='w-full mt-8'>
+                <JobSearchComponent />
+                <h5 className='text-gray-1 text-sm font-normal'>Bookmarks Jobs</h5>
+                <section className='w-full mb-4'>
+                    {recentlyAppliedJobs.map((job, index) => (
+                        <RecommendedJobCard key={index} />
+                    ))}
+                </section>
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
+            </section>
+        </section>
     );
 };
 
