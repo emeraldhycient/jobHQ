@@ -56,7 +56,7 @@ const Filter: FC<FilterProps> = ({ onFilterChange }) => {
             {filterTypes.map((filter) => (
                 <select
                     key={filter.name}
-                    className="px-3 py-2 bg-gray-5 border border-gray-8  outline-none rounded-3xl text-xs font-normal"
+                    className="px-5 md:px-3 py-4 md:py-2 bg-gray-5 border border-gray-8  outline-none rounded-3xl text-xs font-normal"
                     onChange={(e) => onFilterChange(filter.name, e.target.value)}
                 >
                     <option value="">{filter.name}</option>

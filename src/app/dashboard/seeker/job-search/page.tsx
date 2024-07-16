@@ -26,7 +26,7 @@ const DashboardPage = () => {
         <section className="flex flex-col space-y-4 bg-gray-5 rounded">
             <section className='w-full mt-8'>
                 <JobSearchComponent/>
-                <h5 className='text-gray-1 text-sm font-normal'>Recommended Jobs</h5>
+                <h5 className='text-gray-1 text-sm font-normal mt-5 md:mt-0'>Recommended Jobs</h5>
                 <section className='w-full mb-4'>
                     {recentlyAppliedJobs.map((job, index) => (
                         <RecommendedJobCard key={index} />
