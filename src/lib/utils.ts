@@ -4,3 +4,43 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export class Utils {
+
+  // Convert URLs and emails to clickable links
+  convertToLinks(text: string, urlColor: string = 'blue', emailColor: string = 'green'): string {
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+    const emailPattern = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
+
+    return text
+      .replace(urlPattern, `<a href="$1" target="_blank" rel="noopener noreferrer" style="color:${urlColor};">$1</a>`)
+      .replace(emailPattern, `<a href="mailto:$1" target="_blank" rel="noopener noreferrer" style="color:${emailColor};">$1</a>`);
+  }
+
+  // Format date to a readable string
+  formatDate(date: Date, locale: string = 'en-US', options?: Intl.DateTimeFormatOptions): string {
+    return date.toLocaleDateString(locale, options);
+  }
+
+  // Generate a unique ID
+  generateUniqueId(): string {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  // Validate email address
+  validateEmail(email: string): boolean {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  // Capitalize the first letter of each word in a string
+  capitalizeWords(text: string): string {
+    return text.replace(/\b\w/g, char => char.toUpperCase());
+  }
+
+  // Truncate string to a specified length with ellipsis
+  truncateString(text: string, maxLength: number): string {
+    if (text.length <= maxLength) return text;
+    return text.substr(0, maxLength) + '...';
+  }
+}

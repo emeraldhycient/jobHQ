@@ -86,7 +86,7 @@ const RecentlyApplied: FC<RecentlyAppliedProps> = ({ jobs }) => {
                 </section>
                 <section className='w-full'>
                     {appliedJobs.map((job, index) => (
-                        <Link href={"/dashboard/seeker/applied/1234"}
+                        <Link href={"/dashboard/seeker/job/details/20000"}
                             key={index}
                             className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
                         >
@@ -157,7 +157,7 @@ const RecentlyApplied: FC<RecentlyAppliedProps> = ({ jobs }) => {
                             <TableCell className="border-none text-xs font-normal">{job.date}</TableCell>
                             <TableCell className="border-none text-xs font-normal">{job.status}</TableCell>
                             <TableCell className="border-none text-center">
-                                <Link href={"/dashboard/seeker/applied/1234"}>
+                                <Link href={"/dashboard/seeker/job/details/20000"}>
                                     <Button variant={'lucentblue'} size={'sm'}>View Application</Button>
                                 </Link>
                             </TableCell>

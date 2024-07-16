@@ -8,7 +8,7 @@ type Props = {}
 
 const jobCard = (props: Props) => {
   return (
-      <Link href={"/dashboard/seeker/applied/1234"}
+      <Link href={"/dashboard/seeker/job/details/20000"}
           key={1}
           className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
       >
@@ -28,7 +28,7 @@ const jobCard = (props: Props) => {
               </div>
           </div>
           <div className="border-none text-center">
-              <Link href={"/dashboard/seeker/applied/1234"} className='hidden lg:block'>
+              <Link href={"/dashboard/seeker/job/details/20000"} className='hidden lg:block'>
                   <Button variant={'lucentblue'} size={'sm'}>Apply Now</Button>
               </Link>
               <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>

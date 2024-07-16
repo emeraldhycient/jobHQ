@@ -8,7 +8,7 @@ type Props = {}
 
 const AppliedCard = (props: Props) => {
     return (
-        <Link href={"/dashboard/seeker/applied/1234"}
+        <Link href={"/dashboard/seeker/job/details/20000"}
             className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-2 flex justify-between items-center p-4`}
         >
             <div className="flex space-x-3">
