@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { FiSearch } from "react-icons/fi";
 import CircledCancelIcon from '@/components/icons/CircledCancelIcon';
 import { predefinedSkills } from '@/constants/data';
+import SuggestionPill from '@/components/common/SuggestionPill';
 
 interface Certificate {
   name: string;
@@ -61,12 +62,7 @@ const SkillsCertification: React.FC<nextStepChildProps> = ({ nextStep, index, is
         </datalist>
         <div className="flex flex-wrap gap-2 mt-2">
           {skills.map((skill, index) => (
-            <div key={index} className="flex items-center bg-gray-2 text-gray-1 px-4 py-3 rounded-lg">
-              <span className='text-xs font-normal'>{skill}</span>
-              <div className="ml-2 cursor-pointer" onClick={() => handleSkillRemove(skill)} >
-                <CircledCancelIcon />
-              </div>
-            </div>
+            <SuggestionPill title={skill} onRemove={() => handleSkillRemove(skill)} />
           ))}
         </div>
       </div>
