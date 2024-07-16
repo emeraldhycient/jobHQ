@@ -39,7 +39,7 @@ const DashboardPage = () => {
       <SearchBar />
       <div className="flex flex-wrap gap-2 mt-2">
         {learningCourses.map((skill, index) => (
-          <SuggestionPill title={skill.title} onRemove={() => handleSkillRemove(skill.title)} />
+          <SuggestionPill key={index} title={skill.title} onRemove={() => handleSkillRemove(skill.title)} />
         ))}
       </div>
       <h5 className='text-sm font-normal'>Learning Progress</h5>

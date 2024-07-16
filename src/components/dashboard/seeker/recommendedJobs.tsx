@@ -75,7 +75,7 @@ const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs }) => {
             </section>
             <section className='w-full'>
                 {appliedJobs.map((job, index) => (
-                    <RecommendedJobCard />
+                    <RecommendedJobCard key={index} />
                 ))}
             </section>
         </section>

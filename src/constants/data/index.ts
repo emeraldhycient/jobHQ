@@ -3,7 +3,7 @@ import { SidebarItem } from '../interface';
 import BoxIcon from '@/components/icons/BoxIcon';
 import BookmarkIcon from '@/components/icons/BookmarkIcon';
 import GridIcon from '@/components/icons/GridIcon';
-import SearchIcon from '@/components/icons/SearchIcon';
+import { FaGun } from "react-icons/fa6";
 import EducationIcon from '@/components/icons/EducationIcon';
 import AIResumeIcon from '@/components/icons/AiResumeIcon';
 
@@ -190,6 +190,7 @@ export const sidebarItems: SidebarItem[] = [
     { path: '/dashboard/seeker/bookmarks', icon: BookmarkIcon, label: 'Bookmarks' },
     { path: '/dashboard/seeker/learning-paths', icon: EducationIcon, label: 'Learning Paths' },
     { path: '/dashboard/seeker/ai-resume', icon: AIResumeIcon, label: 'AI Resume' },
+    { path: '/dashboard/seeker/auto-apply', icon: FaGun, label: 'Auto Apply' },
     { path: '/dashboard/seeker/settings', icon: MdSettings, label: 'Settings' },
 ];
 
