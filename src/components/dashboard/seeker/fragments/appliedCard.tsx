@@ -35,7 +35,7 @@ const AppliedCard = (props: Props) => {
             <div className="border-none text-center md:hidden">
                 <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
             </div>
-            <Link href={"/dashboard/seeker/applied/1234"} className='hidden md:block'>
+            <Link href={"/dashboard/seeker/job/details/20000"} className='hidden md:block'>
                 <Button variant={'lucentblue'} size={'sm'}>View Application</Button>
             </Link>
         </Link>

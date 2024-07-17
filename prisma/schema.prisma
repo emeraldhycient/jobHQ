@@ -1,0 +1,318 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model User {
+  id                   String                 @id @default(uuid())
+  email                String                 @unique
+  password             String
+  name                 String
+  profilePicture       String?
+  professionalTitle    String?
+  contactInfo          String
+  resume               Resume?
+  jobsApplied          JobApplication[]
+  learningPaths        LearningPath[]
+  userSubscriptions    UserSubscription[]
+  notifications        Notification[]
+  analytics            Analytics[]
+  payments             Payment[]
+  InterviewPreparation InterviewPreparation[]
+  AutoApplySetting     AutoApplySetting[]
+  setupComplete        Boolean                @default(false)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+}
+
+model Employer {
+  id                    String                 @id @default(uuid())
+  name                  String
+  email                 String
+  industry              String
+  description           String?
+  logo                  String
+  jobs                  Job[]
+  contactInfo           String
+  employerSubscriptions EmployerSubscription[]
+  users                 EmployerUser[]
+  analytics             EmployerAnalytics[]
+  payments              Payment[]
+  setupComplete         Boolean                @default(false)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+}
+
+model EmployerUser {
+  id         String           @id @default(uuid())
+  name       String
+  email      String
+  role       Role
+  employer   Employer         @relation(fields: [employerId], references: [id])
+  employerId String
+  status     InvitationStatus
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+}
+
+model Job {
+  id               String           @id @default(uuid())
+  title            String
+  description      String
+  location         String
+  type             JobType
+  requirements     String[]
+  responsibilities String[]
+  salaryRange      String?
+  benefits         String[]
+  status           JobStatus        @default(DRAFT)
+  postedBy         Employer         @relation(fields: [employerId], references: [id])
+  employerId       String
+  applications     JobApplication[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model JobApplication {
+  id          String            @id @default(uuid())
+  status      ApplicationStatus @default(APPLIED)
+  dateApplied DateTime          @default(now())
+  resume      Resume            @relation(fields: [resumeId], references: [id])
+  user        User              @relation(fields: [userId], references: [id])
+  userId      String
+  job         Job               @relation(fields: [jobId], references: [id])
+  jobId       String
+  resumeId    String
+}
+
+model Resume {
+  id             String           @id @default(uuid())
+  basicInfo      String
+  workExperience Json
+  education      Json
+  skills         String[]
+  summary        String?
+  user           User             @relation(fields: [userId], references: [id])
+  userId         String           @unique
+  JobApplication JobApplication[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model LearningPath {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  steps       Json
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model InterviewPreparation {
+  id                      String   @id @default(uuid())
+  user                    User     @relation(fields: [userId], references: [id])
+  userId                  String
+  mockInterviews          Json
+  interviewTips           String[]
+  interviewReadinessScore Int
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
+
+model AutoApplySetting {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  enabled   Boolean  @default(false)
+  criteria  Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserSubscription {
+  id        String               @id @default(uuid())
+  startDate DateTime
+  endDate   DateTime
+  status    SubscriptionStatus   @default(PENDING)
+  plan      UserSubscriptionPlan @relation(fields: [planId], references: [id])
+  planId    String
+  user      User                 @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+}
+
+model UserSubscriptionPlan {
+  id             String   @id @default(uuid())
+  name           String
+  description    String
+  price          Float
+  durationMonths Int
+  features       Json
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  userSubscriptions UserSubscription[]
+}
+
+model EmployerSubscription {
+  id         String                   @id @default(uuid())
+  startDate  DateTime
+  endDate    DateTime
+  status     SubscriptionStatus       @default(PENDING)
+  plan       EmployerSubscriptionPlan @relation(fields: [planId], references: [id])
+  planId     String
+  employer   Employer                 @relation(fields: [employerId], references: [id])
+  employerId String
+  createdAt  DateTime                 @default(now())
+  updatedAt  DateTime                 @updatedAt
+}
+
+model EmployerSubscriptionPlan {
+  id             String       @id @default(uuid())
+  name           String
+  description    String
+  price          Float
+  durationMonths Int
+  maxUsers       Int
+  maxJobPosts    Int
+  analytics      Json
+  supportLevel   SupportLevel
+  features       Json
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  employerSubscriptions EmployerSubscription[]
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  type      NotificationType
+  message   String
+  read      Boolean          @default(false)
+  user      User             @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
+model Analytics {
+  id        String        @id @default(uuid())
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String
+  type      AnalyticsType
+  data      Json
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model EmployerAnalytics {
+  id         String        @id @default(uuid())
+  employer   Employer      @relation(fields: [employerId], references: [id])
+  employerId String
+  type       AnalyticsType
+  data       Json
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model Payment {
+  id         String    @id @default(uuid())
+  amount     Float
+  date       DateTime
+  user       User?     @relation(fields: [userId], references: [id])
+  userId     String?
+  employer   Employer? @relation(fields: [employerId], references: [id])
+  employerId String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+enum Role {
+  ADMIN
+  RECRUITER
+  MANAGER
+  HR
+  USER
+  GUEST
+}
+
+enum JobStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+  ARCHIVED
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  TEMPORARY
+  INTERN
+  VOLUNTEER
+  FREELANCE
+}
+
+enum ApplicationStatus {
+  APPLIED
+  INTERVIEW_SCHEDULED
+  OFFERED
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  CANCELLED
+  PENDING
+  EXPIRED
+}
+
+enum NotificationType {
+  JOB_POSTED
+  APPLICATION_STATUS
+  SUBSCRIPTION_RENEWAL
+  PAYMENT_RECEIVED
+  MESSAGE
+  SYSTEM_ALERT
+}
+
+enum AnalyticsType {
+  JOB_APPLICATIONS
+  PROFILE_VIEWS
+  JOB_POSTS
+  APPLICATION_RATES
+  USER_ENGAGEMENT
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum SupportLevel {
+  BASIC
+  STANDARD
+  PREMIUM
+}
+
+
+
+
+
+
+
+
+
+
+
