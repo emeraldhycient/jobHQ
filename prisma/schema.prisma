@@ -14,8 +14,10 @@ model User {
   name                 String
   profilePicture       String?
   professionalTitle    String?
-  contactInfo          String
-  resume               Resume?
+  contactInfo          String?
+  resumes              Resume?
+  resumeUrls           Json?
+  skills               Json?
   jobsApplied          JobApplication[]
   learningPaths        LearningPath[]
   userSubscriptions    UserSubscription[]
@@ -31,13 +33,17 @@ model User {
 
 model Employer {
   id                    String                 @id @default(uuid())
-  name                  String
-  email                 String
-  industry              String
+  companyName                  String
+  companyEmail                 String
+  industry              String?
+  teamSize              String?
+  organizationType      String?
   description           String?
-  logo                  String
+  logo                  String?
+  yearOfEstablishment   String?
+  socialMedias          Json?
   jobs                  Job[]
-  contactInfo           String
+  contactInfo           Json?
   employerSubscriptions EmployerSubscription[]
   users                 EmployerUser[]
   analytics             EmployerAnalytics[]
@@ -305,14 +311,3 @@ enum SupportLevel {
   STANDARD
   PREMIUM
 }
-
-
-
-
-
-
-
-
-
-
-
