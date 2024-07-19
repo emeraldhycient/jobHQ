@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
         const { error } = loginSchema.validate(data);
 
         if (error) {
-            return NextResponse.json({ error: error.details[0].message }, { status: 400 });
+            return NextResponse.json({ message: error.details[0].message, error }, { status: 400 });
         }
 
         const { email, password, userType } = data;
@@ -27,12 +27,12 @@ export async function POST(req: NextRequest) {
             });
 
             if (!user) {
-                return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+                return NextResponse.json({ message: 'Invalid email or password' }, { status: 401 });
             }
 
             const isPasswordValid = await bcrypt.compare(password, user.password);
             if (!isPasswordValid) {
-                return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+                return NextResponse.json({ message: 'Invalid email or password' }, { status: 401 });
             }
 
             const token = jwt.sign(
@@ -41,19 +41,19 @@ export async function POST(req: NextRequest) {
                 { expiresIn: '1h' }
             );
 
-            return NextResponse.json({ token, userType: 'Employer' }, { status: 200 });
+            return NextResponse.json({ token, userType: 'Employer', message: "login successful" }, { status: 200 });
         } else {
             user = await prisma.user.findUnique({
                 where: { email },
             });
 
             if (!user) {
-                return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+                return NextResponse.json({ message: 'Invalid email or password' }, { status: 401 });
             }
 
             const isPasswordValid = await bcrypt.compare(password, user.password);
             if (!isPasswordValid) {
-                return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+                return NextResponse.json({ message: 'Invalid email or password' }, { status: 401 });
             }
 
             const token = jwt.sign(
@@ -62,10 +62,10 @@ export async function POST(req: NextRequest) {
                 { expiresIn: '1h' }
             );
 
-            return NextResponse.json({ token, userType: 'User' }, { status: 200 });
+            return NextResponse.json({ token, userType: 'User', message: "login successful" }, { status: 200 });
         }
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json({ message: 'Internal Server Error', error }, { status: 500 });
     }
 }

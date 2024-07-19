@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         console.log({ validationError: error })
 
         if (error) {
-            return NextResponse.json({ error: error.details[0].message }, { status: 400 });
+            return NextResponse.json({ message: error.details[0].message, error }, { status: 400 });
         }
 
         const { email, password, name, userType, companyName, companyEmail, country } = data;
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
         if (userType === 'Employer') {
             const existingEmployer = await prisma.employer.findUnique({ where: { companyEmail } });
             if (existingEmployer) {
-                return NextResponse.json({ error: 'Employer already exists' }, { status: 400 });
+                return NextResponse.json({ message: 'Employer already exists' }, { status: 400 });
             }
 
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -38,11 +38,11 @@ export async function POST(request: NextRequest) {
 
             const token = jwt.sign({ userId: employer.id, email: employer.companyEmail, userType: 'Employer' }, JWT_SECRET, { expiresIn: '1h' });
 
-            return NextResponse.json({ token, userType: 'Employer' }, { status: 201 });
+            return NextResponse.json({ token, userType: 'Employer', message: "Account created successful" }, { status: 201 });
         } else {
             const existingUser = await prisma.user.findUnique({ where: { email } });
             if (existingUser) {
-                return NextResponse.json({ error: 'User already exists' }, { status: 400 });
+                return NextResponse.json({ message: 'User already exists' }, { status: 400 });
             }
 
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -57,9 +57,9 @@ export async function POST(request: NextRequest) {
 
             const token = jwt.sign({ userId: user.id, email: user.email, userType: 'User' }, JWT_SECRET, { expiresIn: '1h' });
 
-            return NextResponse.json({ token, userType: 'User' }, { status: 201 });
+            return NextResponse.json({ token, userType: 'User', message: "Account created successful" }, { status: 201 });
         }
     } catch (error) {
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json({ message: 'Internal Server Error', error }, { status: 500 });
     }
 }
