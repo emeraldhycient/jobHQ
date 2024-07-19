@@ -3,6 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Head from "next/head";
+import { ReactQueryProvider } from "@/providers/reactQueryProvider";
 // import { GoogleAnalytics } from "@/components/GoogleAnalytics"; // Assume you have a GoogleAnalytics component
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
@@ -61,7 +62,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ReactQueryProvider>
+            {children}
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>
