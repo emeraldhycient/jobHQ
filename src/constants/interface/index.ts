@@ -71,3 +71,32 @@ export interface Job {
     createdAt: Date;
     updatedAt: Date;
 }
+
+
+export interface LoginPayload {
+    email: string;
+    password: string;
+    userType: 'User' | 'Employer';
+}
+
+export interface CreateAccountPayload {
+    email?: string;
+    password: string;
+    name?: string;
+    userType: 'User' | 'Employer';
+    country: string;
+}
+
+export enum Endpoints {
+    Login = "auth/login",
+    Signup = "auth/create-account"
+}
+
+export interface CreateAccountPagePayload {
+    email?: string;
+    password: string;
+    confirmPassword: string;
+    name?: string;
+    userType: 'User' | 'Employer';
+    country: string;
+}

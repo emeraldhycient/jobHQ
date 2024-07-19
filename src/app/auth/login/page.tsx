@@ -2,11 +2,14 @@
 import Header from '@/components/auth/header'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import Image from 'next/image'
+import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaLinkedin } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
+import AuthService from "@/services/auth"
+import { useFormik } from 'formik';
+import { loginSchema } from '@/constants/validation'
 
 
 function Login() {
@@ -14,6 +17,29 @@ function Login() {
     const [isJobSeeker, setIsJobSeeker] = useState(true)
 
     const toggleIsJobSeeker = () => setIsJobSeeker(prev => !prev)
+
+    const mutation = useMutation({
+        mutationFn: (data: { email: string; password: string; userType: "User" | "Employer" }) => AuthService.login(data),
+        onSuccess: () => {
+            alert('Login successful');
+        },
+        onError: (error) => {
+            console.log({error})
+            alert('Error logging in');
+        },
+    });
+
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            userType: 'User',
+        },
+        validationSchema: loginSchema,
+        onSubmit: (values) => {
+            mutation.mutate({ ...values, userType: isJobSeeker ? "User" : "Employer" });
+        },
+    });
 
     return (
         <section className='px-2 md:px-24 text-gray-1'>
@@ -49,16 +75,35 @@ function Login() {
                     </div>
                     <div className="h-[1px] w-[48%] border-[0.2px] border-gray-3"></div>
                 </div>
-                <Input placeholder='Email' />
-                <Input placeholder='Password' />
-                <Button variant={'default'} size={'sm'} asChild>
-                    <Link href="/login" className='block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700'>
-                        Sign In
-                    </Link>
-                </Button>
+                <form onSubmit={formik.handleSubmit} className='mx-auto space-y-5 w-full'>
+                    <Input
+                        name="email"
+                        placeholder='Email'
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className={formik.errors.email ? 'border-red-500' : ''}
+                    />
+                    <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
+                    <Input
+                        name="password"
+                        placeholder='Password'
+                        type="password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className={formik.errors.password ? 'border-red-500' : ''}
+                    />
+                    <p className="text-red-500 text-xs mt-1">{formik.errors.password}</p>
+                    <Button variant={'default'} size={'lg'} type='submit'>
+                        <p className='block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700'>
+                            Sign In
+                        </p>
+                    </Button>
+                </form>
             </div>
         </section>
     )
 }
 
-export default Login
+export default Login;

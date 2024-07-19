@@ -17,11 +17,11 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: error.details[0].message, error }, { status: 400 });
         }
 
-        const { email, password, name, userType, companyName, companyEmail, country } = data;
+        const { email, password, name, userType, country } = data;
 
         // Check if the user or employer already exists
         if (userType === 'Employer') {
-            const existingEmployer = await prisma.employer.findUnique({ where: { companyEmail } });
+            const existingEmployer = await prisma.employer.findUnique({ where: { companyEmail:email } });
             if (existingEmployer) {
                 return NextResponse.json({ message: 'Employer already exists' }, { status: 400 });
             }
@@ -29,8 +29,8 @@ export async function POST(request: NextRequest) {
             const hashedPassword = await bcrypt.hash(password, 10);
             const employer = await prisma.employer.create({
                 data: {
-                    companyName,
-                    companyEmail,
+                    companyName:name,
+                    companyEmail:email,
                     country,
                     password: hashedPassword,
                 },
