@@ -11,8 +11,8 @@ import { userStore, setUser, clearUser } from '@/stores/userStore';
 
 const DashboardPage = () => {
 
-  const user = useStore(userStore, (state) => state.user);
-  const isAuthenticated = useStore(userStore, (state) => state.isAuthenticated);
+  // const user = useStore(userStore, (state) => state.user);
+  // const isAuthenticated = useStore(userStore, (state) => state.isAuthenticated);
 
   const appliedJobs = 100;
   const favoriteJobs = 100;
