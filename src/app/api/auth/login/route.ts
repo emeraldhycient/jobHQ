@@ -2,13 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { loginSchema } from '@/constants/schema';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 
-export async function POST(req: NextRequest) {
-    const { email, password, userType } = await req.json();
 
+
+export async function POST(req: NextRequest) {
     try {
+        const data = await req.json();
+        const { error } = loginSchema.validate(data);
+
+        if (error) {
+            return NextResponse.json({ error: error.details[0].message }, { status: 400 });
+        }
+
+        const { email, password, userType } = data;
+
         let user;
 
         if (userType === 'Employer') {
@@ -31,7 +41,7 @@ export async function POST(req: NextRequest) {
                 { expiresIn: '1h' }
             );
 
-            return NextResponse.json({ token, user });
+            return NextResponse.json({ token, userType: 'Employer' }, { status: 200 });
         } else {
             user = await prisma.user.findUnique({
                 where: { email },
@@ -52,7 +62,7 @@ export async function POST(req: NextRequest) {
                 { expiresIn: '1h' }
             );
 
-            return NextResponse.json({ token, user });
+            return NextResponse.json({ token, userType: 'User' }, { status: 200 });
         }
     } catch (error) {
         console.error(error);
