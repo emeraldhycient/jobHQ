@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Head from "next/head";
 import { ReactQueryProvider } from "@/providers/reactQueryProvider";
 // import { GoogleAnalytics } from "@/components/GoogleAnalytics"; // Assume you have a GoogleAnalytics component
+import  { Toaster } from 'react-hot-toast';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -63,6 +64,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ReactQueryProvider>
+            <Toaster
+              position="bottom-right"
+              reverseOrder={true}
+            />
             {children}
           </ReactQueryProvider>
         </ThemeProvider>

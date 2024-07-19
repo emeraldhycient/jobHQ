@@ -10,6 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import AuthService from "@/services/auth"
 import { useFormik } from 'formik';
 import { loginSchema } from '@/constants/validation'
+import toast from 'react-hot-toast'
 
 
 function Login() {
@@ -21,11 +22,11 @@ function Login() {
     const mutation = useMutation({
         mutationFn: (data: { email: string; password: string; userType: "User" | "Employer" }) => AuthService.login(data),
         onSuccess: () => {
-            alert('Login successful');
+            toast.success('Login successful')
         },
-        onError: (error) => {
+        onError: (error:any) => {
             console.log({error})
-            alert('Error logging in');
+            toast.error(error?.response?.data?.message);
         },
     });
 

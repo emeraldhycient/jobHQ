@@ -21,6 +21,7 @@ import Header from '@/components/auth/header';
 import { useMutation } from '@tanstack/react-query';
 import { CreateAccountPagePayload, CreateAccountPayload } from '@/constants/interface';
 import { createAccountSchema } from '@/constants/validation';
+import toast from 'react-hot-toast';
 
 function SignUp() {
     const [isSecureEntry, setIsSecureEntry] = useState(true);
@@ -41,11 +42,11 @@ function SignUp() {
     const mutation = useMutation({
         mutationFn: (data: CreateAccountPayload) => AuthService.createAccount(data),
         onSuccess: () => {
-            alert('Account created successfully');
+            toast.success('Account created successfully');
         },
-        onError: (error) => {
+        onError: (error:any) => {
             console.log({ error })
-            alert('Error logging in');
+            toast.error(error?.response?.data?.message);
         },
     });
 
