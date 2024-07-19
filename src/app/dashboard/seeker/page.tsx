@@ -5,9 +5,15 @@ import RecommendedJobs from "@/components/dashboard/seeker/recommendedJobs";
 import BellIcon from "@/components/icons/BellIcon";
 import BookmarkIcon from "@/components/icons/BookmarkIcon";
 import BoxIcon from "@/components/icons/BoxIcon";
-import { MdWork } from 'react-icons/md';
+import { useStore } from '@tanstack/react-store';
+import { userStore, setUser, clearUser } from '@/stores/userStore';
+
 
 const DashboardPage = () => {
+
+  const user = useStore(userStore, (state) => state.user);
+  const isAuthenticated = useStore(userStore, (state) => state.isAuthenticated);
+
   const appliedJobs = 100;
   const favoriteJobs = 100;
   const jobAlerts = 100;
