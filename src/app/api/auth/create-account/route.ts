@@ -2,12 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { createAccountSchema } from '@/constants/schema';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
+
 export async function POST(request: NextRequest) {
     try {
-        const { email, password, name, userType, companyName, companyEmail } = await request.json();
+        const data = await request.json();
+        const { error } = createAccountSchema.validate(data);
+        console.log({ validationError: error })
+
+        if (error) {
+            return NextResponse.json({ error: error.details[0].message }, { status: 400 });
+        }
+
+        const { email, password, name, userType, companyName, companyEmail, country } = data;
 
         // Check if the user or employer already exists
         if (userType === 'Employer') {
@@ -21,6 +31,7 @@ export async function POST(request: NextRequest) {
                 data: {
                     companyName,
                     companyEmail,
+                    country,
                     password: hashedPassword,
                 },
             });
@@ -39,6 +50,7 @@ export async function POST(request: NextRequest) {
                 data: {
                     email,
                     password: hashedPassword,
+                    country,
                     name,
                 },
             });

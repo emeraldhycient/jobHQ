@@ -17,6 +17,7 @@ model User {
   contactInfo          String?
   resumes              Resume?
   resumeUrls           Json?
+  country              String?
   skills               Json?
   jobsApplied          JobApplication[]
   learningPaths        LearningPath[]
@@ -49,6 +50,7 @@ model Employer {
   users                 EmployerUser[]
   analytics             EmployerAnalytics[]
   payments              Payment[]
+  country               String?
   setupComplete         Boolean                @default(false)
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
