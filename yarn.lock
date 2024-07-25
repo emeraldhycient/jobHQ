@@ -1100,6 +1100,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@types/cookie@npm:0.6.0"
+  checksum: 5edce7995775b0b196b142883e4d4f71fd93c294eaec973670f1fa2540b70ea7390408ed513ddefef5fcb12a578100c76596e8f2a714b0c2ae9f70ee773f4510
+  languageName: node
+  linkType: hard
+
 "@types/hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.5
   resolution: "@types/hoist-non-react-statics@npm:3.3.5"
@@ -1809,6 +1816,13 @@ __metadata:
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
   checksum: 902a9f5d8967a3e2faf138d5cb784b9979bad2e6db5357c5b21c568df4ebe62bcb15108af1b2253744844eb964fc023fbd9afbbbb6ddd0bcc204c6fb5b7bf3af
+  languageName: node
+  linkType: hard
+
+"cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: f56a7d32a07db5458e79c726b77e3c2eff655c36792f2b6c58d351fb5f61531e5b1ab7f46987150136e366c65213cbe31729e02a3eaed630c3bf7334635fb410
   languageName: node
   linkType: hard
 
@@ -4221,6 +4235,7 @@ __metadata:
     "@tanstack/react-query": ^5.51.9
     "@tanstack/react-store": ^0.5.5
     "@types/bcryptjs": ^2.4.6
+    "@types/cookie": ^0.6.0
     "@types/jsonwebtoken": ^9.0.6
     "@types/node": ^20
     "@types/react": ^18
@@ -4229,6 +4244,7 @@ __metadata:
     bcryptjs: ^2.4.3
     class-variance-authority: ^0.7.0
     clsx: ^2.1.1
+    cookie: ^0.6.0
     eslint: ^8
     eslint-config-next: 14.2.4
     formik: ^2.4.6

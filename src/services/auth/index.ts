@@ -13,6 +13,10 @@ class AuthService {
         const response = await axiosClient.post(Endpoints.Signup, payload);
         return response.data;
     }
+
+    async logout() {
+        return await axiosClient.post(Endpoints.Logout)
+    }
 }
 
 export default new AuthService();

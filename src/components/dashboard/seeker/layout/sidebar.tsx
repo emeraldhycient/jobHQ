@@ -1,7 +1,9 @@
 // components/Sidebar.tsx
 
 'use client'
+import { Button } from '@/components/ui/button';
 import { sidebarItems } from '@/constants/data';
+import useLogout from '@/hooks/logout';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,7 +11,10 @@ import { FC } from 'react';
 
 const Sidebar: FC = () => {
     const pathname = usePathname();
-    const isActive = (path: string) => pathname ===(path);
+    const isActive = (path: string) => pathname === (path);
+    
+    const { logout, loading } = useLogout();
+
 
     return (
         <aside className="md:flex flex-col h-full bg-gray-2 text-gray-1 hidden">
@@ -35,6 +40,9 @@ const Sidebar: FC = () => {
                 </ul>
             </nav>
             <footer className="p-4">
+                <Button onClick={logout} disabled={loading}>
+                    {loading ? 'Logging out...' : 'Logout'}
+                </Button>
                 <p className="text-xs font-normal">Want to get more info about JobHQ? <Link href="/contact" className="text-blue-500">Contact Us</Link></p>
             </footer>
         </aside>

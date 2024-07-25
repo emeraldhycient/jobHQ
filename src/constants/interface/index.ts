@@ -89,7 +89,8 @@ export interface CreateAccountPayload {
 
 export enum Endpoints {
     Login = "auth/login",
-    Signup = "auth/create-account"
+    Signup = "auth/create-account",
+    Logout = "/auth/logout"
 }
 
 export interface CreateAccountPagePayload {
