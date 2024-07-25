@@ -53,7 +53,7 @@ function SignUp() {
         },
         onError: (error: any) => {
             setIsLoading(false);
-            toast.error(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message || "An Error Occured!!");
         },
     });
 

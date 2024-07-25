@@ -8,7 +8,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         response.cookies.set('token', '', {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 0, // Expire the cookie immediately
+            maxAge: 0,
             path: '/',
         });
 

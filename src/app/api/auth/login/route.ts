@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { jwtVerify, SignJWT } from 'jose';
+import {SignJWT } from 'jose';
 import { loginSchema } from '@/constants/schema';
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'your_secret_key');
