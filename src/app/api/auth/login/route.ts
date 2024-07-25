@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { jwtVerify, SignJWT } from 'jose';
 import { loginSchema } from '@/constants/schema';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
-
-
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'your_secret_key');
 
 export async function POST(req: NextRequest) {
     try {
@@ -18,7 +16,6 @@ export async function POST(req: NextRequest) {
         }
 
         const { email, password, userType } = data;
-
         let user;
 
         if (userType === 'Employer') {
@@ -35,13 +32,20 @@ export async function POST(req: NextRequest) {
                 return NextResponse.json({ message: 'Invalid email or password' }, { status: 401 });
             }
 
-            const token = jwt.sign(
-                { employerId: user.id, email: user.companyEmail, userType },
-                JWT_SECRET,
-                { expiresIn: '1h' }
-            );
+            const token = await new SignJWT({ userId: user.id, email: user.companyEmail, userType })
+                .setProtectedHeader({ alg: 'HS256' })
+                .setExpirationTime('1h')
+                .sign(JWT_SECRET);
 
-            return NextResponse.json({ token, userType: 'Employer', message: "login successful" }, { status: 200 });
+            const response = NextResponse.json({ token, userType: 'Employer', message: "login successful" }, { status: 200 });
+            response.cookies.set('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 3600,
+                path: '/',
+            });
+
+            return response;
         } else {
             user = await prisma.user.findUnique({
                 where: { email },
@@ -56,13 +60,20 @@ export async function POST(req: NextRequest) {
                 return NextResponse.json({ message: 'Invalid email or password' }, { status: 401 });
             }
 
-            const token = jwt.sign(
-                { userId: user.id, email: user.email, userType },
-                JWT_SECRET,
-                { expiresIn: '1h' }
-            );
+            const token = await new SignJWT({ userId: user.id, email: user.email, userType })
+                .setProtectedHeader({ alg: 'HS256' })
+                .setExpirationTime('1h')
+                .sign(JWT_SECRET);
 
-            return NextResponse.json({ token, userType: 'User', message: "login successful" }, { status: 200 });
+            const response = NextResponse.json({ token, userType: 'User', message: "login successful" }, { status: 200 });
+            response.cookies.set('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 3600,
+                path: '/',
+            });
+
+            return response;
         }
     } catch (error) {
         console.error(error);

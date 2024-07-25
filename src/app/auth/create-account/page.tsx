@@ -22,10 +22,15 @@ import { useMutation } from '@tanstack/react-query';
 import { CreateAccountPagePayload, CreateAccountPayload } from '@/constants/interface';
 import { createAccountSchema } from '@/constants/validation';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import LoadingComponent from '@/components/common/LoadingComponent';
 
 function SignUp() {
     const [isSecureEntry, setIsSecureEntry] = useState(true);
     const [isSecureEntry2, setIsSecureEntry2] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
     const toggleSecureEntry = (pos: number) => {
         switch (pos) {
             case 1:
@@ -41,11 +46,13 @@ function SignUp() {
 
     const mutation = useMutation({
         mutationFn: (data: CreateAccountPayload) => AuthService.createAccount(data),
-        onSuccess: () => {
+        onSuccess: (data) => {
             toast.success('Account created successfully');
+            setIsLoading(false);
+            router.push('/auth/login');
         },
-        onError: (error:any) => {
-            console.log({ error })
+        onError: (error: any) => {
+            setIsLoading(false);
             toast.error(error?.response?.data?.message);
         },
     });
@@ -62,6 +69,7 @@ function SignUp() {
         validationSchema: createAccountSchema,
         onSubmit: (values) => {
             const { confirmPassword, ...submitValues } = values;
+            setIsLoading(true);
             mutation.mutate(submitValues);
         },
     });
@@ -69,6 +77,7 @@ function SignUp() {
     return (
         <section className='px-2 md:px-24 text-gray-1'>
             <Header />
+            {isLoading && <LoadingComponent />}
             <div className="">
                 <h4 className='text-xl font-semibold text-center px-4 md:px-0'>Ready to take the next step?</h4>
                 <p className='text-sm font-normal my-3 text-center w-[90%] md:w-[70%] lg:w-[50%] text-center mx-auto'>
@@ -76,13 +85,13 @@ function SignUp() {
                 </p>
                 <form onSubmit={formik.handleSubmit} className="w-[95%] md:w-[50%] mx-auto space-y-5 mt-10">
                     <div className="grid grid-cols-2 gap-6 md:px-4 mt-10">
-                        <Button variant={"default"}>
+                        <Button variant={"default"} className="w-full">
                             <div className="flex items-center space-x-3">
                                 <FaLinkedin />
                                 <h6 className='text-sm font-normal'>LinkedIn</h6>
                             </div>
                         </Button>
-                        <Button variant={"default"}>
+                        <Button variant={"default"} className="w-full">
                             <div className="flex items-center space-x-3">
                                 <FcGoogle />
                                 <h6 className='text-sm font-normal'>Google</h6>
@@ -168,8 +177,8 @@ function SignUp() {
                         className={formik.errors.confirmPassword ? 'border-red-500' : ''}
                     />
                     <p className="text-red-500 text-xs mt-1">{formik.errors.confirmPassword}</p>
-                    <Button variant={'default'} size={'lg'} type='submit'>
-                        <p className='block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700'>
+                    <Button variant={'default'} size={'lg'} type='submit' className="w-full">
+                        <p className='block text-left px-3 py-2 rounded-md  font-medium text-white'>
                             Create Account
                         </p>
                     </Button>

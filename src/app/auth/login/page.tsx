@@ -11,21 +11,29 @@ import AuthService from "@/services/auth"
 import { useFormik } from 'formik';
 import { loginSchema } from '@/constants/validation'
 import toast from 'react-hot-toast'
-
+import { useRouter } from 'next/navigation'
+import LoadingComponent from '@/components/common/LoadingComponent'
 
 function Login() {
-
     const [isJobSeeker, setIsJobSeeker] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
 
     const toggleIsJobSeeker = () => setIsJobSeeker(prev => !prev)
 
     const mutation = useMutation({
         mutationFn: (data: { email: string; password: string; userType: "User" | "Employer" }) => AuthService.login(data),
-        onSuccess: () => {
+        onSuccess: (data) => {
             toast.success('Login successful')
+            setIsLoading(false)
+            if (data.userType === "Employer") {
+                router.push('/dashboard/employer')
+            } else {
+                router.push('/dashboard/seeker')
+            }
         },
-        onError: (error:any) => {
-            console.log({error})
+        onError: (error: any) => {
+            setIsLoading(false)
             toast.error(error?.response?.data?.message);
         },
     });
@@ -38,6 +46,7 @@ function Login() {
         },
         validationSchema: loginSchema,
         onSubmit: (values) => {
+            setIsLoading(true)
             mutation.mutate({ ...values, userType: isJobSeeker ? "User" : "Employer" });
         },
     });
@@ -45,6 +54,7 @@ function Login() {
     return (
         <section className='px-2 md:px-24 text-gray-1'>
             <Header />
+            {isLoading && <LoadingComponent />}
             <h4 className='hidden md:block text-xl font-semibold md:text-center px-4 md:px-0'>Sign In</h4>
             <div className="w-[95%] md:w-[50%] mx-auto space-y-5 mt-10">
                 <div className="my-10 grid grid-cols-2">
@@ -56,13 +66,13 @@ function Login() {
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-6 md:px-4 mt-10">
-                    <Button variant={"default"}>
+                    <Button variant={"default"} className="w-full">
                         <div className="flex items-center space-x-3">
                             <FaLinkedin />
                             <h6 className='text-sm font-normal'>LinkedIn</h6>
                         </div>
                     </Button>
-                    <Button variant={"default"}>
+                    <Button variant={"default"} className="w-full">
                         <div className="flex items-center space-x-3">
                             <FcGoogle />
                             <h6 className='text-sm font-normal'>Google</h6>
@@ -96,8 +106,8 @@ function Login() {
                         className={formik.errors.password ? 'border-red-500' : ''}
                     />
                     <p className="text-red-500 text-xs mt-1">{formik.errors.password}</p>
-                    <Button variant={'default'} size={'lg'} type='submit'>
-                        <p className='block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700'>
+                    <Button variant={'default'} size={'lg'} type='submit' className="w-full">
+                        <p className='block text-left px-3 py-2 rounded-md  font-medium text-white'>
                             Sign In
                         </p>
                     </Button>
