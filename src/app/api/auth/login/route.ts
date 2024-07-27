@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
                 .setExpirationTime('1h')
                 .sign(JWT_SECRET);
 
-            const response = NextResponse.json({ token, userType: 'Employer', message: "login successful" }, { status: 200 });
+            const response = NextResponse.json({ token, userType: 'Employer',user, message: "login successful" }, { status: 200 });
             response.cookies.set('token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
                 .setExpirationTime('1h')
                 .sign(JWT_SECRET);
 
-            const response = NextResponse.json({ token, userType: 'User', message: "login successful" }, { status: 200 });
+            const response = NextResponse.json({ token, userType: 'User',user, message: "login successful" }, { status: 200 });
             response.cookies.set('token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
