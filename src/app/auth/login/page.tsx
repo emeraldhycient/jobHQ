@@ -3,7 +3,7 @@ import Header from '@/components/auth/header'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useMutation } from '@tanstack/react-query'
-import Link from 'next/link'
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import React, { useState } from 'react'
 import { FaLinkedin } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
@@ -17,6 +17,8 @@ import LoadingComponent from '@/components/common/LoadingComponent'
 function Login() {
     const [isJobSeeker, setIsJobSeeker] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
+    const [isSecureEntry, setIsSecureEntry] = useState(true);
+
     const router = useRouter()
 
     const toggleIsJobSeeker = () => setIsJobSeeker(prev => !prev)
@@ -50,6 +52,11 @@ function Login() {
             mutation.mutate({ ...values, userType: isJobSeeker ? "User" : "Employer" });
         },
     });
+
+    const toggleSecureEntry = () => {
+                setIsSecureEntry(prev => !prev);
+               
+    };
 
     return (
         <section className='px-2 md:px-24 text-gray-1'>
@@ -96,13 +103,24 @@ function Login() {
                         className={formik.errors.email ? 'border-red-500' : ''}
                     />
                     <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
-                    <Input
+                    {/* <Input
                         name="password"
                         placeholder='Password'
                         type="password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        className={formik.errors.password ? 'border-red-500' : ''}
+                    /> */}
+                    <Input
+                        type={isSecureEntry ? 'password' : 'text'}
+                        name="password"
+                        placeholder="Password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        onRightIconClick={() => toggleSecureEntry()}
+                        rightIcon={isSecureEntry ? FaRegEye : FaRegEyeSlash}
                         className={formik.errors.password ? 'border-red-500' : ''}
                     />
                     <p className="text-red-500 text-xs mt-1">{formik.errors.password}</p>
