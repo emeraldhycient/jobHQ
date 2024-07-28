@@ -91,7 +91,7 @@ model JobApplication {
   id          String            @id @default(uuid())
   status      ApplicationStatus @default(APPLIED)
   dateApplied DateTime          @default(now())
-  resume      Resume            @relation(fields: [resumeId], references: [id])
+  resume      Resume?            @relation(fields: [resumeId], references: [id])
   user        User              @relation(fields: [userId], references: [id])
   userId      String
   job         Job               @relation(fields: [jobId], references: [id])
