@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
             const token = await new SignJWT({ userId: employer.id, email: employer.companyEmail, userType: 'Employer' })
                 .setProtectedHeader({ alg: 'HS256' })
-                .setExpirationTime('1h')
+                .setExpirationTime('24h')
                 .sign(JWT_SECRET);
 
             const response = NextResponse.json({ token, userType: 'Employer', message: "Account created successfully" }, { status: 201 });
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
 
             const token = await new SignJWT({ userId: user.id, email: user.email, userType: 'User' })
                 .setProtectedHeader({ alg: 'HS256' })
-                .setExpirationTime('1h')
+                .setExpirationTime('24h')
                 .sign(JWT_SECRET);
 
             const response = NextResponse.json({ token, userType: 'User', message: "Account created successfully" }, { status: 201 });
