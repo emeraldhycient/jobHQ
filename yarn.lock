@@ -122,6 +122,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@google/generative-ai@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "@google/generative-ai@npm:0.16.0"
+  checksum: ac848403d4e2a4d08ff1eafcdfddc710e6f5fdebaff22d7c032e9f4f583b711294d00277b4fb4233b6cc9165ad07187672fd066b4dc77cecb69480ba6e2218eb
+  languageName: node
+  linkType: hard
+
 "@hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.3.0":
   version: 9.3.0
   resolution: "@hapi/hoek@npm:9.3.0"
@@ -4227,6 +4234,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "out@workspace:."
   dependencies:
+    "@google/generative-ai": ^0.16.0
     "@headlessui/react": ^2.1.1
     "@prisma/client": 5.17.0
     "@radix-ui/react-label": ^2.1.0

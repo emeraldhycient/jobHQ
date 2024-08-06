@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { IconType } from "react-icons";
 
 export interface nextStepChildProps {
@@ -90,6 +89,7 @@ export interface CreateAccountPayload {
 export enum Endpoints {
     Login = "auth/login",
     Signup = "auth/create-account",
+    Analytics ="analytics",
     Logout = "/auth/logout"
 }
 

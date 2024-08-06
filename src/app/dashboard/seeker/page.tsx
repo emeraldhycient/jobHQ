@@ -1,3 +1,4 @@
+'use client'
 import Analytics from "@/components/dashboard/seeker/analytics";
 import LearningProgress from "@/components/dashboard/seeker/learningProgress";
 import RecentlyApplied from "@/components/dashboard/seeker/recentlyApplied";
@@ -7,6 +8,8 @@ import BookmarkIcon from "@/components/icons/BookmarkIcon";
 import BoxIcon from "@/components/icons/BoxIcon";
 import { useStore } from '@tanstack/react-store';
 import { userStore, setUser, clearUser } from '@/stores/userStore';
+import { useQuery } from '@tanstack/react-query'
+import auth from "@/services/auth";
 
 
 const DashboardPage = () => {
@@ -17,6 +20,9 @@ const DashboardPage = () => {
   const appliedJobs = 100;
   const favoriteJobs = 100;
   const jobAlerts = 100;
+
+  const info = useQuery({ queryKey: ['todos'], queryFn: auth.analytics })
+
 
 
   const analyticsData = [
