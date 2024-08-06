@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import {SignJWT } from 'jose';
+import { SignJWT } from 'jose';
 import { loginSchema } from '@/constants/schema';
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'your_secret_key');
@@ -17,10 +17,14 @@ export async function POST(req: NextRequest) {
 
         const { email, password, userType } = data;
         let user;
+        let employer;
 
         if (userType === 'Employer') {
-            user = await prisma.employer.findUnique({
-                where: { companyEmail: email },
+            user = await prisma.employerUser.findUnique({
+                where: { email },
+                include: {
+                    employer: true,
+                },
             });
 
             if (!user) {
@@ -32,12 +36,21 @@ export async function POST(req: NextRequest) {
                 return NextResponse.json({ message: 'Invalid email or password' }, { status: 401 });
             }
 
-            const token = await new SignJWT({ userId: user.id, email: user.companyEmail, userType })
+            employer = user.employer;
+
+            const token = await new SignJWT({
+                userId: user.id,
+                email: user.email,
+                userType,
+                companyId: employer.id,
+                companyName: employer.companyName,
+                companyEmail: employer.companyEmail,
+            })
                 .setProtectedHeader({ alg: 'HS256' })
                 .setExpirationTime('1h')
                 .sign(JWT_SECRET);
 
-            const response = NextResponse.json({ token, userType: 'Employer',user, message: "login successful" }, { status: 200 });
+            const response = NextResponse.json({ token, userType: 'Employer', user, employer, message: "Login successful" }, { status: 200 });
             response.cookies.set('token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
@@ -65,7 +78,7 @@ export async function POST(req: NextRequest) {
                 .setExpirationTime('1h')
                 .sign(JWT_SECRET);
 
-            const response = NextResponse.json({ token, userType: 'User',user, message: "login successful" }, { status: 200 });
+            const response = NextResponse.json({ token, userType: 'User', user, message: "Login successful" }, { status: 200 });
             response.cookies.set('token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',

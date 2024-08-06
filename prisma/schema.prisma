@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING") 
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
@@ -37,7 +37,6 @@ model Employer {
   id                    String                 @id @default(uuid())
   companyName           String
   companyEmail          String                 @unique
-  password              String
   industry              String?
   teamSize              String?
   organizationType      String?
@@ -60,8 +59,9 @@ model Employer {
 model EmployerUser {
   id         String           @id @default(uuid())
   name       String
-  email      String
-  role       Role
+  email      String @unique
+  password   String
+  role       Role             @default(ADMIN)
   employer   Employer         @relation(fields: [employerId], references: [id])
   employerId String
   status     InvitationStatus
@@ -91,7 +91,7 @@ model JobApplication {
   id          String            @id @default(uuid())
   status      ApplicationStatus @default(APPLIED)
   dateApplied DateTime          @default(now())
-  resume      Resume?            @relation(fields: [resumeId], references: [id])
+  resume      Resume?           @relation(fields: [resumeId], references: [id])
   user        User              @relation(fields: [userId], references: [id])
   userId      String
   job         Job               @relation(fields: [jobId], references: [id])
@@ -306,6 +306,7 @@ enum AnalyticsType {
 
 enum InvitationStatus {
   PENDING
+  ACTIVE
   ACCEPTED
   REJECTED
 }

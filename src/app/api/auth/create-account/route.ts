@@ -31,7 +31,14 @@ export async function POST(request: NextRequest) {
                     companyName: name,
                     companyEmail: email,
                     country,
-                    password: hashedPassword,
+                    users: {
+                        create: {
+                            name: name,
+                            email: email,
+                            password: hashedPassword,
+                            status: 'ACTIVE', 
+                        },
+                    },
                 },
             });
 
@@ -41,13 +48,7 @@ export async function POST(request: NextRequest) {
                 .sign(JWT_SECRET);
 
             const response = NextResponse.json({ token, userType: 'Employer', message: "Account created successfully" }, { status: 201 });
-            // response.cookies.set('token', token, {
-            //     httpOnly: true,
-            //     secure: process.env.NODE_ENV === 'production',
-            //     maxAge: 3600,
-            //     path: '/',
-            // });
-
+           
             return response;
         } else {
             const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -71,12 +72,6 @@ export async function POST(request: NextRequest) {
                 .sign(JWT_SECRET);
 
             const response = NextResponse.json({ token, userType: 'User', message: "Account created successfully" }, { status: 201 });
-            // response.cookies.set('token', token, {
-            //     httpOnly: true,
-            //     secure: process.env.NODE_ENV === 'production',
-            //     maxAge: 3600,
-            //     path: '/',
-            // });
 
             return response;
         }
