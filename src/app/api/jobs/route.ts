@@ -1,13 +1,12 @@
 // /app/api/jobs/route.ts
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { verifyJWT } from '@/lib/auth';
+import { getUserFromRequest, verifyJWT } from '@/lib/auth';
 import { jobSchema } from '@/constants/schema';
 
 export async function POST(req: Request) {
     try {
-        const token = req.headers.get('authorization')?.split(' ')[1];
-        const { payload }:any = await verifyJWT(token as any, process.env.JWT_SECRET || "");
+        const payload = await getUserFromRequest("User")
 
         if (payload.userType !== 'Employer') {
             return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
