@@ -22,7 +22,7 @@ const PathCard = (props: Props) => {
                 </div>
             </section>
             <Button variant={'lucentblue'} size={'lg'} asChild>
-                <Link href={""} className="w-full">
+                <Link href={"/dashboard/seeker/learning-paths/123456"} className="w-full">
                     <p>
                         Resume learning
                     </p>
