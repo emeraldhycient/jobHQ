@@ -35,7 +35,7 @@ function JobCard() {
                     <div className="flex items-center space-x-3">
                         <h4 className='font-semibold text-sm'>View more</h4>
                         <Button size={'sm'} asChild>
-                            <Link href={"/jobs/1234567890"}>Apply</Link>
+                            Apply
                         </Button>
                     </div>
                     <FaRegHeart className={`${isSaved ? "text-blue-primary" : ""}`} onClick={() => setisSaved(true)} />
