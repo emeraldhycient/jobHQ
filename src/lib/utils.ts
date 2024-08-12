@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import bcrypt from 'bcryptjs';
+import { Prisma } from "@prisma/client";
 
 
 export function cn(...inputs: ClassValue[]) {
@@ -53,4 +54,60 @@ export class Utils {
   }
 
 
+
+buildJobFilters(searchParams: URLSearchParams): Prisma.JobWhereInput {
+  const filters: Prisma.JobWhereInput = {};
+
+  const title = searchParams.get('title');
+  const location = searchParams.get('location');
+  const type: any = searchParams.get('type');
+  const requirements = searchParams.getAll('requirements');
+  const responsibilities = searchParams.getAll('responsibilities');
+  const salaryRange = searchParams.get('salaryRange');
+  const benefits = searchParams.getAll('benefits');
+  const status: any = searchParams.get('status');
+  const employerId = searchParams.get('employerId');
+
+  if (title) {
+    filters.title = { contains: title, mode: 'insensitive' };
+  }
+
+  if (location) {
+    filters.location = { contains: location, mode: 'insensitive' };
+  }
+
+  if (type) {
+    filters.type = type;
+  }
+
+  if (requirements.length > 0) {
+    filters.requirements = { hasSome: requirements };
+  }
+
+  if (responsibilities.length > 0) {
+    filters.responsibilities = { hasSome: responsibilities };
+  }
+
+  if (salaryRange) {
+    filters.salaryRange = { contains: salaryRange, mode: 'insensitive' };
+  }
+
+  if (benefits.length > 0) {
+    filters.benefits = { hasSome: benefits };
+  }
+
+  if (status) {
+    filters.status = status;
+  }
+
+  if (employerId) {
+    filters.employerId = employerId;
+  }
+
+  return filters;
 }
+
+}
+
+
+export const utils = new Utils()
