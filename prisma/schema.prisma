@@ -114,6 +114,8 @@ model FormResponse {
   form      Form     @relation(fields: [formId], references: [id])
   responses Json
   createdAt DateTime @default(now())
+  JobApplication  JobApplication @relation(fields: [JobApplicationId], references: [id])
+  JobApplicationId String @unique
 }
 
 enum FieldType {
@@ -132,6 +134,7 @@ model JobApplication {
   job         Job               @relation(fields: [jobId], references: [id])
   jobId       String
   resumeId    String
+  responses FormResponse?
 }
 
 model Resume {

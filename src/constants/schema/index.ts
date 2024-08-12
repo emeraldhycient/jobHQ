@@ -32,5 +32,6 @@ export const jobSchema = Joi.object({
 export const applicationSchema = Joi.object({
     jobId: Joi.string().required(),
     resumeId: Joi.string().required(),
+    responses: Joi.object().optional(),
     status: Joi.string().valid('APPLIED', 'INTERVIEW_SCHEDULED', 'OFFERED', 'ACCEPTED', 'REJECTED', 'WITHDRAWN').default('APPLIED'),
 });
