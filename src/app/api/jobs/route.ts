@@ -33,7 +33,7 @@ export async function POST(req: Request) {
                 responsibilities,
                 salaryRange,
                 benefits,
-                employerId: payload.userId,
+                employerId: payload.companyId,
                 questions: questions
                     ? {
                         create: {

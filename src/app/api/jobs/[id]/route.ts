@@ -3,24 +3,50 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getUserFromRequest } from '@/lib/auth';
 
-export async function GET(req: Request, { params }:any) {
+export async function GET(req: Request, { params }: any) {
     try {
+        const payload = await getUserFromRequest("All");
+
+        // Check if the job exists and belongs to the employer
         const job = await prisma.job.findUnique({
             where: { id: params.id },
             include: {
-                questions:true
-            }
+                questions: {
+                    include: {
+                        fields: true,
+                        responses: true, 
+                    },
+                },
+            },
         });
 
         if (!job) {
             return NextResponse.json({ message: 'Job not found' }, { status: 404 });
         }
 
+        // Check if the employer is the creator of the job
+        if (job.employerId !== payload.companyId) {
+            return NextResponse.json({
+                job: {
+                    ...job,
+                    questions: {
+                        ...job.questions,
+                        responses: undefined, // Remove responses if not the owner
+                    },
+                },
+                status: 403,
+            });
+        }
+
+        // If the employer is the owner, return the job including the responses
         return NextResponse.json(job, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ message: 'Failed to fetch job',error }, { status: 500 });
+        console.error('Failed to fetch job:', error);
+        return NextResponse.json({ message: 'Failed to fetch job', error }, { status: 500 });
     }
 }
+
+
 
 export async function PUT(req: Request, { params }:any) {
     try {
