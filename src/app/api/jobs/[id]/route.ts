@@ -25,7 +25,7 @@ export async function GET(req: Request, { params }: any) {
         }
 
         // Check if the employer is the creator of the job
-        if (job.employerId !== payload.companyId) {
+        if (job?.employerId !== payload?.companyId) {
             return NextResponse.json({
                 job: {
                     ...job,
