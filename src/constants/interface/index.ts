@@ -101,3 +101,26 @@ export interface CreateAccountPagePayload {
     userType: 'User' | 'Employer';
     country: string;
 }
+
+export type FieldType = 'TEXT' | 'CHECKBOX' | 'DROPDOWN';
+export interface FormField {
+    id: string;
+    type: FieldType;
+    label: string;
+    options: string[];
+}
+
+export interface Form {
+    id: string;
+    title: string;
+    fields: FormField[];
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface FormResponse {
+    id: string;
+    formId: string;
+    responses: Record<string, any>;
+    createdAt: Date;
+}

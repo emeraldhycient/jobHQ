@@ -59,7 +59,7 @@ model Employer {
 model EmployerUser {
   id         String           @id @default(uuid())
   name       String
-  email      String @unique
+  email      String           @unique
   password   String
   role       Role             @default(ADMIN)
   employer   Employer         @relation(fields: [employerId], references: [id])
@@ -83,8 +83,43 @@ model Job {
   postedBy         Employer         @relation(fields: [employerId], references: [id])
   employerId       String
   applications     JobApplication[]
+  questions        Form?
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
+}
+
+model Form {
+  id        String         @id @default(uuid())
+  job       Job            @relation(fields: [jobId], references: [id])
+  jobId     String @unique
+  title     String
+  fields    Field[]
+  responses FormResponse[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model Field {
+  id      String    @id @default(uuid())
+  type    FieldType
+  label   String
+  options String[]
+  formId  String
+  form    Form      @relation(fields: [formId], references: [id])
+}
+
+model FormResponse {
+  id        String   @id @default(uuid())
+  formId    String
+  form      Form     @relation(fields: [formId], references: [id])
+  responses Json
+  createdAt DateTime @default(now())
+}
+
+enum FieldType {
+  TEXT
+  CHECKBOX
+  DROPDOWN
 }
 
 model JobApplication {

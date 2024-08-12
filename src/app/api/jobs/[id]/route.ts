@@ -1,12 +1,15 @@
 // /app/api/jobs/[id]/route.ts
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { getUserFromRequest, verifyJWT } from '@/lib/auth';
+import { getUserFromRequest } from '@/lib/auth';
 
 export async function GET(req: Request, { params }:any) {
     try {
         const job = await prisma.job.findUnique({
             where: { id: params.id },
+            include: {
+                questions:true
+            }
         });
 
         if (!job) {
@@ -47,6 +50,11 @@ export async function DELETE(req: Request, { params }:any) {
         if (payload.userType !== 'Employer') {
             return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
         }
+
+        const job = await prisma.job.findUnique(params.id)
+
+        if (!job) return NextResponse.json({ message: "Job not found" },{status:404})
+        if (job.employerId !== payload.companyId) return NextResponse.json({ message: "Unauthorized access" },{status:420})
 
         await prisma.job.delete({
             where: { id: params.id },
