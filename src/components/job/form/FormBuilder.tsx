@@ -1,3 +1,4 @@
+'use client'
 import { FieldType, FormField } from '@/constants/interface';
 import { useState } from 'react';
 
