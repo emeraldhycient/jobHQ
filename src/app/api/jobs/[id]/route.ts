@@ -58,6 +58,12 @@ export async function PUT(req: Request, { params }:any) {
         }
 
         const data = await req.json();
+
+        const job = await prisma.job.findUnique(params.id)
+
+        if (!job) return NextResponse.json({ message: "Job not found" }, { status: 404 })
+        if (job.employerId !== payload.companyId) return NextResponse.json({ message: "Unauthorized access" }, { status: 420 })
+
         const updatedJob = await prisma.job.update({
             where: { id: params.id },
             data,
