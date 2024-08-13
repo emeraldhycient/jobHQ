@@ -29,6 +29,7 @@ export async function GET(req: NextRequest) {
 
         // Return jobs with pagination info
         return NextResponse.json({
+            message: "Jobs found",
             jobs,
             pagination: {
                 totalJobs,
@@ -39,7 +40,7 @@ export async function GET(req: NextRequest) {
         }, { status: 200 });
     } catch (error) {
         console.error('Failed to fetch jobs:', error);
-        return NextResponse.json({ error: 'Failed to fetch jobs' }, { status: 500 });
+        return NextResponse.json({ message: 'Failed to fetch jobs',error }, { status: 500 });
     }
 }
 
