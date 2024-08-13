@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
     const payload = await getUserFromRequest("User")
-    const user = await prisma.findUnique({
+    const user = await prisma.user.findUnique({
         where: { id: payload.userId },
         omit: {
             password: true
@@ -13,6 +13,6 @@ export async function GET(req: NextRequest) {
 
     if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 })
 
-    return NextResponse.json({ message: "User found", user }, { status: 404 })
+    return NextResponse.json({ message: "User found", user }, { status: 200 })
 
 }
