@@ -70,6 +70,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@faker-js/faker@npm:^8.4.1":
+  version: 8.4.1
+  resolution: "@faker-js/faker@npm:8.4.1"
+  checksum: d802d531f8929562715adc279cfec763c9a4bc596ec67b0ce43fd0ae61b285d2b0eec6f1f4aa852452a63721a842fe7e81926dce7bd92acca94b01e2a1f55f5a
+  languageName: node
+  linkType: hard
+
 "@floating-ui/core@npm:^1.6.0":
   version: 1.6.4
   resolution: "@floating-ui/core@npm:1.6.4"
@@ -1479,6 +1486,15 @@ __metadata:
     "@types/d3-transition": "*"
     "@types/d3-zoom": "*"
   checksum: 12234aa093c8661546168becdd8956e892b276f525d96f65a7b32fed886fc6a569fe5a1171bff26fef2a5663960635f460c9504a6f2d242ba281a2b6c8c6465c
+  languageName: node
+  linkType: hard
+
+"@types/faker@npm:^6.6.9":
+  version: 6.6.9
+  resolution: "@types/faker@npm:6.6.9"
+  dependencies:
+    faker: "*"
+  checksum: 8fb069b6f2bf2cefec42a214395f49695b881d70e651a215a61c2fa7494bb173d1a598c895882ff89df3702ab51c49c23433b3d4bcfd8323cf4f608ed9fb6ce8
   languageName: node
   linkType: hard
 
@@ -2999,6 +3015,13 @@ __metadata:
   version: 3.1.1
   resolution: "exponential-backoff@npm:3.1.1"
   checksum: 3d21519a4f8207c99f7457287291316306255a328770d320b401114ec8481986e4e467e854cb9914dd965e0a1ca810a23ccb559c642c88f4c7f55c55778a9b48
+  languageName: node
+  linkType: hard
+
+"faker@npm:*, faker@npm:^6.6.6":
+  version: 6.6.6
+  resolution: "faker@npm:6.6.6"
+  checksum: bfb0d581ab4d76095f2c6bff213fe1735ce077f0f8df849c144ad26035e105bce1b7a704cc030366338c52e25b636ac097a712426a78c9b8804af78f6f2bffe7
   languageName: node
   linkType: hard
 
@@ -4710,6 +4733,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "out@workspace:."
   dependencies:
+    "@faker-js/faker": ^8.4.1
     "@google/generative-ai": ^0.16.0
     "@headlessui/react": ^2.1.1
     "@prisma/client": ^5.18.0
@@ -4720,6 +4744,7 @@ __metadata:
     "@tanstack/react-store": ^0.5.5
     "@types/bcryptjs": ^2.4.6
     "@types/cookie": ^0.6.0
+    "@types/faker": ^6.6.9
     "@types/jsonwebtoken": ^9.0.6
     "@types/node": ^20
     "@types/react": ^18
@@ -4731,6 +4756,7 @@ __metadata:
     cookie: ^0.6.0
     eslint: ^8
     eslint-config-next: 14.2.4
+    faker: ^6.6.6
     formik: ^2.4.6
     framer-motion: ^11.3.2
     joi: ^17.13.3

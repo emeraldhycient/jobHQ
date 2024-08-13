@@ -189,6 +189,7 @@ export const sidebarItems: SidebarItem[] = [
     { path: '/dashboard/seeker/job-search', icon: MdSearch, label: 'Job Search' },
     { path: '/dashboard/seeker/bookmarks', icon: BookmarkIcon, label: 'Bookmarks' },
     { path: '/dashboard/seeker/learning-paths', icon: EducationIcon, label: 'Learning Paths' },
+    { path: '/dashboard/seeker/ai-interview-prep', icon: AIResumeIcon, label: 'AI Interview' },
     { path: '/dashboard/seeker/ai-resume', icon: AIResumeIcon, label: 'AI Resume' },
     { path: '/dashboard/seeker/auto-apply', icon: FaGun, label: 'Auto Apply' },
     { path: '/dashboard/seeker/settings', icon: MdSettings, label: 'Settings' },
