@@ -124,3 +124,35 @@ export interface FormResponse {
     responses: Record<string, any>;
     createdAt: Date;
 }
+
+
+
+// Decoded token response
+
+// Interface for the Employer token
+interface EmployerResponse {
+        userId: string;
+        email: string;
+        userType: 'Employer';
+        companyId: string;
+        companyName: string;
+        companyEmail: string;
+    }
+
+// Interface for the User token
+interface UserResponse {
+    userId: string;
+    email: string;
+    userType: 'User';
+}
+
+// Union type representing the possible response
+export interface AuthResponse  {
+    userId: string;
+    email: string;
+    userType: 'User' | 'Employer';
+    companyId?: string;
+    companyName?: string;
+    companyEmail?: string;
+}
+
