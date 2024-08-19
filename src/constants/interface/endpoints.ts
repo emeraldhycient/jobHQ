@@ -4,5 +4,6 @@ export enum Endpoints {
     Analytics = "analytics",
     Logout = "/auth/logout",
     AppliedJobs = "/jobs/applied",
-    jobs="/jobs/"
+    jobs = "/jobs/",
+    bookmarks="/bookmarks"
 }

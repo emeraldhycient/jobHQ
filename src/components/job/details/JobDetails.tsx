@@ -21,7 +21,9 @@ const JobDetails: FC<JobDetailsProps> = ({ job }) => {
                 company={job.postedBy.companyName}
                 location={job.location}
                 type={job.type}
-                postedDate={new Date(job.createdAt).toDateString()} // formatting date
+                postedDate={new Date(job.createdAt).toDateString()}
+                jobId={job.id} 
+                isBookmarked={job?.isBookmarked} 
             />
             <JobDescription description={job.description} />
             <Qualifications qualifications={job.requirements} />

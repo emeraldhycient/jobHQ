@@ -213,6 +213,7 @@ export interface IJobItem {
     createdAt: string; 
     updatedAt: string; 
     postedBy: IEmployer;
+    isBookmarked:boolean,
     questions?: Form;
 }
 
