@@ -6,6 +6,7 @@ import Head from "next/head";
 import { ReactQueryProvider } from "@/providers/reactQueryProvider";
 // import { GoogleAnalytics } from "@/components/GoogleAnalytics"; // Assume you have a GoogleAnalytics component
 import  { Toaster } from 'react-hot-toast';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -57,6 +58,7 @@ export default function RootLayout({
       </Head>
       <body className={spaceGrotesk.className}>
         {/* <GoogleAnalytics /> */}
+        <SpeedInsights/>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
