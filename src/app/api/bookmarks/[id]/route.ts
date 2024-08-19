@@ -6,21 +6,25 @@ export async function DELETE(req: NextRequest, { params }: any) {
     try {
         const payload = await getUserFromRequest("User");
 
-        const bookmark = await prisma.jobBookmark.findUnique({
-            where: { id: params.id },
-            include: { user: true },
+        const bookmark = await prisma.jobBookmark.findFirst({
+            where: {
+                jobId: params.id,
+                userId: payload.userId
+            },
         });
 
-        if (!bookmark || bookmark.userId !== payload.userId) {
+        if (!bookmark) {
             return NextResponse.json({ message: 'Bookmark not found or unauthorized' }, { status: 404 });
         }
 
+        // Delete the bookmark
         await prisma.jobBookmark.delete({
-            where: { id: params.id },
+            where: { id: bookmark.id },
         });
 
         return NextResponse.json({ message: 'Bookmark removed successfully' }, { status: 200 });
     } catch (error) {
+        console.error('Failed to remove bookmark:', error);
         return NextResponse.json({ message: 'Failed to remove bookmark', error }, { status: 500 });
     }
 }
