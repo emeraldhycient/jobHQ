@@ -7,7 +7,7 @@ import AppliedCard from "@/components/dashboard/seeker/fragments/appliedCard";
 import Pagination from "@/components/dashboard/seeker/fragments/pagination";
 import jobs from "@/services/jobs";
 import { ErrorBoundary } from 'react-error-boundary';
-import { IJobItem } from '@/constants/interface';
+import { AppliedJobItem } from '@/constants/interface';
 
 const AppliedJobsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,7 +44,7 @@ const AppliedJobsPage = () => {
           {isLoading ? (
             <SkeletonLoader count={5} />
           ) : (
-            data?.jobs?.map((job: IJobItem) => (
+            data?.jobs?.map((job: AppliedJobItem) => (
               <AppliedCard key={job.id} job={job} />
             ))
           )}

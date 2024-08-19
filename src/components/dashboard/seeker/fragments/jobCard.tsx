@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { IJobItem } from '@/constants/interface';
+import { AppliedJobItem } from '@/constants/interface';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { IoArrowForwardCircleOutline } from 'react-icons/io5';
 
 type Props = {
-    job: IJobItem;
+    job: AppliedJobItem;
 };
 
 const JobCard: React.FC<Props> = ({ job }) => {

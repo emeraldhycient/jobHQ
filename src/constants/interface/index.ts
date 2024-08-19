@@ -151,7 +151,7 @@ export interface AuthResponse  {
 
 
 
-export interface IJobItem {
+export interface AppliedJobItem {
     id: string;
     status: string;
     dateApplied: string;
