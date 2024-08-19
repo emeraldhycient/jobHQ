@@ -16,8 +16,8 @@ import { IoArrowForwardCircleOutline } from "react-icons/io5";
 import { AppliedJobItem } from '@/constants/interface';
 import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonLoader from '@/components/common/skeleton/JobSkeletonLoader';
+import { utils } from '@/lib/utils';
 
-// Define the Props interface to accept jobs and loading state
 interface Props {
     jobs: AppliedJobItem[];
     isLoading: boolean;
@@ -54,12 +54,12 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                     <div className="space-y-1">
                                         <h4 className='text-sm font-medium'>{job.job.title}</h4>
                                         <div className="flex items-center space-x-2">
-                                            <h6 className='font-normal text-xs'>{job.job.type}</h6>
+                                            <h6 className='font-normal text-xs'>{utils.formatText(job.job.type)}</h6>
                                             <div className="flex items-center space-x-2">
                                                 <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
                                                 <h6 className='font-normal text-xs'>{job.job.location}</h6>
                                                 <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
-                                                <h6 className="border-none text-xs font-normal">{job.status}</h6>
+                                                <h6 className="border-none text-xs font-normal">{utils.formatText(job.status)}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                         <div className="space-y-1">
                                             <h4 className='text-sm font-medium'>{job.job.title}</h4>
                                             <div className="flex items-center space-x-2">
-                                                <h6 className='font-normal text-xs'>{job.job.type}</h6>
+                                                <h6 className='font-normal text-xs'>{utils.formatText(job?.job?.type)}</h6>
                                                 <div className="flex items-center space-x-2">
                                                     <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
                                                     <h6 className='font-normal text-xs'>{job.job.location}</h6>
@@ -145,7 +145,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                 <TableCell className="border-none text-xs font-normal">
                                     {new Date(job.dateApplied).toLocaleDateString()}
                                 </TableCell>
-                                <TableCell className="border-none text-xs font-normal">{job.status}</TableCell>
+                                <TableCell className="border-none text-xs font-normal">{utils.formatText(job.status)}</TableCell>
                                 <TableCell className="border-none text-center">
                                     <Link href={`/dashboard/seeker/job/details/${job.job.id}`}>
                                         <Button variant={'lucentblue'} size={'sm'}>

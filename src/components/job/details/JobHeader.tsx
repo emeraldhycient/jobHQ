@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { RiAiGenerate } from "react-icons/ri";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { Separator } from "@/components/ui/separator"
+import { utils } from '@/lib/utils';
 
 interface JobHeaderProps {
     title: string;
@@ -25,7 +26,7 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate,ty
                 <div className="md:ml-4 flex flex-col text-center md:text-left">
                     <h2 className="text-base font-bold hidden md:block">{title} • {company} </h2>
                     <div className="flex flex-col md:flex-row gap-2">
-                        <p className="text-xs ">{type} • {location} •</p>
+                        <p className="text-xs ">{utils.formatText(type)} • {location} •</p>
                         <p className="text-xs">{postedDate}</p>
                     </div>
                 </div>

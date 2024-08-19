@@ -41,6 +41,17 @@ export class Utils {
     return text.replace(/\b\w/g, char => char.toUpperCase());
   }
 
+  formatText(text: string): string {
+  // Split the text by underscores and convert to lowercase
+  const words = text.toLowerCase().split('_');
+
+  // Capitalize the first letter of each word
+  const formattedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+
+  // Join the words back together with spaces
+  return formattedWords.join(' ');
+}
+
   // Truncate string to a specified length with ellipsis
   truncateString(text: string, maxLength: number): string {
     if (text.length <= maxLength) return text;

@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { utils } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -40,18 +41,18 @@ const AppliedCard: React.FC<Props> = ({ job }) => {
                         <h4 className='text-sm font-medium hidden md:block'>{companyName}</h4>
                     </div>
                     <div className="flex items-center space-x-2">
-                        <h6 className='font-normal text-xs'>{job.job.type}</h6>
+                        <h6 className='font-normal text-xs'>{utils.formatText(job.job.type)}</h6>
                         <div className="flex items-center space-x-2">
                             <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
                             <h6 className='font-normal text-xs hidden md:block'>{location}</h6>
                             <div className="h-1 w-1 bg-gray-3 rounded-full block md:hidden"></div>
-                            <h6 className="border-none text-xs font-normal block md:hidden">{job.status}</h6>
+                            <h6 className="border-none text-xs font-normal block md:hidden">{utils.formatText(job.status)}</h6>
                         </div>
                     </div>
                 </div>
             </div>
             <h6 className="border-none text-xs font-normal hidden md:block">{new Date(job.dateApplied).toLocaleDateString()}</h6>
-            <h6 className="border-none text-xs font-normal hidden md:block">{job.status}</h6>
+            <h6 className="border-none text-xs font-normal hidden md:block">{utils.formatText(job.status)}</h6>
             <div className="border-none text-center md:hidden">
                 <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
             </div>
