@@ -16,7 +16,7 @@ const AppliedJobsPage = () => {
 
   const fetchAppliedJobs = async ({ queryKey }: { queryKey: any }) => {
     const [, page] = queryKey;
-    const response = await jobs.getAppliedJobs({page});
+    const response = await jobs.getAppliedJobs({ page });
     setTotalPages(response.pagination.totalPages);
     return response;
   };
@@ -50,11 +50,14 @@ const AppliedJobsPage = () => {
             ))
           )}
         </Suspense>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
+        {
+          totalPages > currentPage ?
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            /> : ""
+        }
       </div>
     </div>
   );
