@@ -17,6 +17,7 @@ const JobDetails: FC<JobDetailsProps> = ({ job }) => {
         <div className="py-8 md:px-8 space-y-6 text-gray-1">
             <JobHeader
                 title={job.title}
+                logo={job.postedBy.logo}
                 company={job.postedBy.companyName}
                 location={job.location}
                 type={job.type}

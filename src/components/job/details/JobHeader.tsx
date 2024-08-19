@@ -11,14 +11,15 @@ interface JobHeaderProps {
     company: string;
     location: string;
     type: string;
+    logo: string;
     postedDate: string;
 }
 
-const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate,type }) => {
+const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate,type,logo }) => {
     return (
         <div className=" md:flex items-center justify-between p-4 bg-gray-7 rounded-3xl  border border-gray-9 space-y-4">
             <div className="flex flex-col md:flex-row items-center pt-3 md:pt-0">
-                <Image src="/images/Image.png" alt="Company Logo" width={50} height={50} className="rounded-lg" />
+                <Image src={logo ?? "/images/Image.png"} alt="Company Logo" width={50} height={50} className="rounded-lg" />
                 <h2 className="md:hidden text-base font-bold text-center pt-3">{title} • {company} </h2>
                 <Separator className='md:hidden mt-3 mb-4' />
                 <div className="md:ml-4 flex flex-col text-center md:text-left">
