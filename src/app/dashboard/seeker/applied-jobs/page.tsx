@@ -8,6 +8,7 @@ import Pagination from "@/components/dashboard/seeker/fragments/pagination";
 import jobs from "@/services/jobs";
 import { ErrorBoundary } from 'react-error-boundary';
 import { AppliedJobItem } from '@/constants/interface';
+import ErrorFallback from "@/components/common/ErrorFallback"
 
 const AppliedJobsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +27,7 @@ const AppliedJobsPage = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log({data})
+  // console.log({data})
 
   useEffect(() => {
     if (error) {
@@ -67,12 +68,3 @@ export default function AppliedJobsWrapper() {
   );
 }
 
-const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error, resetErrorBoundary: () => void }) => {
-  return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
-  );
-};
