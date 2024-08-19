@@ -56,8 +56,8 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                         <div className="flex items-center space-x-2">
                                             <h6 className='font-normal text-xs'>{utils.formatText(job.job.type)}</h6>
                                             <div className="flex items-center space-x-2">
-                                                <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
-                                                <h6 className='font-normal text-xs'>{job.job.location}</h6>
+                                                <div className="h-1 w-1 bg-gray-3 rounded-full hidden  md:block"></div>
+                                                <h6 className='font-normal text-xs hidden  md:block'>{job.job.location}</h6>
                                                 <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
                                                 <h6 className="border-none text-xs font-normal">{utils.formatText(job.status)}</h6>
                                             </div>

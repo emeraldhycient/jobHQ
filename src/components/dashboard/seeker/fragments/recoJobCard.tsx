@@ -45,7 +45,7 @@ const RecommendedJobCard: FC<RecommendedJobCardProps> = ({ job }) => {
             </div>
             <div className="border-none text-center">
                 <Link href={`/dashboard/seeker/job/details/${job?.id}`} className='hidden lg:block'>
-                    <Button variant={'lucentblue'} size={'sm'}>Apply Now</Button>
+                    <Button variant={'lucentblue'} size={'sm'}>View Now</Button>
                 </Link>
                 <Link href={`/dashboard/seeker/job/details/${job?.id}`} className='block lg:hidden'>
                     <Button variant={'lucentblue'} size={'sm'}><IoArrowForwardCircleOutline /></Button>
