@@ -24,6 +24,10 @@ const config = {
           2: "#1E88E51A",
           3:"#1E88E5"
         },
+        warm: {
+          light: "#E593331A",
+          primary:"#E59333"
+        },
         gray: {
           1: "#E0E0E0",
           2: "#1E1E1E",
@@ -32,11 +36,12 @@ const config = {
           5: "#121212",
           6: "#303030",
           7: "#151515",
-          8:"#2F2F2F"
+          8: "#2F2F2F",
+          9:"#E0E0E01A"
         },
         green: {
           light: "#9FFF871A",
-          primary:"#9FFF87"
+          primary:"#9FFF87",
         }
       },
       keyframes: {

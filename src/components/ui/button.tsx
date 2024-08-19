@@ -19,6 +19,8 @@ const buttonVariants = cva(
         ghost: "hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50",
         link: "text-gray-900 underline-offset-4 hover:underline dark:text-gray-50",
         lucentblue: "bg-blue-2 text-blue-3 hover:bg-blue-600 hover:text-gray-3",
+        lucentgreen: "bg-green-light text-green-primary hover:bg-warm-600 hover:text-gray-3 border border-green-primary",
+        lucentwarm: "bg-warm-light text-warm-primary hover:bg-warm-600 hover:text-gray-3 border border-warm-primary",
       },
       size: {
         default: "h-10 px-4 py-2 rounded-lg",

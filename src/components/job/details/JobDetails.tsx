@@ -10,7 +10,7 @@ import { FC } from 'react';
 
 const JobDetails: FC = () => {
     return (
-        <div className="p-8 space-y-6 text-gray-1">
+        <div className="py-8 px-2 md:px-8 space-y-6 text-gray-1">
             <JobHeader
                 title="Product Designer"
                 company="MetaLab"

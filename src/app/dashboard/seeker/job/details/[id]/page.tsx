@@ -3,13 +3,23 @@ import GoBack from '@/components/common/goBack';
 import JobDetails from '@/components/job/details/JobDetails';
 import { FC } from 'react';
 import { useParams } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query';
+import jobs from '@/services/jobs';
 
 
 
 const Page: FC = () => {
-  const params = useParams<{ id: string }>()
+  const {id} = useParams<{ id: string }>()
   
-  console.log({params})
+  console.log({ id })
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['recentlyAppliedJobs', id],
+    queryFn: async ({ queryKey })=> jobs.getJob(queryKey[1]),
+    refetchOnWindowFocus: false,
+  });
+
+  console.log({data})
 
   return (
     <section>
