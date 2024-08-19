@@ -27,14 +27,14 @@ const RecommendedJobCard: FC<RecommendedJobCardProps> = ({ job }) => {
                 <div className="space-y-1">
                     <div className="flex space-x-2 items-center">
                         <h4 className='text-sm font-medium'>{job?.title}</h4>
-                        <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
-                        <h4 className='text-sm font-medium'>{job.postedBy.companyName}</h4>
+                        <div className="h-1 w-1 bg-gray-3 rounded-full hidden  md:block"></div>
+                        <h4 className='text-sm font-medium hidden  md:block'>{job.postedBy.companyName}</h4>
                     </div>
                     <div className="flex items-center space-x-2">
                         <h6 className='font-normal text-xs'>{utils.formatText(job?.type)}</h6>
                         <div className="flex items-center space-x-2">
                             <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
-                            <h6 className='font-normal text-xs'>{job?.location}</h6>
+                            <h6 className='font-normal text-xs hidden  md:block'>{job?.location}</h6>
                             <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
                             <h6 className="border-none text-xs font-normal">
                                 Posted {new Date(job?.createdAt).toLocaleDateString()}
