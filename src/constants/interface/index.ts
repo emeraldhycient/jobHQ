@@ -196,3 +196,41 @@ export interface GetAppliedJobsParams {
     page?: number;
     limit?: number;
 }
+
+
+export interface IJobItem {
+    id: string;
+    title: string;
+    description: string;
+    location: string;
+    type: string;
+    requirements: string[];
+    responsibilities: string[];
+    salaryRange: string | null;
+    benefits: string[];
+    status: string; 
+    employerId: string;
+    createdAt: string; 
+    updatedAt: string; 
+    postedBy: IEmployer;
+    questions?: Form;
+}
+
+export interface IEmployer {
+    id: string;
+    companyName: string;
+    companyEmail: string;
+    industry: string;
+    teamSize: string | null;
+    organizationType: string | null;
+    description: string;
+    logo: string;
+    yearOfEstablishment: string | null;
+    socialMedias: any | null; // Adjust the type if you have a specific structure for social media.
+    contactInfo: any | null; // Adjust the type if you have a specific structure for contact info.
+    country: string;
+    setupComplete: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
