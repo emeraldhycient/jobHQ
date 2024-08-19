@@ -30,17 +30,24 @@ const JobSearchPage = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['jobs', currentPage, filters],
         queryFn: () => jobs.getJobs({ page: currentPage, limit, ...filters }),
-        // placeholderData: (prev) => prev, // Optional, depending on how you want to handle loading
         refetchOnWindowFocus: false,
     });
 
-    console.log({ data });
+    const filtersApplied = Object.keys(filters).length > 0;
 
     return (
         <section className="flex flex-col space-y-4 bg-gray-5 rounded">
             <section className='w-full mt-8'>
                 <JobSearchComponent onFilterChange={handleFilterChange} />
-                <h5 className='text-gray-1 text-sm font-normal mt-5 md:mt-0'>Recommended Jobs</h5>
+                {!filtersApplied ? (
+                    <h5 className='text-gray-1 text-sm font-normal mt-5 md:mt-0'>
+                        Recommended Jobs
+                    </h5>
+                )
+                    : <h5 className='text-gray-1 text-sm font-normal mt-5 md:mt-0'>
+                        Jobs found {data?.pagination?.totalJobs}
+                    </h5>
+                }
                 <section className='w-full mb-4'>
                     {isLoading ? (
                         <SkeletonLoader count={5} />
