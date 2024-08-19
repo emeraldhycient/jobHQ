@@ -29,7 +29,7 @@ const DashboardPage = () => {
     return (
         <section className="flex flex-col space-y-4 bg-gray-5 rounded">
             <section className='w-full mt-8'>
-                <JobSearchComponent />
+                {/* <JobSearchComponent /> */}
                 <div className='flex justify-between items-center mt-5 md:mt-0'>
                     <h5 className='text-gray-1 text-sm font-normal'>Jobs</h5>
                     <button
@@ -43,9 +43,9 @@ const DashboardPage = () => {
                     </button>
                 </div>
                 <section className='w-full mb-4'>
-                    {recentlyAppliedJobs.map((job, index) => (
+                    {/* {recentlyAppliedJobs.map((job, index) => (
                         <RecommendedJobCard key={index}  />
-                    ))}
+                    ))} */}
                 </section>
                 <Pagination
                     currentPage={currentPage}
