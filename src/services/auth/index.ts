@@ -1,5 +1,6 @@
 import axiosClient from "@/providers/axiosClient";
-import { CreateAccountPayload, Endpoints, LoginPayload } from "@/constants/interface";
+import { CreateAccountPayload, LoginPayload } from "@/constants/interface";
+import { Endpoints } from "@/constants/interface/endpoints";
 
 
 

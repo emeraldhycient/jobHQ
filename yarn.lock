@@ -1489,15 +1489,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/faker@npm:^6.6.9":
-  version: 6.6.9
-  resolution: "@types/faker@npm:6.6.9"
-  dependencies:
-    faker: "*"
-  checksum: 8fb069b6f2bf2cefec42a214395f49695b881d70e651a215a61c2fa7494bb173d1a598c895882ff89df3702ab51c49c23433b3d4bcfd8323cf4f608ed9fb6ce8
-  languageName: node
-  linkType: hard
-
 "@types/geojson@npm:*":
   version: 7946.0.14
   resolution: "@types/geojson@npm:7946.0.14"
@@ -3015,13 +3006,6 @@ __metadata:
   version: 3.1.1
   resolution: "exponential-backoff@npm:3.1.1"
   checksum: 3d21519a4f8207c99f7457287291316306255a328770d320b401114ec8481986e4e467e854cb9914dd965e0a1ca810a23ccb559c642c88f4c7f55c55778a9b48
-  languageName: node
-  linkType: hard
-
-"faker@npm:*, faker@npm:^6.6.6":
-  version: 6.6.6
-  resolution: "faker@npm:6.6.6"
-  checksum: bfb0d581ab4d76095f2c6bff213fe1735ce077f0f8df849c144ad26035e105bce1b7a704cc030366338c52e25b636ac097a712426a78c9b8804af78f6f2bffe7
   languageName: node
   linkType: hard
 
@@ -4744,7 +4728,6 @@ __metadata:
     "@tanstack/react-store": ^0.5.5
     "@types/bcryptjs": ^2.4.6
     "@types/cookie": ^0.6.0
-    "@types/faker": ^6.6.9
     "@types/jsonwebtoken": ^9.0.6
     "@types/node": ^20
     "@types/react": ^18
@@ -4756,7 +4739,6 @@ __metadata:
     cookie: ^0.6.0
     eslint: ^8
     eslint-config-next: 14.2.4
-    faker: ^6.6.6
     formik: ^2.4.6
     framer-motion: ^11.3.2
     joi: ^17.13.3
@@ -4773,6 +4755,7 @@ __metadata:
     react-dropzone: ^14.2.3
     react-hot-toast: ^2.4.1
     react-icons: ^5.2.1
+    react-loading-skeleton: ^3.4.0
     react-modal-sheet: ^3.1.0
     react-spring-bottom-sheet: ^3.4.1
     reactflow: ^11.11.4
@@ -5130,6 +5113,15 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+  languageName: node
+  linkType: hard
+
+"react-loading-skeleton@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "react-loading-skeleton@npm:3.4.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 4ac360e9fffbd9f2a733b2f05b44cd818dff15f55ae130f19e32db7f70a23795ac9d51ba9234b872a25a902514eabffeaf0baf4f251191be1e3a680cd1851231
   languageName: node
   linkType: hard
 

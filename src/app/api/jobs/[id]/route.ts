@@ -11,6 +11,7 @@ export async function GET(req: Request, { params }: any) {
         const job = await prisma.job.findUnique({
             where: { id: params.id },
             include: {
+                postedBy:true,
                 questions: {
                     include: {
                         fields: true,

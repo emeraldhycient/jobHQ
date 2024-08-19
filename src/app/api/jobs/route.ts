@@ -74,6 +74,9 @@ export async function GET(req: NextRequest) {
         const [jobs, totalJobs] = await Promise.all([
             prisma.job.findMany({
                 where: filters,
+                include: {
+                    postedBy:true
+                },
                 skip: offset,
                 take: limit,
             }),

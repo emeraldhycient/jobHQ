@@ -86,13 +86,6 @@ export interface CreateAccountPayload {
     country: string;
 }
 
-export enum Endpoints {
-    Login = "auth/login",
-    Signup = "auth/create-account",
-    Analytics ="analytics",
-    Logout = "/auth/logout"
-}
-
 export interface CreateAccountPagePayload {
     email?: string;
     password: string;
