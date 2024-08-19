@@ -149,3 +149,46 @@ export interface AuthResponse  {
     companyEmail?: string;
 }
 
+
+
+export interface IJobItem {
+    id: string;
+    status: string;
+    dateApplied: string;
+    userId: string;
+    jobId: string;
+    resumeId: string;
+    job: {
+        id: string;
+        title: string;
+        description: string;
+        location: string;
+        type: string;
+        requirements: string[];
+        responsibilities: string[];
+        salaryRange?: string | null;
+        benefits: string[];
+        status: string;
+        employerId: string;
+        createdAt: string;
+        updatedAt: string;
+        postedBy: {
+            id: string;
+            companyName: string;
+            companyEmail: string;
+            industry: string;
+            teamSize?: string | null;
+            organizationType?: string | null;
+            description: string;
+            logo: string;
+            yearOfEstablishment?: string | null;
+            socialMedias?: any;
+            contactInfo?: any;
+            country: string;
+            setupComplete: boolean;
+            createdAt: string;
+            updatedAt: string;
+        };
+    };
+}
+

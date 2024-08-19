@@ -10,6 +10,7 @@ import { useStore } from '@tanstack/react-store';
 import { userStore, setUser, clearUser } from '@/stores/userStore';
 import { useQuery } from '@tanstack/react-query'
 import auth from "@/services/auth";
+import jobs from "@/services/jobs";
 
 
 const DashboardPage = () => {
@@ -17,19 +18,34 @@ const DashboardPage = () => {
   // const user = useStore(userStore, (state) => state.user);
   // const isAuthenticated = useStore(userStore, (state) => state.isAuthenticated);
 
-  const appliedJobs = 100;
   const favoriteJobs = 100;
   const jobAlerts = 100;
 
-  const info = useQuery({ queryKey: ['todos'], queryFn: auth.analytics })
+  const recentlyAppliedJobs = useQuery({
+    queryKey: ['recentlyAppliedJobs'],
+    queryFn:()=> jobs.getAppliedJobs({page:1,limit:5}),
+    refetchOnWindowFocus: false,
+  });
 
+  const learningCourses = [
+    { id: 1, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
+    { id: 2, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
+    { id: 3, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
+  ];
+
+  const recommendedJobs = [
+    { id: 1, title: 'Product Designer', company: 'Metalab', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
+    { id: 2, title: 'Product Designer', company: 'SAP', location: 'Lagos, Nigeria', type: 'Hybrid', postedDate: 'Posted 1 Month Ago' },
+    { id: 3, title: 'Product Designer', company: 'Total Energies', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
+    { id: 4, title: 'Product Designer', company: 'Twitter', location: 'Lagos, Nigeria', type: 'Part Time', postedDate: 'Posted 1 Month Ago' },
+  ];
 
 
   const analyticsData = [
     {
       id: 1,
       title: "Applied Jobs",
-      value: appliedJobs,
+      value: recentlyAppliedJobs?.data?.pagination?.totalJobs,
       icon: <BoxIcon height={20} width={20} />
     },
     {
@@ -48,27 +64,6 @@ const DashboardPage = () => {
     },
   ]
 
-  const recentlyAppliedJobs = [
-    { id: 1, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-    { id: 2, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-    { id: 3, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-    { id: 4, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-    { id: 5, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-  ];
-
-  const learningCourses = [
-    { id: 1, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-    { id: 2, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-    { id: 3, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-  ];
-
-  const recommendedJobs = [
-    { id: 1, title: 'Product Designer', company: 'Metalab', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
-    { id: 2, title: 'Product Designer', company: 'SAP', location: 'Lagos, Nigeria', type: 'Hybrid', postedDate: 'Posted 1 Month Ago' },
-    { id: 3, title: 'Product Designer', company: 'Total Energies', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
-    { id: 4, title: 'Product Designer', company: 'Twitter', location: 'Lagos, Nigeria', type: 'Part Time', postedDate: 'Posted 1 Month Ago' },
-  ];
-
   return (
     <div className="flex flex-col space-y-4 bg-gray-5 rounded">
       <Analytics
@@ -76,7 +71,7 @@ const DashboardPage = () => {
       />
       <div className="grid grid-cols-1 lg:grid-cols-12 space-y-4 md:space-y-0 md:space-x-4">
         <div className="col-span-8 sm:order-last md:order-first">
-          <RecentlyApplied jobs={recentlyAppliedJobs} />
+          <RecentlyApplied jobs={recentlyAppliedJobs?.data?.jobs} isLoading={recentlyAppliedJobs?.isLoading} />
           <RecommendedJobs jobs={recommendedJobs} />
 
         </div>
