@@ -23,18 +23,26 @@ const DashboardPage = () => {
     refetchOnWindowFocus: false,
   });
 
+  const recommendedJobs = useQuery({
+    queryKey: ['jobs'],
+    queryFn: () => jobs.getJobs({}),
+    // keepPreviousData: true,
+    refetchOnWindowFocus: false,
+  });
+
+
   const learningCourses = [
     { id: 1, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
     { id: 2, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
     { id: 3, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
   ];
 
-  const recommendedJobs = [
-    { id: 1, title: 'Product Designer', company: 'Metalab', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
-    { id: 2, title: 'Product Designer', company: 'SAP', location: 'Lagos, Nigeria', type: 'Hybrid', postedDate: 'Posted 1 Month Ago' },
-    { id: 3, title: 'Product Designer', company: 'Total Energies', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
-    { id: 4, title: 'Product Designer', company: 'Twitter', location: 'Lagos, Nigeria', type: 'Part Time', postedDate: 'Posted 1 Month Ago' },
-  ];
+  // const recommendedJobs = [
+  //   { id: 1, title: 'Product Designer', company: 'Metalab', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
+  //   { id: 2, title: 'Product Designer', company: 'SAP', location: 'Lagos, Nigeria', type: 'Hybrid', postedDate: 'Posted 1 Month Ago' },
+  //   { id: 3, title: 'Product Designer', company: 'Total Energies', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
+  //   { id: 4, title: 'Product Designer', company: 'Twitter', location: 'Lagos, Nigeria', type: 'Part Time', postedDate: 'Posted 1 Month Ago' },
+  // ];
 
   const analyticsData = [
     {
@@ -57,6 +65,8 @@ const DashboardPage = () => {
     },
   ];
 
+  // console.log({ reco: recommendedJobs.data?.jobs })
+
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <div className="flex flex-col space-y-4 bg-gray-5 rounded">
@@ -66,7 +76,9 @@ const DashboardPage = () => {
             <Suspense fallback={<SkeletonLoader count={5} />}>
               <RecentlyApplied jobs={recentlyAppliedJobs?.data?.jobs} isLoading={recentlyAppliedJobs?.isLoading} />
             </Suspense>
-            <RecommendedJobs jobs={recommendedJobs} />
+            <Suspense fallback={<SkeletonLoader count={5} />}>
+              <RecommendedJobs jobs={recommendedJobs.data?.jobs} />
+            </Suspense>
           </div>
           <div className="col-span-4 sm:order-1 md:order-last">
             <LearningProgress courses={learningCourses} />

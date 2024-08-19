@@ -71,39 +71,35 @@ const Filter: FC<FilterProps> = ({ onFilterChange }) => {
     );
 };
 
-const JobSearchComponent: FC = () => {
+const JobSearchComponent: FC<{ onFilterChange: (filterType: string, value: string) => void }> = ({ onFilterChange }) => {
     const [isBottomSheetOpen, setBottomSheetOpen] = useState(false);
 
     const handleSearch = (query: string) => {
-        console.log('Search query:', query);
+        onFilterChange('query', query);
     };
 
     const handleFilter = () => {
         setBottomSheetOpen(true);
     };
 
-    const handleFilterChange = (filterType: string, value: string) => {
-        console.log(`Filter type: ${filterType}, Value: ${value}`);
-    };
-
     return (
         <div className="space-y-2">
             <SearchBar onSearch={handleSearch} onFilter={handleFilter} />
             <div className="hidden md:block py-4">
-                <Filter onFilterChange={handleFilterChange} />
+                <Filter onFilterChange={onFilterChange} />
             </div>
             <Sheet snapPoints={[0.5]} isOpen={isBottomSheetOpen} onClose={() => setBottomSheetOpen(false)}>
                 <Sheet.Container>
                     <Sheet.Header />
                     <Sheet.Content className='bg-gray-7 pt-5 px-2'>
-                        <Filter onFilterChange={handleFilterChange} />
+                        <Filter onFilterChange={onFilterChange} />
                     </Sheet.Content>
                 </Sheet.Container>
                 <Sheet.Backdrop />
             </Sheet>
-
         </div>
     );
 };
+
 
 export default JobSearchComponent;

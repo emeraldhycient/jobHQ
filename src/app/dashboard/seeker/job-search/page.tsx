@@ -1,40 +1,56 @@
 'use client'
+
 import Pagination from "@/components/dashboard/seeker/fragments/pagination";
 import RecommendedJobCard from "@/components/dashboard/seeker/fragments/recoJobCard";
 import JobSearchComponent from "@/components/dashboard/seeker/fragments/jobSearchFilter";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import jobs from "@/services/jobs";
+import SkeletonLoader from "@/components/common/skeleton/JobSkeletonLoader";
+import { GetJobsParams, IJobItem } from '@/constants/interface';
 
-const DashboardPage = () => {
-
-
-    const recentlyAppliedJobs = [
-        { id: 1, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-        { id: 2, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-        { id: 3, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-        { id: 4, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-        { id: 5, title: 'Product Designer', location: 'Remote - Lagos, Nigeria', dateApplied: 'July 2nd, 2024', status: 'Applied' },
-    ];
-
+const JobSearchPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 130;
+    const [filters, setFilters] = useState<GetJobsParams>({}); // Add filters state
+    const limit = 10;
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
+    const handleFilterChange = (filterType: string, value: string) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            [filterType]: value,
+        }));
+    };
+
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['jobs', currentPage, filters],
+        queryFn: () => jobs.getJobs({ page: currentPage, limit, ...filters }),
+        // keepPreviousData: true,
+        refetchOnWindowFocus: false,
+    });
+
+    console.log({data})
+
     return (
         <section className="flex flex-col space-y-4 bg-gray-5 rounded">
             <section className='w-full mt-8'>
-                <JobSearchComponent/>
+                <JobSearchComponent onFilterChange={handleFilterChange} />
                 <h5 className='text-gray-1 text-sm font-normal mt-5 md:mt-0'>Recommended Jobs</h5>
                 <section className='w-full mb-4'>
-                    {recentlyAppliedJobs.map((job, index) => (
-                        <RecommendedJobCard key={index} />
-                    ))}
+                    {isLoading ? (
+                        <SkeletonLoader count={5} />
+                    ) : (
+                        data?.jobs?.map((job: IJobItem, index: number) => (
+                            <RecommendedJobCard key={job.id} job={job} />
+                        ))
+                    )}
                 </section>
                 <Pagination
                     currentPage={currentPage}
-                    totalPages={totalPages}
+                    totalPages={data?.pagination?.totalPages || 1}
                     onPageChange={handlePageChange}
                 />
             </section>
@@ -42,4 +58,4 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage;
+export default JobSearchPage;

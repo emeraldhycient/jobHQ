@@ -234,3 +234,20 @@ export interface IEmployer {
     updatedAt: string;
 }
 
+
+
+export interface GetJobsParams {
+    page?: number;
+    limit?: number;
+    title?: string;
+    location?: string;
+    type?: string;
+    requirements?: string[];
+    responsibilities?: string[];
+    salaryRange?: string;
+    benefits?: string[];
+    status?: string;
+    employerId?: string;
+}
+
+

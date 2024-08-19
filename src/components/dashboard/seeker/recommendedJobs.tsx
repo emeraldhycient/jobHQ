@@ -1,70 +1,17 @@
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+
 import Link from 'next/link';
 import { FC } from 'react';
-import { IoArrowForwardCircleOutline } from 'react-icons/io5';
 import RecommendedJobCard from './fragments/recoJobCard';
-
-interface Job {
-    id: number;
-    title: string;
-    company: string;
-    location: string;
-    type: string;
-    postedDate: string;
-}
+import { IJobItem } from '@/constants/interface';
 
 interface RecommendedJobsProps {
-    jobs: Job[];
+    jobs?: IJobItem[];  // Marking jobs as optional
 }
 
+const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs = [] }) => {  // Providing a default value as an empty array
 
-const appliedJobs = [
-    {
-        id: "INV001",
-        date: "July 2nd, 2024",
-        status: "Applied",
-        location: "Credit Card",
-    },
-    {
-        id: "INV002",
-        date: "Pending",
-        status: "Applied",
-        location: "PayPal",
-    },
-    {
-        id: "INV003",
-        date: "July 2nd, 2024",
-        status: "Applied",
-        location: "Bank Transfer",
-    },
-    {
-        id: "INV004",
-        date: "July 2nd, 2024",
-        status: "Applied",
-        location: "Credit Card",
-    },
-    {
-        id: "INV005",
-        date: "July 2nd, 2024",
-        status: "Applied",
-        location: "PayPal",
-    },
-    {
-        id: "INV006",
-        date: "July 2nd, 2024",
-        status: "Applied",
-        location: "Bank Transfer",
-    },
-    {
-        id: "INV007",
-        date: "UnJuly 2nd, 2024",
-        status: "Applied",
-        location: "Credit Card",
-    },
-]
+    console.log({ RecommendedJobs: jobs });
 
-const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs }) => {
     return (
         <section className='w-full mt-8'>
             <section className='text-gray-1 flex items-center justify-between mb-5'>
@@ -74,9 +21,13 @@ const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs }) => {
                 </Link>
             </section>
             <section className='w-full'>
-                {appliedJobs.map((job, index) => (
-                    <RecommendedJobCard key={index} />
-                ))}
+                {jobs.length > 0 ? (
+                    jobs.map((job, index) => (
+                        <RecommendedJobCard job={job} key={index} />
+                    ))
+                ) : (
+                    <p>No recommended jobs available at the moment.</p>
+                )}
             </section>
         </section>
     );
