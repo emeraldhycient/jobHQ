@@ -30,7 +30,7 @@ const Page: FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <section>
         <GoBack />
-        {data ? <JobDetails job={data?.job ?? []} /> : <div>No job details found.</div>}
+        {data.job ? <JobDetails job={data?.job ?? []} /> : <div>No job details found.</div>}
       </section>
     </ErrorBoundary>
   );
