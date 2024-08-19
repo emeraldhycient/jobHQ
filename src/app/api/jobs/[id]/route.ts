@@ -39,7 +39,6 @@ export async function GET(req: Request, { params }: any) {
             });
         }
 
-        // If the employer is the owner, return the job including the responses
         return NextResponse.json(job, { status: 200 });
     } catch (error) {
         console.error('Failed to fetch job:', error);

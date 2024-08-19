@@ -3,5 +3,6 @@ export enum Endpoints {
     Signup = "auth/create-account",
     Analytics = "analytics",
     Logout = "/auth/logout",
-    AppliedJobs = "/jobs/applied"
+    AppliedJobs = "/jobs/applied",
+    jobs="/jobs/"
 }

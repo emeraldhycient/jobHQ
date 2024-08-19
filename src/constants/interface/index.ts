@@ -192,3 +192,7 @@ export interface AppliedJobItem {
     };
 }
 
+export interface GetAppliedJobsParams {
+    page?: number;
+    limit?: number;
+}
