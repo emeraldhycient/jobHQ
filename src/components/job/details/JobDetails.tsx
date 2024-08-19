@@ -19,6 +19,7 @@ const JobDetails: FC<JobDetailsProps> = ({ job }) => {
                 title={job.title}
                 company={job.postedBy.companyName}
                 location={job.location}
+                type={job.type}
                 postedDate={new Date(job.createdAt).toDateString()} // formatting date
             />
             <JobDescription description={job.description} />
