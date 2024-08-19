@@ -6,6 +6,8 @@ import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import jobs from '@/services/jobs';
 import SkeletonLoader from '@/components/common/skeleton/JobDetailsSkeletonLoader'; // Assuming you have a skeleton loader
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '@/components/common/ErrorFallback';
 
 const Page: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,10 +27,12 @@ const Page: FC = () => {
   }
 
   return (
-    <section>
-      <GoBack />
-      {data ? <JobDetails job={data.job} /> : <div>No job details found.</div>}
-    </section>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <section>
+        <GoBack />
+        {data ? <JobDetails job={data.job} /> : <div>No job details found.</div>}
+      </section>
+    </ErrorBoundary>
   );
 };
 
