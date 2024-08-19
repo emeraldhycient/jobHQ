@@ -68,9 +68,7 @@ const DashboardPage = () => {
             <Suspense fallback={<SkeletonLoader count={5} />}>
               <RecentlyApplied jobs={recentlyAppliedJobs?.data?.jobs} isLoading={recentlyAppliedJobs?.isLoading} />
             </Suspense>
-            <Suspense fallback={<SkeletonLoader count={5} />}>
-              <RecommendedJobs jobs={recommendedJobs.data?.jobs} />
-            </Suspense>
+              <RecommendedJobs isLoading={recommendedJobs.isLoading} jobs={recommendedJobs.data?.jobs} />
           </div>
           <div className="col-span-4 sm:order-1 md:order-last">
             <LearningProgress courses={learningCourses} />

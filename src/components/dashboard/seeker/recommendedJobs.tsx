@@ -3,12 +3,14 @@ import Link from 'next/link';
 import { FC } from 'react';
 import RecommendedJobCard from './fragments/recoJobCard';
 import { IJobItem } from '@/constants/interface';
+import SkeletonLoader from '@/components/common/skeleton/JobSkeletonLoader';
 
 interface RecommendedJobsProps {
-    jobs?: IJobItem[];  // Marking jobs as optional
+    jobs?: IJobItem[];
+    isLoading: boolean
 }
 
-const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs = [] }) => {  // Providing a default value as an empty array
+const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs = [], isLoading }) => {
 
     console.log({ RecommendedJobs: jobs });
 
@@ -20,15 +22,20 @@ const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs = [] }) => {  // Provi
                     <h6 className='text-xs font-normal'>View all</h6>
                 </Link>
             </section>
-            <section className='w-full'>
-                {jobs.length > 0 ? (
-                    jobs.map((job, index) => (
-                        <RecommendedJobCard job={job} key={index} />
-                    ))
-                ) : (
-                    <p>No recommended jobs available at the moment.</p>
-                )}
-            </section>
+            {
+                isLoading ?
+                    <SkeletonLoader count={5} />
+                    :
+                    <section className='w-full'>
+                        {jobs.length > 0 ? (
+                            jobs.map((job, index) => (
+                                <RecommendedJobCard job={job} key={index} />
+                            ))
+                        ) : (
+                            <p>No recommended jobs available at the moment.</p>
+                        )}
+                    </section>
+            }
         </section>
     );
 };
