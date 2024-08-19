@@ -37,13 +37,6 @@ const DashboardPage = () => {
     { id: 3, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
   ];
 
-  // const recommendedJobs = [
-  //   { id: 1, title: 'Product Designer', company: 'Metalab', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
-  //   { id: 2, title: 'Product Designer', company: 'SAP', location: 'Lagos, Nigeria', type: 'Hybrid', postedDate: 'Posted 1 Month Ago' },
-  //   { id: 3, title: 'Product Designer', company: 'Total Energies', location: 'Lagos, Nigeria', type: 'Full Time', postedDate: 'Posted 1 Month Ago' },
-  //   { id: 4, title: 'Product Designer', company: 'Twitter', location: 'Lagos, Nigeria', type: 'Part Time', postedDate: 'Posted 1 Month Ago' },
-  // ];
-
   const analyticsData = [
     {
       id: 1,
@@ -65,7 +58,6 @@ const DashboardPage = () => {
     },
   ];
 
-  // console.log({ reco: recommendedJobs.data?.jobs })
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>

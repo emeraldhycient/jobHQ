@@ -8,31 +8,33 @@ import { useQuery } from "@tanstack/react-query";
 import jobs from "@/services/jobs";
 import SkeletonLoader from "@/components/common/skeleton/JobSkeletonLoader";
 import { GetJobsParams, IJobItem } from '@/constants/interface';
+import { debounce } from 'lodash';
 
 const JobSearchPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [filters, setFilters] = useState<GetJobsParams>({}); // Add filters state
+    const [filters, setFilters] = useState<GetJobsParams>({});
     const limit = 10;
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
-    const handleFilterChange = (filterType: string, value: string) => {
+    // Debounced filter change handler
+    const handleFilterChange = debounce((filterType: string, value: string) => {
         setFilters((prevFilters) => ({
             ...prevFilters,
             [filterType]: value,
         }));
-    };
+    }, 300);
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['jobs', currentPage, filters],
         queryFn: () => jobs.getJobs({ page: currentPage, limit, ...filters }),
-        // keepPreviousData: true,
+        // placeholderData: (prev) => prev, // Optional, depending on how you want to handle loading
         refetchOnWindowFocus: false,
     });
 
-    console.log({data})
+    console.log({ data });
 
     return (
         <section className="flex flex-col space-y-4 bg-gray-5 rounded">
@@ -43,7 +45,7 @@ const JobSearchPage = () => {
                     {isLoading ? (
                         <SkeletonLoader count={5} />
                     ) : (
-                        data?.jobs?.map((job: IJobItem, index: number) => (
+                        data?.jobs?.map((job: IJobItem) => (
                             <RecommendedJobCard key={job.id} job={job} />
                         ))
                     )}

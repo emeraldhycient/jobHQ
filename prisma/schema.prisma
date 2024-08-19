@@ -1,13 +1,12 @@
 generator client {
-  provider = "prisma-client-js"
-    previewFeatures = ["omitApi"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
-  
 }
 
 model User {
@@ -81,6 +80,7 @@ model Job {
   responsibilities String[]
   salaryRange      String?
   benefits         String[]
+  experience       ExperienceLevel  @default(INTERN)
   status           JobStatus        @default(DRAFT)
   postedBy         Employer         @relation(fields: [employerId], references: [id])
   employerId       String
@@ -93,7 +93,7 @@ model Job {
 model Form {
   id        String         @id @default(uuid())
   job       Job            @relation(fields: [jobId], references: [id])
-  jobId     String @unique
+  jobId     String         @unique
   title     String
   fields    Field[]
   responses FormResponse[]
@@ -111,13 +111,13 @@ model Field {
 }
 
 model FormResponse {
-  id        String   @id @default(uuid())
-  formId    String
-  form      Form     @relation(fields: [formId], references: [id])
-  responses Json
-  createdAt DateTime @default(now())
-  JobApplication  JobApplication @relation(fields: [JobApplicationId], references: [id])
-  JobApplicationId String @unique
+  id               String         @id @default(uuid())
+  formId           String
+  form             Form           @relation(fields: [formId], references: [id])
+  responses        Json
+  createdAt        DateTime       @default(now())
+  JobApplication   JobApplication @relation(fields: [JobApplicationId], references: [id])
+  JobApplicationId String         @unique
 }
 
 enum FieldType {
@@ -136,7 +136,7 @@ model JobApplication {
   job         Job               @relation(fields: [jobId], references: [id])
   jobId       String
   resumeId    String
-  responses FormResponse?
+  responses   FormResponse?
 }
 
 model Resume {
@@ -307,6 +307,7 @@ enum JobType {
   TEMPORARY
   INTERN
   VOLUNTEER
+  REMOTE
   FREELANCE
 }
 
@@ -355,4 +356,13 @@ enum SupportLevel {
   BASIC
   STANDARD
   PREMIUM
+}
+
+enum ExperienceLevel {
+  ENTRY_LEVEL
+  MID_LEVEL
+  SENIOR_LEVEL
+  DIRECTOR
+  EXECUTIVE
+  INTERN
 }

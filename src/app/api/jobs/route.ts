@@ -21,7 +21,7 @@ export async function POST(req: Request) {
         }
 
 
-        const { title, description, location, type, requirements, responsibilities, salaryRange, benefits, questions } = await req.json();
+        const { title, description, location, type, requirements, responsibilities, salaryRange, benefits, questions,experience } = await req.json();
 
         const job = await prisma.job.create({
             data: {
@@ -33,6 +33,7 @@ export async function POST(req: Request) {
                 responsibilities,
                 salaryRange,
                 benefits,
+                experience,
                 employerId: payload.companyId,
                 questions: questions
                     ? {
@@ -70,12 +71,11 @@ export async function GET(req: NextRequest) {
         // Calculate the offset for the query
         const offset = (page - 1) * limit;
 
-        // Fetch paginated jobs
         const [jobs, totalJobs] = await Promise.all([
             prisma.job.findMany({
                 where: filters,
                 include: {
-                    postedBy:true
+                    postedBy: true,
                 },
                 skip: offset,
                 take: limit,
@@ -85,9 +85,8 @@ export async function GET(req: NextRequest) {
 
         const totalPages = Math.ceil(totalJobs / limit);
 
-        // Return jobs with pagination info
         return NextResponse.json({
-            message:"Jobs found",
+            message: "Jobs found",
             jobs,
             pagination: {
                 totalJobs,
@@ -101,5 +100,4 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ message: 'Failed to fetch jobs', error }, { status: 500 });
     }
 }
-
 

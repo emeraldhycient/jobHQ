@@ -65,19 +65,36 @@ export class Utils {
   }
 
 
+ getPostedAtDateRange(option: string): Date | null {
+  const now = new Date();
 
-buildJobFilters(searchParams: URLSearchParams): Prisma.JobWhereInput {
+  switch (option) {
+    case 'Last 24 Hours':
+      return new Date(now.getTime() - 24 * 60 * 60 * 1000); // Subtract 24 hours
+    case 'Last 7 Days':
+      return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // Subtract 7 days
+    case 'Last 30 Days':
+      return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000); // Subtract 30 days
+    default:
+      return null; // No filter applied
+  }
+ }
+  
+ buildJobFilters(searchParams: URLSearchParams): Prisma.JobWhereInput {
   const filters: Prisma.JobWhereInput = {};
 
   const title = searchParams.get('title');
   const location = searchParams.get('location');
-  const type: any = searchParams.get('type');
-  const requirements = searchParams.getAll('requirements');
-  const responsibilities = searchParams.getAll('responsibilities');
+  const type = searchParams.get('type');
+  const requirements = searchParams.get('requirements');
+  const responsibilities = searchParams.get('responsibilities');
   const salaryRange = searchParams.get('salaryRange');
-  const benefits = searchParams.getAll('benefits');
-  const status: any = searchParams.get('status');
-  const employerId = searchParams.get('employerId');
+  const benefits = searchParams.get('benefits');
+  const experience = searchParams.get('experience');
+  const status = searchParams.get('status');
+   const employerId = searchParams.get('employerId');
+   const postedAt = searchParams.get('createdAt'); 
+
 
   if (title) {
     filters.title = { contains: title, mode: 'insensitive' };
@@ -88,35 +105,46 @@ buildJobFilters(searchParams: URLSearchParams): Prisma.JobWhereInput {
   }
 
   if (type) {
-    filters.type = type;
+    filters.type = type as Prisma.EnumJobTypeFilter;
+  }
+  if (experience) {
+    filters.experience = type as Prisma.EnumExperienceLevelFilter;
   }
 
-  if (requirements.length > 0) {
-    filters.requirements = { hasSome: requirements };
+  if (requirements) {
+    filters.requirements = { hasSome: requirements.split(',') }; // Handle comma-separated values
   }
 
-  if (responsibilities.length > 0) {
-    filters.responsibilities = { hasSome: responsibilities };
+  if (responsibilities) {
+    filters.responsibilities = { hasSome: responsibilities.split(',') }; // Handle comma-separated values
   }
 
   if (salaryRange) {
     filters.salaryRange = { contains: salaryRange, mode: 'insensitive' };
   }
 
-  if (benefits.length > 0) {
-    filters.benefits = { hasSome: benefits };
+  if (benefits) {
+    filters.benefits = { hasSome: benefits.split(',') }; // Handle comma-separated values
   }
 
   if (status) {
-    filters.status = status;
+    filters.status = status as Prisma.EnumJobStatusFilter;
   }
 
   if (employerId) {
     filters.employerId = employerId;
   }
+   
+   if (postedAt) {
+     const postedAtDate = this.getPostedAtDateRange(postedAt);
+     if (postedAtDate) {
+       filters.createdAt = { gte: postedAtDate }; // Filter jobs created after the calculated date
+     }
+   }
 
   return filters;
 }
+
 
 }
 

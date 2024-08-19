@@ -25,6 +25,7 @@ export const jobSchema = Joi.object({
     requirements: Joi.array().items(Joi.string()).required(),
     responsibilities: Joi.array().items(Joi.string()).required(),
     salaryRange: Joi.string().optional(),
+    experience: Joi.string(),
     benefits: Joi.array().items(Joi.string()).optional(),
     questions: Joi.object().optional()
 });
