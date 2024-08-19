@@ -1,4 +1,4 @@
-import BookmarkPlusIcon from '@/components/icons/BookmarkPlusIcon';
+'use client'
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { FC, useState, useEffect } from 'react';
@@ -8,6 +8,9 @@ import { Separator } from "@/components/ui/separator";
 import { utils } from '@/lib/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import bookmarks from '@/services/bookmarks';
+import { MdOutlineBookmarkAdd, MdOutlineBookmarkAdded } from "react-icons/md";
+import toast from 'react-hot-toast'
+import LoadingComponent from '@/components/common/LoadingComponent';
 
 interface JobHeaderProps {
     title: string;
@@ -24,6 +27,9 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
     const [bookmarked, setBookmarked] = useState(isBookmarked);
     const queryClient = useQueryClient()
 
+
+    const [isMarking, setisMarking] = useState(false)
+
     const bookmarkMutation = useMutation({
         mutationFn: () => {
             if (bookmarked) {
@@ -32,10 +38,16 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
                 return bookmarks.addBookmark(jobId);
             }
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['bookmarkedJobs'] })
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['bookmarkedJobs','jobDetails'] })
             setBookmarked(!bookmarked);
+            setisMarking(false)
         },
+        onError: (error: any) => {
+            setisMarking(false)
+            toast.error(error?.response?.data?.message || "An Error Occured!!");
+        },
+        
     });
 
     const handleBookmarkClick = () => {
@@ -58,8 +70,17 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
             </div>
             <div className="flex flex-col md:flex-row items-center space-x-4 space-y-3 md:space-y-0">
                 <div className="flex items-center space-x-5">
-                    <button className={bookmarked ? 'text-blue-1' : ''} onClick={handleBookmarkClick}>
-                        <BookmarkPlusIcon size={14}/>
+                    {isMarking && <LoadingComponent />}
+                    <button onClick={() => {
+                        handleBookmarkClick()
+                        setisMarking(true)
+                    }}>
+                        {
+                            !isBookmarked ? 
+                                <MdOutlineBookmarkAdd size={20} />
+                                :
+                                <MdOutlineBookmarkAdded size={20} className={bookmarked ? 'text-warm-primary' : ''} />
+                        }
                     </button>
                     <Button variant={'lucentwarm'}>
                         <div className="flex flex-row space-x-2">

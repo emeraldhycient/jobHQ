@@ -21,7 +21,6 @@ export async function DELETE(req: NextRequest, { params }: any) {
 
         return NextResponse.json({ message: 'Bookmark removed successfully' }, { status: 200 });
     } catch (error) {
-        console.error('Error removing bookmark:', error);
         return NextResponse.json({ message: 'Failed to remove bookmark', error }, { status: 500 });
     }
 }
