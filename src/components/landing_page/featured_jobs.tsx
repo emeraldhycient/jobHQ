@@ -28,7 +28,7 @@ function FeaturedJobs() {
                         :
                         data?.jobs.length > 0 ?
                             data?.jobs.map((job: IJobItem, index: number) => (
-                                <JobCard job={job} />
+                                <JobCard key={index} job={job} />
                             ))
                             : <p>Nothing was found</p>
                 }
