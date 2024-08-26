@@ -39,7 +39,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                         ? <SkeletonLoader count={5} />
                         : jobs.map((job, index) => (
                             <Link
-                                href={`/dashboard/seeker/job/details/${job.job.id}`}
+                                href={`/dashboard/seeker/jobs/details/${job.job.id}`}
                                 key={index}
                                 className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
                             >
@@ -147,7 +147,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                 </TableCell>
                                 <TableCell className="border-none text-xs font-normal">{utils.formatText(job.status)}</TableCell>
                                 <TableCell className="border-none text-center">
-                                    <Link href={`/dashboard/seeker/job/details/${job.job.id}`}>
+                                    <Link href={`/dashboard/seeker/jobs/details/${job.job.id}`}>
                                         <Button variant={'lucentblue'} size={'sm'}>
                                             View Application
                                         </Button>

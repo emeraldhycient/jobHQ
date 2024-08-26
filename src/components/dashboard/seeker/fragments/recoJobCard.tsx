@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { IoArrowForwardCircleOutline } from 'react-icons/io5';
+import { usePathname } from 'next/navigation';
 
 interface RecommendedJobCardProps {
     job: {
@@ -20,6 +21,10 @@ interface RecommendedJobCardProps {
 }
 
 const RecommendedJobCard: FC<RecommendedJobCardProps> = ({ job }) => {
+    const pathname = usePathname();
+
+    const nextpath = pathname === "/jobs" ? pathname :  "/dashboard/seeker/jobs/" 
+
     return (
         <section className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-2 flex justify-between items-center p-4`}>
             <div className="flex space-x-3">
@@ -44,10 +49,10 @@ const RecommendedJobCard: FC<RecommendedJobCardProps> = ({ job }) => {
                 </div>
             </div>
             <div className="border-none text-center">
-                <Link href={`/dashboard/seeker/job/details/${job?.id}`} className='hidden lg:block'>
+                <Link href={`${nextpath}/details/${job?.id}`} className='hidden lg:block'>
                     <Button variant={'lucentblue'} size={'sm'}>View Now</Button>
                 </Link>
-                <Link href={`/dashboard/seeker/job/details/${job?.id}`} className='block lg:hidden'>
+                <Link href={`${nextpath}/details/${job?.id}`} className='block lg:hidden'>
                     <Button variant={'lucentblue'} size={'sm'}><IoArrowForwardCircleOutline /></Button>
                 </Link>
             </div>

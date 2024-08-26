@@ -113,6 +113,9 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
                         </div>
                     </Button>
                 </div>
+                {
+                    isGenerating && <LoadingComponent message='Generating learning paths. Do not refresh'/>
+                }
                 <div className="flex items-center space-x-5">
                     <Button onClick={handleGenerateLearningPath} variant={'lucentgreen'} disabled={isGenerating}>
                         <div className="flex items-center flex-row space-x-2">

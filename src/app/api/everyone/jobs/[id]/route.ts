@@ -8,19 +8,15 @@ export async function GET(req: Request, { params }: any) {
         const job = await prisma.job.findUnique({
             where: { id: params.id },
             include: {
-                questions: {
-                    include: {
-                        fields: true,
-                    },
-                },
-            },
+                postedBy: true,
+            }
         });
 
         if (!job) {
             return NextResponse.json({ message: 'Job not found' }, { status: 404 });
         }
 
-      
+
         return NextResponse.json(job, { status: 200 });
     } catch (error) {
         console.error('Failed to fetch job:', error);

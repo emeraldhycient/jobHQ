@@ -15,7 +15,7 @@ const JobCard: React.FC<Props> = ({ job }) => {
 
     return (
         <Link
-            href={`/dashboard/seeker/job/details/${id}`}
+            href={`/dashboard/seeker/jobs/details/${id}`}
             key={id}
             className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-4 flex justify-between items-center p-4`}
         >

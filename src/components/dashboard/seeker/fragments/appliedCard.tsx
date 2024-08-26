@@ -29,7 +29,7 @@ const AppliedCard: React.FC<Props> = ({ job }) => {
 
     return (
         <Link
-            href={`/dashboard/seeker/job/details/${job?.job?.id}`}
+            href={`/dashboard/seeker/jobs/details/${job?.job?.id}`}
             className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-2 flex justify-between items-center p-4`}
         >
             <div className="flex space-x-3">

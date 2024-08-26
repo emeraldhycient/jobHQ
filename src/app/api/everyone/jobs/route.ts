@@ -2,15 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { utils } from '@/lib/utils';
 
-
 export async function GET(req: NextRequest) {
     try {
-        const url = new URL(req.url);
-        const filters = utils.buildJobFilters(url.searchParams);
+        const filters = utils.buildJobFilters(req.nextUrl.searchParams);
 
         // Get pagination parameters
-        const page = parseInt(url.searchParams.get('page') || '1', 10);
-        const limit = parseInt(url.searchParams.get('limit') || '10', 10);
+        const page = parseInt(req.nextUrl.searchParams.get('page') || '1', 10);
+        const limit = parseInt(req.nextUrl.searchParams.get('limit') || '10', 10);
 
         // Calculate the offset for the query
         const offset = (page - 1) * limit;
@@ -40,8 +38,6 @@ export async function GET(req: NextRequest) {
         }, { status: 200 });
     } catch (error) {
         console.error('Failed to fetch jobs:', error);
-        return NextResponse.json({ message: 'Failed to fetch jobs',error }, { status: 500 });
+        return NextResponse.json({ message: 'Failed to fetch jobs', error }, { status: 500 });
     }
 }
-
-

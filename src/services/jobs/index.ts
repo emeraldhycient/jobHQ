@@ -56,6 +56,10 @@ class JobsServices {
         const response = await axiosClient.get(`${Endpoints.jobs}/${id}`);
         return response.data;
     }
+    async getJobPublic(id: string) {
+        const response = await axiosClient.get(`${Endpoints.Publicjobs}/${id}`);
+        return response.data;
+    }
 }
 
 
