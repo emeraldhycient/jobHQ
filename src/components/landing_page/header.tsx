@@ -19,7 +19,7 @@ const Header: React.FC = () => {
                 </Link>
               </div>
               <div className="hidden md:flex space-x-4">
-                <Link href="/Jobs">
+                <Link href="/jobs">
                   <h6 className="text-white text-sm font-semibold">Jobs</h6>
                 </Link>
                 <Link href="/resources">

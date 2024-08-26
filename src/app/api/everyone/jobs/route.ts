@@ -3,12 +3,13 @@ import prisma from '@/lib/prisma';
 import { utils } from '@/lib/utils';
 
 export async function GET(req: NextRequest) {
+    const searchParams = req.nextUrl.searchParams
     try {
-        const filters = utils.buildJobFilters(req.nextUrl.searchParams);
+        const filters = utils.buildJobFilters(searchParams);
 
         // Get pagination parameters
-        const page = parseInt(req.nextUrl.searchParams.get('page') || '1', 10);
-        const limit = parseInt(req.nextUrl.searchParams.get('limit') || '10', 10);
+        const page = parseInt(searchParams.get('page') || '1', 10);
+        const limit = parseInt(searchParams.get('limit') || '10', 10);
 
         // Calculate the offset for the query
         const offset = (page - 1) * limit;

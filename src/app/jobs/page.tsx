@@ -10,13 +10,9 @@ import SkeletonLoader from "@/components/common/skeleton/JobSkeletonLoader";
 import { GetJobsParams, IJobItem } from '@/constants/interface';
 import { debounce } from 'lodash';
 import Header from "@/components/landing_page/header";
-import { useSearchParams } from 'next/navigation'
 
 
 const JobSearchPage = () => {
-
-    const searchParams = useSearchParams()
-
     const [currentPage, setCurrentPage] = useState(1);
     const [filters, setFilters] = useState<GetJobsParams>({});
     const limit = 10;
