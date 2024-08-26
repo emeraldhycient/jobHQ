@@ -1,13 +1,11 @@
 import React from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 import PathCardSkeleton from './PathCardSkeleton';
 
-const LearningSkeletonLoader = ({ count = 1 }: { count?: number }) => {
+const LearningSkeletonLoader = ({ count = 5 }: { count?: number }) => {
     return (
         <>
-        {
-            new Array(count).fill(5).map((_, idx) => (
-                <PathCardSkeleton key={idx} />
+            {Array.from({ length: count }, (_, index) => (
+                <PathCardSkeleton key={index} />
             ))
         }
         </>
