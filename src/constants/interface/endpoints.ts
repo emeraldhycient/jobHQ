@@ -5,5 +5,6 @@ export enum Endpoints {
     Logout = "/auth/logout",
     AppliedJobs = "/jobs/applied",
     jobs = "/jobs/",
-    bookmarks="/bookmarks"
+    bookmarks = "/bookmarks",
+    learningPath ="/learning-path"
 }

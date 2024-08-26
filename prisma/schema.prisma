@@ -166,14 +166,17 @@ model Resume {
 }
 
 model LearningPath {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  steps       Json
-  user        User     @relation(fields: [userId], references: [id])
-  userId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                             String   @id @default(uuid())
+  title                          String?
+  banner                         String?
+  description                    String?
+  roadmap                        Json?
+  projectIdeas                   Json?
+  overallEstimatedCompletionTime String?
+  user                           User     @relation(fields: [userId], references: [id])
+  userId                         String
+  createdAt                      DateTime @default(now())
+  updatedAt                      DateTime @updatedAt
 }
 
 model InterviewPreparation {

@@ -1,52 +1,89 @@
 'use client'
 import SuggestionPill from "@/components/common/SuggestionPill";
 import PathCard from "@/components/dashboard/seeker/fragments/pathCard";
-import BellIcon from "@/components/icons/BellIcon";
-import BookmarkIcon from "@/components/icons/BookmarkIcon";
-import BoxIcon from "@/components/icons/BoxIcon";
 import { Button } from "@/components/ui/button";
-import { predefinedSkills } from "@/constants/data";
+import learningPath from "@/services/learning-path";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { FC, useState } from "react";
 import { MdSearch } from 'react-icons/md';
+import toast from 'react-hot-toast';
+import { ICreateLearningPath, ILearningPath } from "@/constants/interface";
+import Spinner from "@/components/common/spinner";
+import LearningSkeletonLoader from "@/components/common/skeleton/learningPathsSkeletonLoader";
 
 const DashboardPage = () => {
- 
-  const learningCourses = [
-    { id: 1, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-    { id: 2, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-    { id: 3, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
+
+
+  const learningSuggestions = [
+    { id: 1, title: 'Full-Stack Web Development with React and Node.js'},
+    { id: 2, title: 'Data Science and Machine Learning Bootcamp'},
+    { id: 3, title: 'Introduction to Cybersecurity' },
+    { id: 4, title: 'Mobile App Development with Flutter' },
+    { id: 5, title: 'Digital Marketing Strategy 101' },
+    { id: 6, title: 'Graphic Design Masterclass using Adobe Photoshop' },
+    { id: 7, title: 'Artificial Intelligence and Deep Learning' },
+    { id: 8, title: 'Introduction to Cloud Computing with AWS' },
+    { id: 9, title: 'Business Analytics using Excel and Python' },
+    { id: 10, title: 'Blockchain and Cryptocurrency Fundamentals' },
   ];
 
   const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState<string>('');
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const handleSkillAdd = () => {
-    if (skillInput && !skills.includes(skillInput)) {
-      setSkills([...skills, skillInput]);
-      setSkillInput('');
-    }
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['learning-paths'],
+    queryFn: () => learningPath.all(),
+    refetchOnWindowFocus: false,
+  });
+
+  console.log(data);
+
+  const generateLearningPath = useMutation({
+    mutationFn: (data: ICreateLearningPath) => learningPath.create({ title: data?.title }),
+    onSuccess: (data) => {
+      console.log({ generateLearningPath: data });
+      setIsGenerating(false);
+    },
+    onError: (error: any) => {
+      setIsGenerating(false);
+      toast.error(error?.response?.data?.message || "An Error Occurred!!");
+    },
+  });
+
+  const handleGenerateLearningPath = () => {
+    setIsGenerating(true);
+    generateLearningPath.mutate({ title: skillInput });
   };
-
-  const handleSkillRemove = (skill: string) => {
-    setSkills(skills.filter(s => s !== skill));
-  };
-
-  
-
 
   return (
     <div className="flex flex-col space-y-4 py-8">
-      <SearchBar />
+      <SearchBar
+        value={skillInput}
+        isLoading={isGenerating}
+        onSearch={(text) => setSkillInput(text)}
+        handleSubmit={handleGenerateLearningPath}
+      />
       <div className="flex flex-wrap gap-2 mt-2">
-        {learningCourses.map((skill, index) => (
-          <SuggestionPill key={index} title={skill.title} onRemove={() => handleSkillRemove(skill.title)} />
+        {learningSuggestions.map((skill, index) => (
+          <div key={skill.id} onClick={() => setSkillInput(skill.title)}>
+            <SuggestionPill title={skill.title} onRemove={() => setSkillInput("")} />
+          </div>
         ))}
       </div>
       <h5 className='text-sm font-normal'>Learning Progress</h5>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-y-4 space-x-4">
-        {learningCourses.map((course) => (
-          <PathCard title={course.title} key={course.id} />
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {
+          !isLoading?
+          data?.data?.length > 0?
+          data.data?.map((course: ILearningPath) => (
+          <PathCard key={course.id} title={course.title} />
+          ))
+            :
+              <p>Nothing found</p>
+            :
+            <LearningSkeletonLoader/>
+      }
       </div>
     </div>
   );
@@ -55,22 +92,26 @@ const DashboardPage = () => {
 export default DashboardPage;
 
 interface SearchBarProps {
-  onSearch?: (query: string) => void;
-  onFilter?: () => void;
+  value: string;
+  onSearch: (query: string) => void;
+  handleSubmit?: () => void;
+  isLoading: boolean;
 }
 
-const SearchBar: FC<SearchBarProps> = ({ onSearch, onFilter }) => {
+const SearchBar: FC<SearchBarProps> = ({ value, onSearch, handleSubmit, isLoading }) => {
   return (
-    <div className="flex items-center space-x-2 w-full px-5 py-2  bg-gray-5 border border-gray-8 rounded-3xl">
+    <div className="flex items-center space-x-2 w-full px-5 py-2 bg-gray-5 border border-gray-8 rounded-3xl">
       <MdSearch height={10} width={10} />
       <input
         type="text"
-        placeholder="Enter a topic or Keyword to get started"
+        value={value}
+        placeholder="Enter a topic or keyword to get started"
         className="flex-grow p-2 bg-transparent border-none outline-none text-white text-xs font-normal"
-        // onChange={(e) => onSearch(e.target.value)}
+        onChange={(e) => onSearch(e.target.value)}
       />
-        <Button size={'sm'}>Generate</Button>
+      <Button onClick={handleSubmit} size={'sm'} disabled={isLoading}>
+        {isLoading ? <Spinner strokeColor="#E59333" /> : "Generate"}
+      </Button>
     </div>
   );
 };
-

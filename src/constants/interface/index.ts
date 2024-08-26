@@ -124,13 +124,13 @@ export interface FormResponse {
 
 // Interface for the Employer token
 interface EmployerResponse {
-        userId: string;
-        email: string;
-        userType: 'Employer';
-        companyId: string;
-        companyName: string;
-        companyEmail: string;
-    }
+    userId: string;
+    email: string;
+    userType: 'Employer';
+    companyId: string;
+    companyName: string;
+    companyEmail: string;
+}
 
 // Interface for the User token
 interface UserResponse {
@@ -140,7 +140,7 @@ interface UserResponse {
 }
 
 // Union type representing the possible response
-export interface AuthResponse  {
+export interface AuthResponse {
     userId: string;
     email: string;
     userType: 'User' | 'Employer';
@@ -208,12 +208,12 @@ export interface IJobItem {
     responsibilities: string[];
     salaryRange: string | null;
     benefits: string[];
-    status: string; 
+    status: string;
     employerId: string;
-    createdAt: string; 
-    updatedAt: string; 
+    createdAt: string;
+    updatedAt: string;
     postedBy: IEmployer;
-    isBookmarked:boolean,
+    isBookmarked: boolean,
     questions?: Form;
 }
 
@@ -252,3 +252,52 @@ export interface GetJobsParams {
 }
 
 
+
+
+//learning path
+export interface ILearningPath {
+    id?:string,
+    title: string;
+    description: string;
+    roadmap: CoreTopic[];
+    overallEstimatedCompletionTime: string;
+}
+
+interface CoreTopic {
+    step: number;
+    title: string;
+    keyConcepts: string[];
+    resources: Resource[];
+    subtopics: Subtopic[];
+    projectIdeas: ProjectIdea[];
+}
+
+interface Resource {
+    resourceType: string;
+    links: string[];
+}
+
+interface Subtopic {
+    substep: number;
+    title: string;
+    description: string;
+    keyConcepts: string[];
+    images: string[];
+    videos: string[];
+    links: string[];
+    text: string[];
+    practiceQuestions: PracticeQuestion[];
+    estimatedTime: string;
+}
+
+interface PracticeQuestion {
+    question: string;
+    answer: string;
+}
+
+interface ProjectIdea {
+    ideaTitle: string;
+    description: string;
+}
+
+export type ICreateLearningPath = { title: string, experienceLevel?: string, focusArea?: string }
