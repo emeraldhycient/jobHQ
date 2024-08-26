@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { utils } from '@/lib/utils'
+import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -27,6 +28,9 @@ const AppliedCard: React.FC<Props> = ({ job }) => {
     const { title, location, postedBy } = job.job;
     const { companyName, logo } = postedBy;
 
+    const timeAgo = moment(job.dateApplied).fromNow();
+
+
     return (
         <Link
             href={`/dashboard/seeker/jobs/details/${job?.job?.id}`}
@@ -51,7 +55,7 @@ const AppliedCard: React.FC<Props> = ({ job }) => {
                     </div>
                 </div>
             </div>
-            <h6 className="border-none text-xs font-normal hidden md:block">{new Date(job.dateApplied).toLocaleDateString()}</h6>
+            <h6 className="border-none text-xs font-normal hidden md:block">{timeAgo}</h6>
             <h6 className="border-none text-xs font-normal hidden md:block">{utils.formatText(job.status)}</h6>
             <div className="border-none text-center md:hidden">
                 <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>

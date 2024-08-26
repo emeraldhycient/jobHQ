@@ -17,13 +17,17 @@ import { AppliedJobItem } from '@/constants/interface';
 import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonLoader from '@/components/common/skeleton/JobSkeletonLoader';
 import { utils } from '@/lib/utils';
-
+import moment from 'moment';
 interface Props {
     jobs: AppliedJobItem[];
     isLoading: boolean;
 }
 
 const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
+
+    // const timeAgo = moment(job.createdAt).fromNow();
+
+
     return (
         <>
             {/* smaller screens */}
@@ -143,7 +147,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                     </div>
                                 </TableCell>
                                 <TableCell className="border-none text-xs font-normal">
-                                    {new Date(job.dateApplied).toLocaleDateString()}
+                                    {moment(job.dateApplied).fromNow()}
                                 </TableCell>
                                 <TableCell className="border-none text-xs font-normal">{utils.formatText(job.status)}</TableCell>
                                 <TableCell className="border-none text-center">

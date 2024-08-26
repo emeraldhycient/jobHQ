@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import { IoArrowForwardCircleOutline } from 'react-icons/io5';
 import { usePathname } from 'next/navigation';
+import moment from 'moment';
 
 interface RecommendedJobCardProps {
     job: {
@@ -23,7 +24,9 @@ interface RecommendedJobCardProps {
 const RecommendedJobCard: FC<RecommendedJobCardProps> = ({ job }) => {
     const pathname = usePathname();
 
-    const nextpath = pathname === "/jobs" ? pathname :  "/dashboard/seeker/jobs/" 
+    const nextpath = pathname === "/jobs" ? pathname : "/dashboard/seeker/jobs/" 
+    const timeAgo = moment(job.createdAt).fromNow();
+
 
     return (
         <section className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded my-2 flex justify-between items-center p-4`}>
@@ -42,7 +45,7 @@ const RecommendedJobCard: FC<RecommendedJobCardProps> = ({ job }) => {
                             <h6 className='font-normal text-xs hidden  md:block'>{job?.location}</h6>
                             <div className="h-1 w-1 bg-gray-3 rounded-full"></div>
                             <h6 className="border-none text-xs font-normal">
-                                Posted {new Date(job?.createdAt).toLocaleDateString()}
+                                Posted {timeAgo}
                             </h6>
                         </div>
                     </div>

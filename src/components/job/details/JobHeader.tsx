@@ -14,6 +14,7 @@ import LoadingComponent from '@/components/common/LoadingComponent';
 import Spinner from "@/components/common/spinner"
 import { ICreateLearningPath } from '@/constants/interface';
 import learningPath from '@/services/learning-path';
+import moment from 'moment';
 
 interface JobHeaderProps {
     title: string;
@@ -78,6 +79,9 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
         generateLearningPath.mutate({ title });
     };
 
+    const timeAgo = moment(postedDate).fromNow();
+
+
     return (
         <div className="md:flex items-center justify-between p-4 bg-gray-7 rounded-3xl border border-gray-9 space-y-4">
             <div className="flex flex-col md:flex-row items-center pt-3 md:pt-0">
@@ -88,7 +92,7 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
                     <h2 className="text-sm font-bold hidden md:block">{title} • {company} </h2>
                     <div className="flex flex-col md:flex-row gap-2">
                         <p className="text-xs ">{utils.formatText(type)} • {location} •</p>
-                        <p className="text-xs">{postedDate}</p>
+                        <p className="text-xs">{timeAgo}</p>
                     </div>
                 </div>
             </div>
