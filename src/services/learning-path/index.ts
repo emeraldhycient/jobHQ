@@ -22,7 +22,11 @@ class learningPathService {
         return response.data;
     }
 
-    async all() {
+    async all({ page = 1, limit = 10 }:{page?:number,limit?:number}) {
+        const params = new URLSearchParams();
+        if (page) params.append('page', page.toString());
+        if (limit) params.append('limit', limit.toString());
+
         const response = await axiosClient.get(`${Endpoints.learningPath}`);
         return response.data;
     }

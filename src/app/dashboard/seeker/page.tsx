@@ -34,7 +34,7 @@ const DashboardPage = () => {
 
   const learningCourses = useQuery({
     queryKey: ['learning-paths'],
-    queryFn: () => learningPath.all(),
+    queryFn: () => learningPath.all({}),
     refetchOnWindowFocus: false,
   });
 

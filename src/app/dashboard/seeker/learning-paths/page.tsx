@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { ICreateLearningPath, ILearningPath } from "@/constants/interface";
 import Spinner from "@/components/common/spinner";
 import LearningSkeletonLoader from "@/components/common/skeleton/learningPathsSkeletonLoader";
+import Pagination from "@/components/dashboard/seeker/fragments/pagination";
 
 const DashboardPage = () => {
 
@@ -30,13 +31,20 @@ const DashboardPage = () => {
   const [skillInput, setSkillInput] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['learning-paths'],
-    queryFn: () => learningPath.all(),
+    queryFn: () => learningPath.all({page:currentPage,limit:10}),
     refetchOnWindowFocus: false,
   });
 
-  // console.log(data);
 
   const generateLearningPath = useMutation({
     mutationFn: (data: ICreateLearningPath) => learningPath.create({ title: data?.title }),
@@ -63,7 +71,7 @@ const DashboardPage = () => {
         onSearch={(text) => setSkillInput(text)}
         handleSubmit={handleGenerateLearningPath}
       />
-      <div className="flex flex-wrap gap-2 mt-2 ">
+      <div className="flex flex-row overflow-x-auto gap-2 mt-2 ">
         {learningSuggestions.map((skill, index) => (
           <SuggestionPill key={skill.id} onClick={() => setSkillInput(skill.title)} title={skill.title} onRemove={() => setSkillInput("")} />
         ))}
@@ -82,6 +90,15 @@ const DashboardPage = () => {
             <LearningSkeletonLoader/>
       }
       </div>
+      {
+        data && data?.pagination?.totalPages > currentPage ?
+          <Pagination
+            currentPage={currentPage}
+            totalPages={data?.pagination?.totalPages || 1}
+            onPageChange={handlePageChange}
+          />
+          : ""
+      }
     </div>
   );
 };

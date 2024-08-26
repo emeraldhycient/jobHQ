@@ -57,11 +57,15 @@ const JobSearchPage = () => {
                         ))
                     )}
                 </section>
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={data?.pagination?.totalPages || 1}
-                    onPageChange={handlePageChange}
-                />
+                {
+                    data && data?.pagination?.totalPages > currentPage ?
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={data?.pagination?.totalPages || 1}
+                            onPageChange={handlePageChange}
+                        />
+                        : ""
+                }
             </section>
         </section>
     );
