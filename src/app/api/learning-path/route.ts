@@ -2,7 +2,7 @@ import { getUserFromRequest } from '@/lib/auth';
 import prompts from '@/prompts';
 import chatgptService from '@/services/gpt/chatgptService';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 export async function POST(req: Request) {
@@ -32,8 +32,6 @@ export async function POST(req: Request) {
             }
         })
 
-        console.log({query,result})
-
         return NextResponse.json({ data: query,message:"Learning path created successfully" }, { status: 200 });
     } catch (error) {
         console.error('Error generating content:', error);
@@ -43,22 +41,50 @@ export async function POST(req: Request) {
 
 
 
-export async function GET(req: Request) {
-
+export async function GET(req: NextRequest) {
     try {
-        const payload = await getUserFromRequest("User")
+        const payload = await getUserFromRequest("User");
 
-        const query = await prisma.learningPath.findMany({
-            where: {
-                userId:payload?.userId
-            }
-        })
+        // Parse query parameters for pagination
+        const url = new URL(req.url);
+        const page = parseInt(url.searchParams.get('page') || '1', 10);
+        const limit = parseInt(url.searchParams.get('limit') || '10', 10);
 
-        console.log({query})
+        // Calculate the offset
+        const offset = (page - 1) * limit;
 
-        return NextResponse.json({ data: query, message: "Learning paths retrieved successfully" }, { status: 200 });
+        // Fetch the learning paths with pagination
+        const [learningPaths, totalPaths] = await Promise.all([
+            prisma.learningPath.findMany({
+                where: {
+                    userId: payload?.userId,
+                },
+                skip: offset,
+                take: limit,
+            }),
+            prisma.learningPath.count({
+                where: {
+                    userId: payload?.userId,
+                },
+            })
+        ]);
+
+        // Calculate total pages
+        const totalPages = Math.ceil(totalPaths / limit);
+
+        return NextResponse.json({
+            data: learningPaths,
+            pagination: {
+                totalPaths,
+                totalPages,
+                currentPage: page,
+                limit,
+            },
+            message: "Learning paths retrieved successfully"
+        }, { status: 200 });
+
     } catch (error) {
-        console.error('Error generating content:', error);
+        console.error('Error retrieving content:', error);
         return NextResponse.json({ message: 'Error retrieving content', error }, { status: 500 });
     }
 }

@@ -62,7 +62,7 @@ const SkillsCertification: React.FC<nextStepChildProps> = ({ nextStep, index, is
         </datalist>
         <div className="flex flex-wrap gap-2 mt-2">
           {skills.map((skill, index) => (
-            <SuggestionPill key={index} title={skill} onRemove={() => handleSkillRemove(skill)} />
+            <SuggestionPill key={index} onClick={()=>{}} title={skill} onRemove={() => handleSkillRemove(skill)} />
           ))}
         </div>
       </div>

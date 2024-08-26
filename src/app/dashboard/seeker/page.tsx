@@ -12,9 +12,10 @@ import jobs from "@/services/jobs";
 import { ErrorBoundary } from 'react-error-boundary';
 import SkeletonLoader from "@/components/common/skeleton/JobSkeletonLoader";
 import ErrorFallback from '@/components/common/ErrorFallback';
+import learningPath from '@/services/learning-path';
+import { RiAiGenerate } from 'react-icons/ri';
 
 const DashboardPage = () => {
-  const favoriteJobs = 100;
   const jobAlerts = 100;
 
   const recentlyAppliedJobs = useQuery({
@@ -31,24 +32,25 @@ const DashboardPage = () => {
   });
 
 
-  const learningCourses = [
-    { id: 1, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-    { id: 2, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-    { id: 3, title: 'Learn Python Programming Masterclass', modulesCompleted: 3, totalModules: 5, category: 'IT & Software' },
-  ];
+  const learningCourses = useQuery({
+    queryKey: ['learning-paths'],
+    queryFn: () => learningPath.all(),
+    refetchOnWindowFocus: false,
+  });
+
 
   const analyticsData = [
     {
       id: 1,
       title: "Applied Jobs",
-      value: recentlyAppliedJobs?.data?.pagination?.totalJobs,
+      value: recentlyAppliedJobs?.data?.pagination?.totalJobs || 0,
       icon: <BoxIcon height={20} width={20} />
     },
     {
       id: 2,
-      title: "Favorite Jobs",
-      value: favoriteJobs,
-      icon: <BookmarkIcon height={20} width={20} />
+      title: "Learning Paths",
+      value: learningCourses?.data?.pagination?.totalPaths || 0,
+      icon: <RiAiGenerate height={20} width={20} />
     },
     {
       id: 3,
@@ -71,7 +73,7 @@ const DashboardPage = () => {
               <RecommendedJobs isLoading={recommendedJobs.isLoading} jobs={recommendedJobs.data?.jobs} />
           </div>
           <div className="col-span-4 sm:order-1 md:order-last">
-            <LearningProgress courses={learningCourses} />
+            <LearningProgress courses={learningCourses?.data?.data} isLoading={learningCourses.isLoading} />
           </div>
         </div>
       </div>

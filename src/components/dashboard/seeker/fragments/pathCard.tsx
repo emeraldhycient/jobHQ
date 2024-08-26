@@ -1,9 +1,11 @@
 import { Button } from '@/components/ui/button'
+import { ILearningPath } from '@/constants/interface'
 import Link from 'next/link'
 import React from 'react'
 
 type Props = {
-    title: string
+    title: string,
+    data:ILearningPath
 }
 
 const PathCard = (props: Props) => {
@@ -22,7 +24,7 @@ const PathCard = (props: Props) => {
                 </div>
             </section>
             <Button variant={'lucentblue'} size={'lg'} asChild>
-                <Link href={"/dashboard/seeker/learning-paths/123456"} className="w-full">
+                <Link href={`/dashboard/seeker/learning-paths/${props?.data?.id}`} className="w-full">
                     <p>
                         Resume learning
                     </p>

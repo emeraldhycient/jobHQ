@@ -18,16 +18,15 @@ const DashboardPage = () => {
     { id: 1, title: 'Full-Stack Web Development with React and Node.js'},
     { id: 2, title: 'Data Science and Machine Learning Bootcamp'},
     { id: 3, title: 'Introduction to Cybersecurity' },
-    { id: 4, title: 'Mobile App Development with Flutter' },
-    { id: 5, title: 'Digital Marketing Strategy 101' },
-    { id: 6, title: 'Graphic Design Masterclass using Adobe Photoshop' },
-    { id: 7, title: 'Artificial Intelligence and Deep Learning' },
-    { id: 8, title: 'Introduction to Cloud Computing with AWS' },
-    { id: 9, title: 'Business Analytics using Excel and Python' },
-    { id: 10, title: 'Blockchain and Cryptocurrency Fundamentals' },
+    // { id: 4, title: 'Mobile App Development with Flutter' },
+    // { id: 5, title: 'Digital Marketing Strategy 101' },
+    // { id: 6, title: 'Graphic Design Masterclass using Adobe Photoshop' },
+    // { id: 7, title: 'Artificial Intelligence and Deep Learning' },
+    // { id: 8, title: 'Introduction to Cloud Computing with AWS' },
+    // { id: 9, title: 'Business Analytics using Excel and Python' },
+    // { id: 10, title: 'Blockchain and Cryptocurrency Fundamentals' },
   ];
 
-  const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -37,7 +36,7 @@ const DashboardPage = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log(data);
+  // console.log(data);
 
   const generateLearningPath = useMutation({
     mutationFn: (data: ICreateLearningPath) => learningPath.create({ title: data?.title }),
@@ -64,11 +63,9 @@ const DashboardPage = () => {
         onSearch={(text) => setSkillInput(text)}
         handleSubmit={handleGenerateLearningPath}
       />
-      <div className="flex flex-wrap gap-2 mt-2">
+      <div className="flex flex-wrap gap-2 mt-2 ">
         {learningSuggestions.map((skill, index) => (
-          <div key={skill.id} onClick={() => setSkillInput(skill.title)}>
-            <SuggestionPill title={skill.title} onRemove={() => setSkillInput("")} />
-          </div>
+          <SuggestionPill key={skill.id} onClick={() => setSkillInput(skill.title)} title={skill.title} onRemove={() => setSkillInput("")} />
         ))}
       </div>
       <h5 className='text-sm font-normal'>Learning Progress</h5>
@@ -77,7 +74,7 @@ const DashboardPage = () => {
           !isLoading?
           data?.data?.length > 0?
           data.data?.map((course: ILearningPath) => (
-          <PathCard key={course.id} title={course.title} />
+          <PathCard key={course.id} title={course.title} data={course} />
           ))
             :
               <p>Nothing found</p>

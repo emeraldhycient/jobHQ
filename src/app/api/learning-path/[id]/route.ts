@@ -13,7 +13,6 @@ export async function GET(req: Request, { params }: any) {
         if (!query) return NextResponse.json({ message: "learning path not found" }, { status: 404 })
         if (query.userId !== payload.userId) return NextResponse.json({ message: "Unauthorized access" }, { status: 420 })
 
-
         return NextResponse.json({ data: query, message: "Learning path retrieved successfully" }, { status: 200 });
     } catch (error) {
         console.error('Error retrieving content:', error);

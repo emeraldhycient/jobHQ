@@ -7,6 +7,7 @@ import { FaGun } from "react-icons/fa6";
 import EducationIcon from '@/components/icons/EducationIcon';
 import AIResumeIcon from '@/components/icons/AiResumeIcon';
 import { PiExam } from "react-icons/pi";
+import { RiAiGenerate } from 'react-icons/ri';
 
 
 export const footerSections = [
@@ -189,7 +190,7 @@ export const sidebarItems: SidebarItem[] = [
     { path: '/dashboard/seeker/applied-jobs', icon: BoxIcon, label: 'Applied Jobs' },
     { path: '/dashboard/seeker/job-search', icon: MdSearch, label: 'Job Search' },
     { path: '/dashboard/seeker/bookmarks', icon: BookmarkIcon, label: 'Bookmarks' },
-    { path: '/dashboard/seeker/learning-paths', icon: EducationIcon, label: 'Learning Paths' },
+    { path: '/dashboard/seeker/learning-paths', icon: RiAiGenerate, label: 'Learning Paths' },
     { path: '/dashboard/seeker/ai-interview-prep', icon: PiExam, label: 'AI Interview Prep' },
     { path: '/dashboard/seeker/ai-resume', icon: AIResumeIcon, label: 'AI Resume' },
     { path: '/dashboard/seeker/auto-apply', icon: FaGun, label: 'Auto Apply' },

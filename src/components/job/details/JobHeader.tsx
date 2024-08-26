@@ -12,6 +12,8 @@ import { MdOutlineBookmarkAdd, MdOutlineBookmarkAdded } from "react-icons/md";
 import toast from 'react-hot-toast'
 import LoadingComponent from '@/components/common/LoadingComponent';
 import Spinner from "@/components/common/spinner"
+import { ICreateLearningPath } from '@/constants/interface';
+import learningPath from '@/services/learning-path';
 
 interface JobHeaderProps {
     title: string;
@@ -21,7 +23,7 @@ interface JobHeaderProps {
     logo: string;
     postedDate: string;
     jobId: string;
-    isBookmarked: boolean; 
+    isBookmarked: boolean;
 }
 
 const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, type, logo, jobId, isBookmarked }) => {
@@ -40,7 +42,7 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
             }
         },
         onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: ['bookmarkedJobs','jobDetails'] })
+            queryClient.invalidateQueries({ queryKey: ['bookmarkedJobs', 'jobDetails'] })
             setBookmarked(!bookmarked);
             setisMarking(false)
         },
@@ -48,11 +50,32 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
             setisMarking(false)
             toast.error(error?.response?.data?.message || "An Error Occured!!");
         },
-        
+
     });
 
     const handleBookmarkClick = () => {
         bookmarkMutation.mutate();
+    };
+
+
+    const [isGenerating, setIsGenerating] = useState(false);
+
+    const generateLearningPath = useMutation({
+        mutationFn: (data: ICreateLearningPath) => learningPath.create({ title: data?.title }),
+        onSuccess: (data) => {
+            console.log({ generateLearningPath: data });
+            setIsGenerating(false);
+            toast.success("Learning path generated successfully");
+        },
+        onError: (error: any) => {
+            setIsGenerating(false);
+            toast.error(error?.response?.data?.message || "An Error Occurred!!");
+        },
+    });
+
+    const handleGenerateLearningPath = () => {
+        setIsGenerating(true);
+        generateLearningPath.mutate({ title });
     };
 
     return (
@@ -76,11 +99,11 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
                         setisMarking(true)
                     }}>
                         {
-                            isMarking ? <Spinner/> :
-                            !isBookmarked ? 
-                                <MdOutlineBookmarkAdd size={20} />
-                                :
-                                <MdOutlineBookmarkAdded size={20} className={bookmarked ? 'text-warm-primary' : ''} />
+                            isMarking ? <Spinner /> :
+                                !isBookmarked ?
+                                    <MdOutlineBookmarkAdd size={20} />
+                                    :
+                                    <MdOutlineBookmarkAdded size={20} className={bookmarked ? 'text-warm-primary' : ''} />
                         }
                     </button>
                     <Button variant={'lucentwarm'}>
@@ -91,10 +114,15 @@ const JobHeader: FC<JobHeaderProps> = ({ title, company, location, postedDate, t
                     </Button>
                 </div>
                 <div className="flex items-center space-x-5">
-                    <Button variant={'lucentgreen'}>
-                        <div className="flex flex-row space-x-2">
+                    <Button onClick={handleGenerateLearningPath} variant={'lucentgreen'} disabled={isGenerating}>
+                        <div className="flex items-center flex-row space-x-2">
                             <RiAiGenerate />
-                            <h6 className='text-xs'>Learning Guide</h6>
+                            {
+                                isGenerating ?
+                                    <Spinner />
+                                    :
+                                    <h6 className='text-xs'>Learning Guide</h6>
+                            }
                         </div>
                     </Button>
                     <Button>Apply Now</Button>
