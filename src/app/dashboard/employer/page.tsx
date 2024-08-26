@@ -1,11 +1,18 @@
-import React from 'react'
+'use client';
+import React, { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import auth from '@/services/auth';
+import { useUserStore } from '@/stores/userStore';
+import usePersistStore from '@/hooks/usePersistStore';
 
-type Props = {}
+const DashboardPage = () => {
+ 
 
-const Page = (props: Props) => {
   return (
-    <div>Page</div>
-  )
-}
+    <div>
+     page here
+    </div>
+  );
+};
 
-export default Page
+export default DashboardPage;

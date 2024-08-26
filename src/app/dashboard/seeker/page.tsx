@@ -1,5 +1,5 @@
 'use client'
-import React, { Suspense } from 'react';
+import React, { Suspense,useEffect } from 'react';
 import Analytics from "@/components/dashboard/seeker/analytics";
 import LearningProgress from "@/components/dashboard/seeker/learningProgress";
 import RecentlyApplied from "@/components/dashboard/seeker/recentlyApplied";
@@ -14,6 +14,9 @@ import SkeletonLoader from "@/components/common/skeleton/JobSkeletonLoader";
 import ErrorFallback from '@/components/common/ErrorFallback';
 import learningPath from '@/services/learning-path';
 import { RiAiGenerate } from 'react-icons/ri';
+import auth from '@/services/auth';
+import { useUserStore } from '@/stores/userStore';
+import usePersistStore from '@/hooks/usePersistStore';
 
 const DashboardPage = () => {
   const jobAlerts = 100;
@@ -34,7 +37,7 @@ const DashboardPage = () => {
 
   const learningCourses = useQuery({
     queryKey: ['learning-paths'],
-    queryFn: () => learningPath.all({limit:5}),
+    queryFn: () => learningPath.all({ limit: 5 }),
     refetchOnWindowFocus: false,
   });
 
@@ -70,7 +73,7 @@ const DashboardPage = () => {
             <Suspense fallback={<SkeletonLoader count={5} />}>
               <RecentlyApplied jobs={recentlyAppliedJobs?.data?.jobs} isLoading={recentlyAppliedJobs?.isLoading} />
             </Suspense>
-              <RecommendedJobs isLoading={recommendedJobs.isLoading} jobs={recommendedJobs.data?.jobs} />
+            <RecommendedJobs isLoading={recommendedJobs.isLoading} jobs={recommendedJobs.data?.jobs} />
           </div>
           <div className="col-span-4 sm:order-1 md:order-last">
             <LearningProgress courses={learningCourses?.data?.data} isLoading={learningCourses.isLoading} />

@@ -1,44 +1,87 @@
 'use client'
-import Header from '@/components/auth/header'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { useMutation } from '@tanstack/react-query'
+import Header from '@/components/auth/header';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import { FaLinkedin } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import AuthService from "@/services/auth"
+import AuthService from "@/services/auth";
 import { useFormik } from 'formik';
-import { loginSchema } from '@/constants/validation'
-import toast from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
-import LoadingComponent from '@/components/common/LoadingComponent'
+import { loginSchema } from '@/constants/validation';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import LoadingComponent from '@/components/common/LoadingComponent';
+import { useUserStore } from '@/stores/userStore'; // Import the user store
+import usePersistStore from '@/hooks/usePersistStore';
 
 function Login() {
-    const [isJobSeeker, setIsJobSeeker] = useState(true)
-    const [isLoading, setIsLoading] = useState(false)
+    const [isJobSeeker, setIsJobSeeker] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [isSecureEntry, setIsSecureEntry] = useState(true);
+    const [shouldFetchProfile, setShouldFetchProfile] = useState(false); // Flag to control profile fetch
 
-    const router = useRouter()
+    const router = useRouter();
+    const store = usePersistStore(useUserStore, (state) => state);
 
-    const toggleIsJobSeeker = () => setIsJobSeeker(prev => !prev)
 
+    const toggleIsJobSeeker = () => setIsJobSeeker(prev => !prev);
+
+    // Mutation for logging in
     const mutation = useMutation({
         mutationFn: (data: { email: string; password: string; userType: "User" | "Employer" }) => AuthService.login(data),
-        onSuccess: (data) => {
-            toast.success('Login successful')
-            setIsLoading(false)
-            if (data.userType === "Employer") {
-                router.push('/dashboard/employer')
-            } else {
-                router.push('/dashboard/seeker')
-            }
+        onSuccess: () => {
+            toast.success('Login successful');
+            setIsLoading(false);
+            setShouldFetchProfile(true); // Set flag to true to trigger profile fetch
         },
         onError: (error: any) => {
-            setIsLoading(false)
-            toast.error(error?.response?.data?.message || "An Error Occured!!");
+            setIsLoading(false);
+            toast.error(error?.response?.data?.message || "An Error Occurred!!");
         },
     });
+
+    // useQuery to fetch user profile data
+    const { data: userData, isLoading: profileLoading, error: profileError } = useQuery({
+        queryKey: ['profile'],
+        queryFn: () => AuthService.profile(), 
+        refetchOnWindowFocus: false,
+        enabled: shouldFetchProfile, 
+    });
+
+    // useEffect to handle setting the user profile
+    useEffect(() => {
+        if (userData) {
+            const user = {
+                contactInfo: userData.user?.contactInfo,
+                country: userData.user?.country,
+                createdAt: userData.user?.createdAt,
+                email: userData.user?.email,
+                id: userData.user?.id,
+                name: userData.user?.name,
+                professionalTitle: userData.user?.professionalTitle,
+                profilePicture: userData.user?.profilePicture,
+                resumeUrls: userData.user?.resumeUrls,
+                setupComplete: userData.user?.setupComplete,
+                skills: userData.user?.skills,
+                updatedAt: userData.user?.updatedAt,
+                role: userData.userType === "Employer" ? "Employer" : "User",
+                isCompanyUser: userData.userType === "Employer",
+                company: userData.user?.employer,
+            };
+
+            store?.setUser(user); // Store the user data in the Zustand store
+
+            console.log({userData})
+            // Navigate to dashboard
+            if (userData.userType === "Employer") {
+                router.push('/dashboard/employer');
+            } else {
+                router.push('/dashboard/seeker');
+            }
+        }
+    }, [userData, store?.setUser]); 
 
     const formik = useFormik({
         initialValues: {
@@ -48,20 +91,19 @@ function Login() {
         },
         validationSchema: loginSchema,
         onSubmit: (values) => {
-            setIsLoading(true)
+            setIsLoading(true);
             mutation.mutate({ ...values, userType: isJobSeeker ? "User" : "Employer" });
         },
     });
 
     const toggleSecureEntry = () => {
-                setIsSecureEntry(prev => !prev);
-               
+        setIsSecureEntry(prev => !prev);
     };
 
     return (
         <section className='px-2 md:px-24 text-gray-1'>
             <Header />
-            {isLoading && <LoadingComponent />}
+            {(isLoading || profileLoading) && <LoadingComponent />} {/* Show loading indicator */}
             <h4 className='hidden md:block text-xl font-semibold md:text-center px-4 md:px-0'>Sign In</h4>
             <div className="w-[95%] md:w-[50%] mx-auto space-y-5 mt-10">
                 <div className="my-10 grid grid-cols-2">
@@ -103,15 +145,6 @@ function Login() {
                         className={formik.errors.email ? 'border-red-500' : ''}
                     />
                     <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
-                    {/* <Input
-                        name="password"
-                        placeholder='Password'
-                        type="password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        className={formik.errors.password ? 'border-red-500' : ''}
-                    /> */}
                     <Input
                         type={isSecureEntry ? 'password' : 'text'}
                         name="password"

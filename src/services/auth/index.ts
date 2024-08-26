@@ -19,6 +19,11 @@ class AuthService {
         return response.data;
     }
 
+    async profile() {
+        const response = await axiosClient.get(Endpoints.profile);
+        return response.data; 
+    }
+
     async logout() {
         return await axiosClient.post(Endpoints.Logout)
     }

@@ -1,30 +1,59 @@
-import { User } from '@/constants/interface';
-import { Store } from '@tanstack/store';
+// stores/userStore.ts
+import {create} from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-export const userStore = new Store<{ user: Partial<User> | null; isAuthenticated: boolean }>({
-    user: null,
-    isAuthenticated: false,
-});
+interface CompanyDetails {
+    companyId: string;
+    companyName: string;
+    companyEmail: string;
+    industry: string;
+    teamSize?: number | null;
+    organizationType?: string | null;
+    description?: string | null;
+    logo?: string | null;
+    yearOfEstablishment?: number | null;
+    socialMedias?: string[] | null;
+    contactInfo?: string | null;
+    country?: string | null;
+    setupComplete?: boolean;
+}
 
-export const setUser = (user: User) => {
-    userStore.setState((state) => ({
-        ...state,
-        user,
-        isAuthenticated: true,
-    }));
-};
+interface User {
+    id?: string;
+    email?: string;
+    name?: string;
+    profilePicture?: string | null;
+    professionalTitle?: string | null;
+    contactInfo?: string | null;
+    resumeUrls?: string | null;
+    country?: string;
+    skills?: string[] | null; 
+    setupComplete?: boolean;
+    createdAt?: string;
+    updatedAt?: string;
+    role: string;
+    isCompanyUser?: boolean;
+    company?: CompanyDetails;
+}
 
-export const clearUser = () => {
-    userStore.setState((state) => ({
-        ...state,
-        user: null,
-        isAuthenticated: false,
-    }));
-};
+interface UserState {
+    user: User | null;
+    isAuthenticated: boolean;
+    setUser: (user: User) => void;
+    clearUser: () => void;
+}
 
-export const updateUser = (user: Partial<User>) => {
-    userStore.setState((state) => ({
-        ...state,
-        user: { ...state.user, ...user },
-    }));
-};
+export const useUserStore = create<UserState>()(
+    persist(
+        (set) => ({
+            user: null,
+            isAuthenticated: false,
+            setUser: (user) => set({ user, isAuthenticated: true }),
+            clearUser: () => set({ user: null, isAuthenticated: false }),
+        }),
+        {
+            name: 'user-store',
+            storage: createJSONStorage(() => localStorage), 
+        }
+    )
+);

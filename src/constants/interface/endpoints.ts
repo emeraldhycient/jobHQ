@@ -1,6 +1,7 @@
 export enum Endpoints {
     Login = "auth/login",
     Signup = "auth/create-account",
+    profile = "/auth/me/",
     Analytics = "analytics",
     Logout = "/auth/logout",
     AppliedJobs = "/jobs/applied",
