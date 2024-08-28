@@ -25,8 +25,7 @@ interface Props {
 
 const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
 
-    // const timeAgo = moment(job.createdAt).fromNow();
-
+console.log({jobs})
 
     return (
         <>
@@ -41,7 +40,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                 <section className='w-full'>
                     {isLoading
                         ? <SkeletonLoader count={5} />
-                        : jobs && jobs.length >0? jobs.map((job, index) => (
+                        :  jobs?.length > 0 ? jobs?.map((job, index) => (
                             <Link
                                 href={`/dashboard/seeker/jobs/details/${job.job.id}`}
                                 key={index}
@@ -72,7 +71,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                     <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
                                 </div>
                             </Link>
-                        )) :"<p>Jobs you have applied to will show here</p>"}
+                        )) :(<p className='text-xs text-center'>Jobs you have applied to will show here</p>)}
                 </section>
             </section>
 
@@ -120,7 +119,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                 </TableCell>
                             </TableRow>
                         ))
-                        : jobs.map((job, index) => (
+                        : jobs?.length > 0 ? jobs.map((job, index) => (
                             <TableRow
                                 key={index}
                                 className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded-[20px] my-4`}
@@ -158,7 +157,12 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                     </Link>
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        )) : <TableRow
+                            
+                            className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded-[20px] my-4`}
+                        >
+                                <p className='text-xs text-center'>Jobs you have applied to will show here</p>
+                            </TableRow>}
                 </TableBody>
             </Table>
         </>

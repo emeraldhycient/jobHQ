@@ -63,6 +63,8 @@ const DashboardPage = () => {
     },
   ];
 
+  console.log(recentlyAppliedJobs?.data)
+
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -71,7 +73,7 @@ const DashboardPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 space-y-4 md:space-y-0 md:space-x-4">
           <div className="col-span-8 sm:order-last md:order-first">
             <Suspense fallback={<SkeletonLoader count={5} />}>
-              <RecentlyApplied jobs={recentlyAppliedJobs?.data?.jobs} isLoading={recentlyAppliedJobs?.isLoading} />
+              <RecentlyApplied jobs={recentlyAppliedJobs?.data?.jobs ?? []} isLoading={recentlyAppliedJobs?.isLoading} />
             </Suspense>
             <RecommendedJobs isLoading={recommendedJobs.isLoading} jobs={recommendedJobs.data?.jobs} />
           </div>
