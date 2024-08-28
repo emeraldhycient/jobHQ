@@ -13,6 +13,8 @@ import { BsCloudDownload } from 'react-icons/bs';
 import { useReactToPrint } from 'react-to-print';
 
 import 'react-quill/dist/quill.snow.css';
+import usePersistStore from '@/hooks/usePersistStore';
+import { useUserStore } from '@/stores/userStore';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -47,11 +49,14 @@ export default function ContentGenerator() {
     const [editorContent, setEditorContent] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    const store = usePersistStore(useUserStore, (state) => state)
+
+
     const printRef = useRef<HTMLDivElement | null>(null);
 
     const handlePrint = useReactToPrint({
         content: () => printRef.current,
-        documentTitle: 'Generated Document',
+        documentTitle: `${isCoverLetter ? `${formValues?.name}_cover_letter.jobhq` : `${store?.user?.name}_resume.jobhq`}`,
         onAfterPrint: () => toast.success('Document printed successfully!'),
         onPrintError: () => toast.error('Error occurred while printing the document.'),
     });
