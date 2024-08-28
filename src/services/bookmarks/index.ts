@@ -1,7 +1,7 @@
 import { Endpoints } from '@/constants/interface/endpoints';
 import axiosClient from "@/providers/axiosClient";
 
-class bookmarkService  {
+class BookmarkService  {
     async getBookmarkedJobs({ page, limit, filters }: { page: number, limit: number, filters?: Record<string, string | string[]> }) {
         const params = new URLSearchParams();
         params.append('page', page.toString());
@@ -34,4 +34,7 @@ class bookmarkService  {
 };
 
 
-export default new bookmarkService
+const bookmarkService = new BookmarkService()
+export default bookmarkService;
+
+// export default new bookmarkService

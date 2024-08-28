@@ -2,7 +2,7 @@ import { ICreateLearningPath } from '@/constants/interface';
 import { Endpoints } from '@/constants/interface/endpoints';
 import axiosClient from "@/providers/axiosClient";
 
-class learningPathService {
+class LearningPathService {
     async getBookmarkedJobs({ page, limit, filters }: { page: number, limit: number, filters?: Record<string, string | string[]> }) {
         const params = new URLSearchParams();
         params.append('page', page.toString());
@@ -51,4 +51,6 @@ class learningPathService {
 };
 
 
-export default new learningPathService
+const learningPathService = new LearningPathService()
+export default  learningPathService
+// export default new learningPathService

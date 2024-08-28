@@ -63,5 +63,6 @@ class JobsServices {
 }
 
 
-
-export default new JobsServices()
+const jobservice = new JobsServices()
+export default jobservice
+// export default new JobsServices()
