@@ -306,6 +306,7 @@ export interface IResumePromptProps {
     language: string;
     tone: string;
     resume: string;
+    resumeContent: string;
     jobDescription: string;
     wordLimit: number;
     numberOfResults: number;

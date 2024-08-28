@@ -86,6 +86,7 @@ export default function ContentGenerator() {
         mutationFn: resumeCoverLetterService.createResume,
         onSuccess: (data) => {
             toast.success('Resume created successfully');
+            console.log({response:data})
             setEditorContent(data.htmlContent || ''); // Update editor with the generated content
             setIsLoading(false); // Hide loading spinner
         },

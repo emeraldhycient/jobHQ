@@ -7,13 +7,13 @@ import { getUserFromRequest } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
     try {
-        const payload:any = getUserFromRequest("User")
-
+        const payload: any = await getUserFromRequest("User")
+        
         const body = await req.json();
         const {
             language,
             tone,
-            resume,
+            resumeContent,
             jobDescription,
             wordLimit,
             numberOfResults,
@@ -25,12 +25,15 @@ export async function POST(req: NextRequest) {
             experienceLevel,
             language,
             tone,
-            resume,
+            resume: resumeContent,
+            resumeContent,
             jobDescription,
             wordLimit,
             numberOfResults,
             creativityLevel,
         });
+
+        console.log({promptTemplate})
 
         const response = await chatgptService.generate({
             promptTemplate,
@@ -41,6 +44,7 @@ export async function POST(req: NextRequest) {
 
         const htmlContent = response.data;
 
+
         // Save the resume in the database
         const savedResume = await prisma.resume.create({
             data: {
@@ -48,14 +52,13 @@ export async function POST(req: NextRequest) {
                 experienceLevel,
                 jobDescription,
                 html: htmlContent,
-                user: {
-                    connect: { id: payload?.userId } 
-                }
+                userId: payload?.userId
             }
         });
 
         return NextResponse.json({ success: true, data: savedResume });
     } catch (error: any) {
+        console.log({error})
         return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 }

@@ -17,7 +17,7 @@ model User {
   profilePicture       String?
   professionalTitle    String?
   contactInfo          String?
-  resumes              Resume?
+  resumes              Resume[]
   resumeUrls           Json?
   country              String?
   skills               Json?

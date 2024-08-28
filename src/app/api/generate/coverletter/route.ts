@@ -7,7 +7,7 @@ import { ICoverLetterPromptProps } from '@/constants/interface';
 
 export async function POST(req: NextRequest) {
     try {
-        const payload: any = getUserFromRequest("User")
+        const payload: any = await getUserFromRequest("User")
 
         const body = await req.json();
 
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
         // Save the cover letter in the database
         const savedCoverLetter = await prisma.coverLetter.create({
             data: {
-                metaData: JSON.stringify({ language, tone, creativityLevel, wordLimit, numberOfResults }),
+                metaData:{ language, tone, creativityLevel, wordLimit, numberOfResults },
                 jobPosition,
                 letter: coverLetterContent,
                 experienceLevel: experience,

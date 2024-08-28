@@ -294,6 +294,7 @@ resumePrompt: function generateEnhancedResumePrompt({
     - "Designed and launched a customer feedback system, increasing user engagement by 40%."
 
     Please generate the resume(s) with these guidelines in mind to ensure alignment with FAANG/MAANG hiring standards. The resume should be output as well-formatted HTML with inline CSS to maintain consistency and professional presentation.
+    strictly only the resume no additional text or character of any sort before or after it.
     `;
 },
 
