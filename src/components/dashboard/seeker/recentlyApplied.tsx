@@ -41,7 +41,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                 <section className='w-full'>
                     {isLoading
                         ? <SkeletonLoader count={5} />
-                        : jobs.map((job, index) => (
+                        : jobs.length >0? jobs.map((job, index) => (
                             <Link
                                 href={`/dashboard/seeker/jobs/details/${job.job.id}`}
                                 key={index}
@@ -72,7 +72,7 @@ const RecentlyApplied: FC<Props> = ({ jobs, isLoading }) => {
                                     <span className='block lg:hidden'><IoArrowForwardCircleOutline /></span>
                                 </div>
                             </Link>
-                        ))}
+                        )) :"<p>Jobs you have applied to will show here</p>"}
                 </section>
             </section>
 
