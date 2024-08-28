@@ -42,8 +42,9 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        const coverLetterContent = response.data;
-
+        let coverLetterContent = response.data;
+        coverLetterContent = coverLetterContent.replace(/^```html/, '');
+        coverLetterContent = coverLetterContent.replace(/```$/, ''); 
         // Save the cover letter in the database
         const savedCoverLetter = await prisma.coverLetter.create({
             data: {

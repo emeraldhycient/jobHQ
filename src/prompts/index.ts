@@ -353,6 +353,8 @@ coverLetterPrompt:function generateCoverLetterPrompt({
     - "I am particularly drawn to your company's mission of leveraging technology to enhance user experience and am excited about the opportunity to contribute to your ongoing success."
 
     Please generate the cover letter(s) with these guidelines in mind to ensure alignment with FAANG/MAANG hiring standards. The cover letter should be output as well-formatted HTML with inline CSS for a professional presentation.
+        strictly only the resume no additional text or character of any sort before or after it.
+
     `;
 }
 

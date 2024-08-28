@@ -86,8 +86,8 @@ export default function ContentGenerator() {
         mutationFn: resumeCoverLetterService.createResume,
         onSuccess: (data) => {
             toast.success('Resume created successfully');
-            console.log({response:data})
-            setEditorContent(data.htmlContent || ''); // Update editor with the generated content
+            console.log({ response: data?.data });
+            setEditorContent(data?.data?.html || ''); // Update editor with the generated content
             setIsLoading(false); // Hide loading spinner
         },
         onError: (error: any) => {
@@ -100,7 +100,7 @@ export default function ContentGenerator() {
         mutationFn: resumeCoverLetterService.createCoverLetter,
         onSuccess: (data) => {
             toast.success('Cover letter created successfully');
-            setEditorContent(data.htmlContent || ''); // Update editor with the generated content
+            setEditorContent(data?.data?.letter || ''); // Update editor with the generated content
             setIsLoading(false); // Hide loading spinner
         },
         onError: (error: any) => {
@@ -233,7 +233,7 @@ export default function ContentGenerator() {
                         onClick={handleGenerateContent}
                         className="bg-green-600 hover:bg-green-700 text-white w-full py-2"
                     >
-                        {isLoading ? 'Generating...' : `Build ${isCoverLetter ? "cover letter" : "resume"}`}
+                        {isLoading ? 'Generating...' : `Build ${isCoverLetter ? "Cover Letter" : "Resume"}`}
                     </Button>
                 </div>
 
@@ -244,7 +244,7 @@ export default function ContentGenerator() {
                         value={editorContent}
                         onChange={setEditorContent}
                         placeholder="Untitled Document..."
-                        className="h-full"
+                        className="h-full text-gray-1"
                     />
                 </div>
             </div>

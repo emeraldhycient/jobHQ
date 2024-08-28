@@ -33,8 +33,6 @@ export async function POST(req: NextRequest) {
             creativityLevel,
         });
 
-        console.log({promptTemplate})
-
         const response = await chatgptService.generate({
             promptTemplate,
             response_format: {
@@ -42,7 +40,10 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        const htmlContent = response.data;
+        let htmlContent = response.data;
+        htmlContent = htmlContent.replace(/^```html/, ''); 
+        htmlContent = htmlContent.replace(/```$/, ''); 
+
 
 
         // Save the resume in the database
