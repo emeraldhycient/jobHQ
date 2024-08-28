@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { ResponseFormatJSONObject, ResponseFormatJSONSchema, ResponseFormatText } from 'openai/resources/shared.mjs';
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -9,6 +10,12 @@ interface GeneratePromptInput {
     variables: Record<string, string>;
     additionalData?: Record<string, string>;
 }
+
+type genneratorPromptProp = {
+    promptTemplate: string,
+    response_format: ResponseFormatText | ResponseFormatJSONObject | ResponseFormatJSONSchema
+}
+
 
 class ChatGptService {
     generateContent = async ({ variables, additionalData = {}, promptTemplate }: GeneratePromptInput) => {
@@ -42,7 +49,35 @@ class ChatGptService {
             data,
             response
         };
-    };
+    }
+
+    generate = async ({ promptTemplate, response_format }:genneratorPromptProp) => {
+        if (!promptTemplate) {
+            throw new Error(`No prompt found for key: ${promptTemplate}`);
+        }
+        const response: any = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [{ role: "user", content: promptTemplate }],
+            temperature: 1,
+            max_tokens: 16383,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+            response_format
+        });
+
+        if (!response || !response.choices || !response.choices[0] || !response.choices[0].message) {
+            throw new Error('No valid response from the API');
+        }
+
+        // console.log({response})
+        const data = response.choices[0].message.content.trim()
+
+        return {
+            data,
+            response
+        };
+    }
 }
 
 

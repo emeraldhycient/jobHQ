@@ -310,6 +310,7 @@ export interface IResumePromptProps {
     wordLimit: number;
     numberOfResults: number;
     creativityLevel: string;
+    experienceLevel: string;
 }
 
 export interface ICoverLetterPromptProps {
