@@ -6,31 +6,49 @@ const useGeneratePDF = (elementRef: React.RefObject<HTMLElement>) => {
     const generatePDF = useCallback(async () => {
         const element = elementRef.current;
         if (element) {
-            const canvas = await html2canvas(element);
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgWidth = 190; // Scale image width for A4 size
-            const pageHeight = 290; // Scale page height for A4 size
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
-            let position = 0;
+            try {
+                const canvas = await html2canvas(element, {
+                    scale: 2, // Increase the scale to enhance image quality
+                    logging: true, // Enable logging for debugging
+                    useCORS: true // Use CORS to handle cross-origin requests
+                });
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = 190; // A4 size width in mm
+                const pageHeight = 290; // A4 size height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                let position = 0;
 
-            // If content is longer than one page, add more pages
-            while (position + imgHeight <= pageHeight) {
-                pdf.addPage();
-                position = 0;
+                // Add the image to the first page
                 pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-            }
 
-            pdf.save('resume.pdf'); // Download the PDF
+                // If the content is longer than one page, add more pages
+                if (imgHeight > pageHeight) {
+                    let newPageHeight = imgHeight - pageHeight;
+                    position = -pageHeight;
+
+                    while (newPageHeight > 0) {
+                        pdf.addPage();
+                        position += pageHeight;
+                        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, pageHeight);
+                        newPageHeight -= pageHeight;
+                    }
+                }
+
+                pdf.save('resume.pdf'); // Save the generated PDF
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('There was an error generating the PDF. Please try again.');
+            }
         }
     }, [elementRef]);
 
-    return generatePDF;
+    return { generatePDF };
 };
 
 export default useGeneratePDF;
+
 
 
 /*

@@ -14,3 +14,10 @@ html {
 ql-toolbar.ql-snow {
   border: none !important;
 }
+
+/* Hide the Quill toolbar during print */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

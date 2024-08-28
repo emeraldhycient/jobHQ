@@ -5161,6 +5161,7 @@ __metadata:
     react-modal-sheet: ^3.1.0
     react-quill: ^2.0.0
     react-spring-bottom-sheet: ^3.4.1
+    react-to-print: ^2.15.1
     reactflow: ^11.11.4
     tailwind-merge: ^2.3.0
     tailwindcss: ^3.4.4
@@ -5694,6 +5695,16 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 7ee8ef3aab74c7ae1d70ff34a27643d11ba1a8d62d072c767827d9ff9a520905223e567002e0bf6c772929d8ea1c781a3ba0cc4a563e92b1e3dc2eaa817ecbe8
+  languageName: node
+  linkType: hard
+
+"react-to-print@npm:^2.15.1":
+  version: 2.15.1
+  resolution: "react-to-print@npm:2.15.1"
+  peerDependencies:
+    react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: dd5678d526e9a584bcb1db4742f935aa87ca9c2ec1f7eb52e405c96467d12825c0ba484b1c13df40316927075484cddee3b7505534948ac9c3d17a7baf286921
   languageName: node
   linkType: hard
 

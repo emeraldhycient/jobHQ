@@ -10,7 +10,7 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import resumeCoverLetterService from '@/services/resumeCoverLetter';
 import { BsCloudDownload } from 'react-icons/bs';
-import useGeneratePDF from '@/hooks/pdf/useGeneratePDF'; 
+import { useReactToPrint } from 'react-to-print';
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -48,7 +48,13 @@ export default function ContentGenerator() {
     const [isLoading, setIsLoading] = useState(false);
 
     const printRef = useRef<HTMLDivElement | null>(null);
-    const generatePDF = useGeneratePDF(printRef);
+
+    const handlePrint = useReactToPrint({
+        content: () => printRef.current,
+        documentTitle: 'Generated Document',
+        onAfterPrint: () => toast.success('Document printed successfully!'),
+        onPrintError: () => toast.error('Error occurred while printing the document.'),
+    });
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -117,7 +123,7 @@ export default function ContentGenerator() {
 
     return (
         <div className="min-h-screen text-gray-1 px-2 py-3 md:p-8">
-            <div className="flex flex-col md:flex-row  justify-between items-center mb-4 md:mb-8">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-8">
                 <h5 className="text-base font-normal mb-6 md:mb-0">Document Builder</h5>
                 <div className="flex items-center">
                     <span className="text-xs mr-2">Resume Builder</span>
@@ -128,7 +134,7 @@ export default function ContentGenerator() {
                     <span className="text-xs ml-2">Cover Letter Generator</span>
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row  justify-center gap-8">
+            <div className="flex flex-col md:flex-row justify-center gap-8">
                 {/* Left Panel */}
                 <div className="bg-gray-7 px-2 py-5 md:p-6 rounded-lg md:w-2/5 space-y-6">
                     <h2 className="text-sm font-bold mb-4">
@@ -255,23 +261,22 @@ export default function ContentGenerator() {
 
                 {/* Right Panel */}
                 <div className="bg-gray-7 px-2 py-6 md:p-6 rounded-lg md:w-3/5">
-                    <ReactQuill
-                        theme="snow"
-                        value={editorContent}
-                        onChange={setEditorContent}
-                       
-                        placeholder="Untitled Document..."
-                        className="h-full text-gray-1"
-                    />
-                    <div className="hidden" ref={printRef} dangerouslySetInnerHTML={{__html:editorContent}}></div>
-                    {
-                        editorContent &&
+                    <div ref={printRef}>
+                        <ReactQuill
+                            theme="snow"
+                            value={editorContent}
+                            onChange={setEditorContent}
+                            placeholder="Untitled Document..."
+                            className="h-full text-gray-7 bg-gray-1"
+                        />
+                    </div>
+                    {editorContent && (
                         <div className="flex justify-end mt-4">
-                                <Button onClick={generatePDF} variant={'lucentwarm'}>
-                                Download PDF <BsCloudDownload />
+                            <Button onClick={handlePrint} variant={'lucentwarm'}>
+                                Download PDF <BsCloudDownload className='ml-2' />
                             </Button>
                         </div>
-                    }
+                    )}
                 </div>
             </div>
         </div>
