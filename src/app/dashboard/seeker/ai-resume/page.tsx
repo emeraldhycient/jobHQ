@@ -1,5 +1,3 @@
-// pages/content-generator.tsx
-
 'use client';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
@@ -8,9 +6,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-
-// Dynamic import of React Quill to avoid SSR issues
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import resumeCoverLetterService from '@/services/resumeCoverLetter';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 // Define types for form values
 interface FormValues {
@@ -40,6 +40,8 @@ export default function ContentGenerator() {
         numberOfResults: 1,
         creativityLevel: '',
     });
+    const [editorContent, setEditorContent] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -50,8 +52,61 @@ export default function ContentGenerator() {
     };
 
     const handleGenerateContent = () => {
-        // Implement content generation logic here
+        setIsLoading(true); // Show loading spinner
+        if (isCoverLetter) {
+            const coverLetterPayload = {
+                language: formValues.language,
+                tone: formValues.tone,
+                experienceLevel: formValues.experience || '',
+                jobDescription: formValues.jobDescription,
+                wordLimit: formValues.wordLimit,
+                numberOfResults: formValues.numberOfResults,
+                creativityLevel: formValues.creativityLevel,
+                name: formValues.name || '',
+                jobPosition: formValues.jobPosition || '',
+                coverLetterContent: '',
+            };
+            createCoverLetter.mutate(coverLetterPayload);
+        } else {
+            const resumePayload = {
+                language: formValues.language,
+                tone: formValues.tone,
+                experienceLevel: formValues.experience || '',
+                jobDescription: formValues.jobDescription,
+                wordLimit: formValues.wordLimit,
+                numberOfResults: formValues.numberOfResults,
+                creativityLevel: formValues.creativityLevel,
+                resumeContent: formValues.resume,
+            };
+            createResume.mutate(resumePayload);
+        }
     };
+
+    const createResume = useMutation({
+        mutationFn: resumeCoverLetterService.createResume,
+        onSuccess: (data) => {
+            toast.success('Resume created successfully');
+            setEditorContent(data.htmlContent || ''); // Update editor with the generated content
+            setIsLoading(false); // Hide loading spinner
+        },
+        onError: (error: any) => {
+            toast.error(error.response.data.message || 'An error occurred');
+            setIsLoading(false); // Hide loading spinner
+        },
+    });
+
+    const createCoverLetter = useMutation({
+        mutationFn: resumeCoverLetterService.createCoverLetter,
+        onSuccess: (data) => {
+            toast.success('Cover letter created successfully');
+            setEditorContent(data.htmlContent || ''); // Update editor with the generated content
+            setIsLoading(false); // Hide loading spinner
+        },
+        onError: (error: any) => {
+            toast.error(error.response.data.message || 'An error occurred');
+            setIsLoading(false); // Hide loading spinner
+        },
+    });
 
     return (
         <div className="min-h-screen text-gray-1 p-8">
@@ -123,7 +178,6 @@ export default function ContentGenerator() {
                                         <SelectItem value="experienced level">Experienced</SelectItem>
                                     </SelectContent>
                                 </Select>
-            
                             </>
                         ) : (
                             <>
@@ -178,13 +232,19 @@ export default function ContentGenerator() {
                         onClick={handleGenerateContent}
                         className="bg-green-600 hover:bg-green-700 text-white w-full py-2"
                     >
-                        Build {isCoverLetter ? "cover letter" :"resume"}
+                        {isLoading ? 'Generating...' : `Build ${isCoverLetter ? "cover letter" : "resume"}`}
                     </Button>
                 </div>
 
                 {/* Right Panel */}
                 <div className="bg-gray-7 p-6 rounded-lg w-2/3">
-                    <ReactQuill theme="snow" placeholder="Untitled Document..." className="h-full" />
+                    <ReactQuill
+                        theme="snow"
+                        value={editorContent}
+                        onChange={setEditorContent}
+                        placeholder="Untitled Document..."
+                        className="h-full"
+                    />
                 </div>
             </div>
         </div>
