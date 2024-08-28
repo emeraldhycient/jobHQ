@@ -1,9 +1,7 @@
 // app/api/seed/route.ts
 import { NextResponse } from 'next/server';
 import { faker } from '@faker-js/faker';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '@/lib/prisma';
 
 async function main() {
     // Create Users
@@ -78,6 +76,50 @@ async function main() {
     );
     const createdForms = await Promise.all(forms);
 
+    // Create Resumes
+    const resumes = createdUsers.map(user =>
+        prisma.resume.create({
+            data: {
+                metaData: {
+                    language: 'English',
+                    tone: 'Professional',
+                    creativityLevel: 'High',
+                    wordLimit: 500,
+                    numberOfResults: 1
+                },
+                experienceLevel: faker.helpers.arrayElement(['Junior', 'Mid', 'Senior']),
+                jobDescription: faker.lorem.sentence(),
+                html: `<p>${faker.lorem.paragraph()}</p>`,
+                user: {
+                    connect: { id: user.id },
+                },
+            },
+        })
+    );
+    const createdResumes = await Promise.all(resumes);
+
+    // Create Cover Letters
+    const coverLetters = createdUsers.map(user =>
+        prisma.coverLetter.create({
+            data: {
+                metaData: {
+                    language: 'English',
+                    tone: 'Friendly',
+                    creativityLevel: 'Medium',
+                    wordLimit: 300,
+                    numberOfResults: 1
+                },
+                jobPosition: faker.person.jobTitle(),
+                letter: faker.lorem.paragraph(),
+                experienceLevel: faker.helpers.arrayElement(['Junior', 'Mid', 'Senior']),
+                user: {
+                    connect: { id: user.id },
+                },
+            },
+        })
+    );
+    const createdCoverLetters = await Promise.all(coverLetters);
+
     // Create Job Applications
     const jobApplications = createdUsers.map(user =>
         prisma.jobApplication.create({
@@ -90,17 +132,7 @@ async function main() {
                     connect: { id: faker.helpers.arrayElement(createdJobs).id },
                 },
                 resume: {
-                    create: {
-                        basicInfo: faker.lorem.sentence(),
-                        workExperience: JSON.stringify([
-                            { company: faker.company.name(), role: faker.person.jobTitle(), duration: faker.date.past().toISOString() },
-                        ]),
-                        education: JSON.stringify([{ degree: faker.person.jobTitle() }]),
-                        skills: [faker.hacker.noun()],
-                        user: {
-                            connect: { id: user.id },
-                        },
-                    },
+                    connect: { id: faker.helpers.arrayElement(createdResumes).id },
                 },
                 responses: {
                     create: {
@@ -121,6 +153,8 @@ async function main() {
         employers: createdEmployers,
         jobs: createdJobs,
         forms: createdForms,
+        resumes: createdResumes,
+        coverLetters: createdCoverLetters,
         jobApplications: createdJobApplications,
     };
 }
