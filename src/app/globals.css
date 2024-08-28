@@ -7,3 +7,10 @@ html {
   background-color: #121212;
 }
 
+.ql-container.ql-snow {
+  border: none !important;
+}
+
+ql-toolbar.ql-snow {
+  border: none !important;
+}

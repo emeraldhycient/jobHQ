@@ -2,6 +2,8 @@
 //     learningPath: (topic: string, additionalData: { focusArea?: string; experienceLevel?: string }) => {
 //         const { focusArea, experienceLevel } = additionalData;
 
+import { ICoverLetterPromptProps, IResumePromptProps } from "@/constants/interface";
+
 //         return `
 // You are an advanced AI content generator for educational platforms. Your task is to create a highly structured, well-formatted, and detailed JSON output that represents a learning roadmap for the topic "${topic}". This roadmap is intended for ${experienceLevel || 'learners'} and must adhere strictly to the provided JSON format.
 
@@ -232,7 +234,129 @@ You are an advanced AI content generator for educational platforms. Your task is
 
 The output must be a valid JSON object, strictly following the structure and guidelines provided.
 `;
-  }
+  },
+
+
+
+
+resumePrompt: function generateEnhancedResumePrompt({
+  language,
+  tone,
+  resume,
+  jobDescription,
+  wordLimit,
+  numberOfResults,
+  creativityLevel
+}: IResumePromptProps): string {
+  return `
+    I need to create a highly optimized and professional resume for a job applicant targeting roles at top-tier technology companies like FAANG and MAANG. Please use the following guidelines and details to craft the resume:
+
+    **User-Provided Information:**
+    - **Current Resume Content:** ${resume}
+    - **Target Job Description:** ${jobDescription}
+
+    **Specific Instructions:**
+    1. **Language and Tone**: The resume should be written in ${language} with a ${tone} tone. It should be polished, articulate, and reflect the professionalism expected in top-tier technology companies.
+    2. **Structure and Format**:
+        - **Contact Information**: Display clearly at the top, including name, email, phone number, LinkedIn profile, and any relevant portfolio links.
+        - **Professional Summary**: Craft a compelling summary that highlights the candidate's top skills, achievements, and career objectives in alignment with the job description. Keep this concise but impactful.
+        - **Experience**: List relevant work experience in reverse chronological order. Each job entry should include:
+            - **Job Title**: Clearly state the role.
+            - **Company Name**: Include the name of the organization.
+            - **Dates of Employment**: Specify the duration of the job.
+            - **Key Responsibilities and Achievements**: Use bullet points to outline key responsibilities, focusing on achievements and impact. Use quantifiable metrics (e.g., increased efficiency by 20%, led a team of 10 engineers, reduced costs by 15%) to demonstrate success.
+    3. **Skills**: List technical and soft skills relevant to the job description. Emphasize skills that align with FAANG/MAANG expectations, such as problem-solving, leadership, teamwork, programming languages, frameworks, tools, and methodologies.
+    4. **Education**: Include educational background, with details such as the degree, institution, and any honors or relevant coursework.
+    5. **Certifications and Awards**: Mention any certifications, awards, or recognitions that demonstrate expertise and achievements.
+    6. **Projects and Publications**: If applicable, include a section for significant projects or publications that showcase the candidate’s expertise and contributions to the field.
+    7. **Keywords Optimization**: Integrate relevant keywords from the job description to ensure the resume is optimized for Applicant Tracking Systems (ATS).
+    8. **Creativity Level**: Apply a ${creativityLevel} level of creativity to enhance the resume’s presentation while maintaining a professional and industry-standard format.
+    9. **Word Limit**: Ensure the resume does not exceed ${wordLimit} words, focusing on clarity and conciseness.
+    10. **Exclude Irrelevant Information**: Only include details that are directly relevant to the job description and the candidate's qualifications. Exclude personal information such as marital status, age, or photos unless explicitly required.
+    
+    **Visual and Formatting Guidelines (using HTML and CSS)**:
+    - Use a clean and modern layout with plenty of white space for readability.
+    - Employ industry-recommended fonts such as 'Helvetica', 'Arial', or 'Roboto' for a clean and professional look.
+    - Use font sizes of 10-12pt for main text, 14-16pt for section headers, and 18-22pt for the candidate's name.
+    - Include subtle use of color (e.g., #2A2A2A for text, #0073e6 for section headers) to differentiate sections and make important elements stand out.
+    - Ensure consistency in the alignment of text and spacing. Use bold or italics sparingly to emphasize important information.
+    - Include links to the candidate's LinkedIn and portfolio using anchor tags.
+    - Use lists for skills, responsibilities, and achievements to ensure clarity and easy scanning.
+    - Implement proper indentation and spacing in the HTML to ensure the resume is neat and organized.
+
+    **Output Requirements:**
+    - Provide ${numberOfResults} variations of the resume.
+    - Each version should adhere to the instructions above and be ready for submission to companies in the technology industry.
+
+    **Examples of Strong Resume Statements**:
+    - "Led a cross-functional team of 15 engineers, improving software deployment efficiency by 30%."
+    - "Implemented a machine learning model that reduced processing time by 25%, resulting in a $1M annual cost saving."
+    - "Designed and launched a customer feedback system, increasing user engagement by 40%."
+
+    Please generate the resume(s) with these guidelines in mind to ensure alignment with FAANG/MAANG hiring standards. The resume should be output as well-formatted HTML with inline CSS to maintain consistency and professional presentation.
+    `;
+},
+
+coverLetterPrompt:function generateCoverLetterPrompt({
+  language,
+  tone,
+  name,
+  jobPosition,
+  experience,
+  jobDescription,
+  wordLimit,
+  numberOfResults,
+  creativityLevel
+}: ICoverLetterPromptProps): string {
+  return `
+    I need to create a highly optimized and professional cover letter for a job applicant targeting roles at top-tier technology companies like FAANG and MAANG. Please use the following guidelines and details to craft the cover letter:
+
+    **User-Provided Information:**
+    - **Applicant's Name:** ${name}
+    - **Target Job Position:** ${jobPosition}
+    - **Years of Experience:** ${experience}
+    - **Job Description:** ${jobDescription}
+
+    **Specific Instructions:**
+    1. **Language and Tone**: The cover letter should be written in ${language} with a ${tone} tone. It should be polished, articulate, and reflect the professionalism expected in top-tier technology companies.
+    2. **Structure and Format**:
+        - **Header**: Include the applicant's name, email, phone number, LinkedIn profile, and any relevant portfolio links. Align this section to the left.
+        - **Introduction**: Begin with a compelling opening paragraph that mentions the job position, how the applicant found out about the job, and a brief summary of why they are a great fit for the role.
+        - **Body**: Include 2-3 paragraphs detailing:
+            - **Relevant Experience**: Highlight key achievements and responsibilities that align with the job description. Use quantifiable metrics (e.g., "Increased team productivity by 25% by implementing new workflow tools").
+            - **Skills and Expertise**: Emphasize technical and soft skills that are highly relevant to the position. Showcase leadership, problem-solving, and teamwork skills, especially those that are valued by FAANG/MAANG companies.
+            - **Motivation**: Explain why the applicant is interested in this specific role and company. Show a genuine understanding of the company's mission, values, and industry impact.
+        - **Closing**: Conclude with a strong closing statement that reiterates the applicant's enthusiasm for the role and mentions the next steps (e.g., availability for an interview). Use a formal sign-off, like "Sincerely" or "Best regards".
+    3. **Keywords Optimization**: Integrate relevant keywords from the job description to ensure the cover letter is optimized for Applicant Tracking Systems (ATS).
+    4. **Creativity Level**: Apply a ${creativityLevel} level of creativity to enhance the letter’s appeal while maintaining a professional and industry-standard format.
+    5. **Word Limit**: Ensure the cover letter does not exceed ${wordLimit} words, focusing on clarity and conciseness.
+    6. **Exclude Irrelevant Information**: Only include details that are directly relevant to the job description and the applicant's qualifications. Exclude personal information such as marital status, age, or photos unless explicitly required.
+
+    **Visual and Formatting Guidelines (using HTML and CSS)**:
+    - Use a clean, single-column layout with plenty of white space for readability.
+    - Employ industry-recommended fonts such as 'Helvetica', 'Arial', or 'Roboto' for a clean and professional look.
+    - Use font sizes of 10-12pt for main text, 14-16pt for headings, and 18-22pt for the applicant’s name.
+    - Include subtle use of color (e.g., #2A2A2A for text, #0073e6 for headings) to differentiate sections and make important elements stand out.
+    - Ensure consistency in text alignment, spacing, and indentation. Use bold or italics sparingly to emphasize important information.
+    - Use HTML elements like paragraphs (<p>), headers (<h1>, <h2>), and lists (<ul>, <li>) for clarity and structure.
+    - Include links to the applicant's LinkedIn and portfolio using anchor tags.
+    - Make sure the cover letter is output as well-formatted HTML with inline CSS to maintain consistency and professional presentation.
+
+    **Output Requirements:**
+    - Provide ${numberOfResults} variations of the cover letter.
+    - Each version should adhere to the instructions above and be ready for submission to companies in the technology industry.
+
+    **Examples of Strong Cover Letter Statements**:
+    - "In my previous role as a Software Engineer at Tech Innovators Inc., I led a team of 10 engineers in developing a customer feedback system that increased user engagement by 40%."
+    - "My passion for innovative technology and my experience in developing scalable web applications make me an ideal candidate for the Senior Software Developer position at your esteemed company."
+    - "I am particularly drawn to your company's mission of leveraging technology to enhance user experience and am excited about the opportunity to contribute to your ongoing success."
+
+    Please generate the cover letter(s) with these guidelines in mind to ensure alignment with FAANG/MAANG hiring standards. The cover letter should be output as well-formatted HTML with inline CSS for a professional presentation.
+    `;
+}
+
+
+
 };
 
 export default prompts;

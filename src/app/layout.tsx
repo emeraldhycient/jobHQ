@@ -7,6 +7,8 @@ import { ReactQueryProvider } from "@/providers/reactQueryProvider";
 // import { GoogleAnalytics } from "@/components/GoogleAnalytics"; // Assume you have a GoogleAnalytics component
 import  { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import 'react-quill/dist/quill.snow.css';
+
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 

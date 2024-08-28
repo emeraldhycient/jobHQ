@@ -10,10 +10,17 @@ import { usePathname } from 'next/navigation';
 import { sidebarItems } from '@/constants/data';
 import CallIconCircle from '@/components/icons/CallIcon';
 import NotificationCicleIcon from '@/components/icons/NotificationCicleIcon';
+import usePersistStore from '@/hooks/usePersistStore';
+import { useUserStore } from '@/stores/userStore';
+import { Button } from '@/components/ui/button';
 
 const TopNav: FC = () => {
     const pathname = usePathname();
     const isActive = (path: string) => pathname === (path);
+
+    const store = usePersistStore(useUserStore, (state) => state)
+
+    const firstName = store?.isAuthenticated && store?.user && store?.user?.name ? store?.user?.name.split(" ")[0] : "Unauthennticated"
 
     return (
         <Disclosure as="nav" className="bg-gray-2 text-gray-1">
@@ -32,32 +39,12 @@ const TopNav: FC = () => {
                                     />
                                 </div>
                                 <div>
-                                    <h1 className="text-base md:text-lg font-bold">Hello, Jessica 👋🏾</h1>
+                                    <h1 className="text-base md:text-lg font-bold">Hello, {firstName} 👋🏾</h1>
                                     <p className="text-xs font-normal text-gray-4">Welcome back to JobHQ</p>
                                 </div>
                             </div>
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 space-x-4">
-                                <button className="text-xl">
-                                    <CallIconCircle />
-                                </button>
-                                <button className="text-xl">
-                                    <NotificationCicleIcon />
-                                </button>
-                                <div className="hidden md:flex items-center space-x-3">
-                                    <div className="flex-shrink-0">
-                                        <Image
-                                            src="/images/testimony.png"
-                                            alt="Profile Picture"
-                                            width={30}
-                                            height={30}
-                                            className="rounded-full h-[30px] w-[30px]"
-                                        />
-                                    </div>
-                                    <Link href="/my-account" className="flex flex-col items-left">
-                                        <span className="text-xs">Jessica</span>
-                                        <span className="text-blue-500 text-xs">My Account</span>
-                                    </Link>
-                                </div>
+                               <Button> 300 Buy credit</Button>
                                 <Disclosure.Button className="inline-flex md:hidden items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                                     <span className="sr-only">Open main menu</span>
                                     {open ? (
@@ -98,7 +85,7 @@ const TopNav: FC = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col items-left">
-                                    <span className="text-xs">Jessica</span>
+                                    <span className="text-xs">{firstName}</span>
                                     <Link href="/my-account" className="text-blue-500 text-xs">My Account</Link>
                                 </div>
                             </div>

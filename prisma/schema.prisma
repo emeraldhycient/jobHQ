@@ -31,9 +31,10 @@ model User {
   AutoApplySetting     AutoApplySetting[]
   bookmarks            JobBookmark[]
 
-  setupComplete Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  setupComplete Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  coverLetter   coverLetter?
 }
 
 model Employer {
@@ -152,17 +153,29 @@ model JobApplication {
 }
 
 model Resume {
-  id             String           @id @default(uuid())
-  basicInfo      String
-  workExperience Json
-  education      Json
+  id             String   @id @default(uuid())
+  basicInfo      String?
+  workExperience Json?
+  education      Json?
   skills         String[]
   summary        String?
+
+  html String
+
   user           User             @relation(fields: [userId], references: [id])
   userId         String           @unique
   JobApplication JobApplication[]
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
+}
+
+model coverLetter {
+  id        String   @id @default(uuid())
+  letter    String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model LearningPath {

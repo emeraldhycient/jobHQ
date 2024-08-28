@@ -301,3 +301,25 @@ interface ProjectIdea {
 }
 
 export type ICreateLearningPath = { title: string, experienceLevel?: string, focusArea?: string }
+
+export interface IResumePromptProps {
+    language: string;
+    tone: string;
+    resume: string;
+    jobDescription: string;
+    wordLimit: number;
+    numberOfResults: number;
+    creativityLevel: string;
+}
+
+export interface ICoverLetterPromptProps {
+    language: string;
+    tone: string;
+    name: string;
+    jobPosition: string;
+    experience: string;
+    jobDescription: string;
+    wordLimit: number;
+    numberOfResults: number;
+    creativityLevel: string;
+}
