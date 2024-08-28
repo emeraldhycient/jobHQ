@@ -52,9 +52,7 @@ export async function POST(req: NextRequest) {
                 jobPosition,
                 letter: coverLetterContent,
                 experienceLevel: experienceLevel,
-                user: {
-                    connect: { id: payload?.userId} 
-                }
+                userId: payload?.userId
             }
         });
 

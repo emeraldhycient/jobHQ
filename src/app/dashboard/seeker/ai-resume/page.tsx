@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,10 +9,12 @@ import { Switch } from '@/components/ui/switch';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import resumeCoverLetterService from '@/services/resumeCoverLetter';
+import { BsCloudDownload } from 'react-icons/bs';
+import useGeneratePDF from '@/hooks/pdf/useGeneratePDF'; 
+
 import 'react-quill/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-
 
 // Define types for form values
 interface FormValues {
@@ -45,6 +47,9 @@ export default function ContentGenerator() {
     const [editorContent, setEditorContent] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    const printRef = useRef<HTMLDivElement | null>(null);
+    const generatePDF = useGeneratePDF(printRef);
+
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormValues((prev) => ({
@@ -54,7 +59,7 @@ export default function ContentGenerator() {
     };
 
     const handleGenerateContent = () => {
-        setIsLoading(true); // Show loading spinner
+        setIsLoading(true);
         if (isCoverLetter) {
             const coverLetterPayload = {
                 language: formValues.language,
@@ -88,12 +93,12 @@ export default function ContentGenerator() {
         mutationFn: resumeCoverLetterService.createResume,
         onSuccess: (data) => {
             toast.success('Resume created successfully');
-            setEditorContent(data?.data?.html || ''); // Update editor with the generated content
-            setIsLoading(false); // Hide loading spinner
+            setEditorContent(data?.data?.html || '');
+            setIsLoading(false);
         },
         onError: (error: any) => {
             toast.error(error.response.data.message || 'An error occurred');
-            setIsLoading(false); // Hide loading spinner
+            setIsLoading(false);
         },
     });
 
@@ -101,19 +106,19 @@ export default function ContentGenerator() {
         mutationFn: resumeCoverLetterService.createCoverLetter,
         onSuccess: (data) => {
             toast.success('Cover letter created successfully');
-            setEditorContent(data?.data?.letter || ''); // Update editor with the generated content
-            setIsLoading(false); // Hide loading spinner
+            setEditorContent(data?.data?.letter || '');
+            setIsLoading(false);
         },
         onError: (error: any) => {
             toast.error(error.response.data.message || 'An error occurred');
-            setIsLoading(false); // Hide loading spinner
+            setIsLoading(false);
         },
     });
 
     return (
-        <div className="min-h-screen text-gray-1 p-8">
-            <div className="flex justify-between items-center mb-8">
-                <h5 className="text-base font-normal">Document Builder</h5>
+        <div className="min-h-screen text-gray-1 px-2 py-3 md:p-8">
+            <div className="flex flex-col md:flex-row  justify-between items-center mb-4 md:mb-8">
+                <h5 className="text-base font-normal mb-6 md:mb-0">Document Builder</h5>
                 <div className="flex items-center">
                     <span className="text-xs mr-2">Resume Builder</span>
                     <Switch
@@ -123,42 +128,42 @@ export default function ContentGenerator() {
                     <span className="text-xs ml-2">Cover Letter Generator</span>
                 </div>
             </div>
-            <div className="flex justify-center gap-8">
+            <div className="flex flex-col md:flex-row  justify-center gap-8">
                 {/* Left Panel */}
-                <div className="bg-gray-7 p-6 rounded-lg w-1/3 space-y-6">
+                <div className="bg-gray-7 px-2 py-5 md:p-6 rounded-lg md:w-2/5 space-y-6">
                     <h2 className="text-sm font-bold mb-4">
                         {isCoverLetter ? 'Cover Letter Generator' : 'Resume Builder'}
                     </h2>
 
                     <div className="space-y-4">
                         <div className="flex items-center gap-2">
-                        <Select
-                            value={formValues.language}
-                            onValueChange={(value) => setFormValues((prev) => ({ ...prev, language: value }))}
-                        >
-                            <SelectTrigger className="">
-                                <SelectValue placeholder="Select Language" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="English">English</SelectItem>
-                                <SelectItem value="Spanish">Spanish</SelectItem>
-                                <SelectItem value="French">French</SelectItem>
-                            </SelectContent>
-                        </Select>
+                            <Select
+                                value={formValues.language}
+                                onValueChange={(value) => setFormValues((prev) => ({ ...prev, language: value }))}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select Language" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="English">English</SelectItem>
+                                    <SelectItem value="Spanish">Spanish</SelectItem>
+                                    <SelectItem value="French">French</SelectItem>
+                                </SelectContent>
+                            </Select>
 
-                        <Select
-                            value={formValues.tone}
-                            onValueChange={(value) => setFormValues((prev) => ({ ...prev, tone: value }))}
-                        >
-                            <SelectTrigger className="">
-                                <SelectValue placeholder="Select Tone" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="Professional">Professional</SelectItem>
-                                <SelectItem value="Friendly">Friendly</SelectItem>
-                                <SelectItem value="Neutral">Neutral</SelectItem>
-                            </SelectContent>
-                        </Select>
+                            <Select
+                                value={formValues.tone}
+                                onValueChange={(value) => setFormValues((prev) => ({ ...prev, tone: value }))}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select Tone" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Professional">Professional</SelectItem>
+                                    <SelectItem value="Friendly">Friendly</SelectItem>
+                                    <SelectItem value="Neutral">Neutral</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </div>
 
                         {isCoverLetter ? (
@@ -249,14 +254,24 @@ export default function ContentGenerator() {
                 </div>
 
                 {/* Right Panel */}
-                <div className="bg-gray-7 p-6 rounded-lg w-2/3">
+                <div className="bg-gray-7 px-2 py-6 md:p-6 rounded-lg md:w-3/5">
                     <ReactQuill
                         theme="snow"
                         value={editorContent}
                         onChange={setEditorContent}
+                       
                         placeholder="Untitled Document..."
                         className="h-full text-gray-1"
                     />
+                    <div className="hidden" ref={printRef} dangerouslySetInnerHTML={{__html:editorContent}}></div>
+                    {
+                        editorContent &&
+                        <div className="flex justify-end mt-4">
+                                <Button onClick={generatePDF} variant={'lucentwarm'}>
+                                Download PDF <BsCloudDownload />
+                            </Button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
