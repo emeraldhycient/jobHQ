@@ -319,7 +319,7 @@ export interface ICoverLetterPromptProps {
     tone: string;
     name: string;
     jobPosition: string;
-    experience: string;
+    experienceLevel: string;
     jobDescription: string;
     wordLimit: number;
     numberOfResults: number;

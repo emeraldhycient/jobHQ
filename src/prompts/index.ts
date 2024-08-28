@@ -303,7 +303,7 @@ coverLetterPrompt:function generateCoverLetterPrompt({
   tone,
   name,
   jobPosition,
-  experience,
+  experienceLevel,
   jobDescription,
   wordLimit,
   numberOfResults,
@@ -315,7 +315,7 @@ coverLetterPrompt:function generateCoverLetterPrompt({
     **User-Provided Information:**
     - **Applicant's Name:** ${name}
     - **Target Job Position:** ${jobPosition}
-    - **Years of Experience:** ${experience}
+    - **Years of Experience:** ${experienceLevel}
     - **Job Description:** ${jobDescription}
 
     **Specific Instructions:**

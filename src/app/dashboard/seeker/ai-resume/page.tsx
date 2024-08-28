@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { Select, SelectItem, SelectContent } from '@/components/ui/select';
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -9,8 +9,10 @@ import { Switch } from '@/components/ui/switch';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import resumeCoverLetterService from '@/services/resumeCoverLetter';
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
 
 // Define types for form values
 interface FormValues {
@@ -86,7 +88,6 @@ export default function ContentGenerator() {
         mutationFn: resumeCoverLetterService.createResume,
         onSuccess: (data) => {
             toast.success('Resume created successfully');
-            console.log({ response: data?.data });
             setEditorContent(data?.data?.html || ''); // Update editor with the generated content
             setIsLoading(false); // Hide loading spinner
         },
@@ -130,12 +131,15 @@ export default function ContentGenerator() {
                     </h2>
 
                     <div className="space-y-4">
+                        <div className="flex items-center gap-2">
                         <Select
                             value={formValues.language}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, language: value }))}
                         >
+                            <SelectTrigger className="">
+                                <SelectValue placeholder="Select Language" />
+                            </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value=" ">Select Language</SelectItem>
                                 <SelectItem value="English">English</SelectItem>
                                 <SelectItem value="Spanish">Spanish</SelectItem>
                                 <SelectItem value="French">French</SelectItem>
@@ -146,13 +150,16 @@ export default function ContentGenerator() {
                             value={formValues.tone}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, tone: value }))}
                         >
+                            <SelectTrigger className="">
+                                <SelectValue placeholder="Select Tone" />
+                            </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value=" ">Select Tone</SelectItem>
                                 <SelectItem value="Professional">Professional</SelectItem>
                                 <SelectItem value="Friendly">Friendly</SelectItem>
                                 <SelectItem value="Neutral">Neutral</SelectItem>
                             </SelectContent>
                         </Select>
+                        </div>
 
                         {isCoverLetter ? (
                             <>
@@ -172,8 +179,10 @@ export default function ContentGenerator() {
                                     value={formValues.experience}
                                     onValueChange={(value) => setFormValues((prev) => ({ ...prev, experience: value }))}
                                 >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select Experience Level" />
+                                    </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value=" ">Select experience Level</SelectItem>
                                         <SelectItem value="entry level">Entry</SelectItem>
                                         <SelectItem value="intermediate level">Intermediate</SelectItem>
                                         <SelectItem value="experienced level">Experienced</SelectItem>
@@ -220,8 +229,10 @@ export default function ContentGenerator() {
                             value={formValues.creativityLevel}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, creativityLevel: value }))}
                         >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select Creativity Level" />
+                            </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value=" ">Select Creativity Level</SelectItem>
                                 <SelectItem value="High">High</SelectItem>
                                 <SelectItem value="Medium">Medium</SelectItem>
                                 <SelectItem value="Low">Low</SelectItem>

@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
             tone,
             name,
             jobPosition,
-            experience,
+            experienceLevel,
             jobDescription,
             wordLimit,
             numberOfResults,
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
             tone,
             name,
             jobPosition,
-            experience,
+            experienceLevel,
             jobDescription,
             wordLimit,
             numberOfResults,
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
                 metaData:{ language, tone, creativityLevel, wordLimit, numberOfResults },
                 jobPosition,
                 letter: coverLetterContent,
-                experienceLevel: experience,
+                experienceLevel: experienceLevel,
                 user: {
                     connect: { id: payload?.userId} 
                 }
@@ -60,6 +60,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ success: true, data: savedCoverLetter });
     } catch (error: any) {
+        console.log({error})
         return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 }
