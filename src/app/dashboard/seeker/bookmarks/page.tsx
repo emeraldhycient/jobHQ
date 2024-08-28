@@ -44,16 +44,22 @@ const BookmarksPage = () => {
                     {isLoading ? (
                         <SkeletonLoader count={5} />
                     ) : (
-                        data?.bookmarks?.map((bookmark: { job: IJobItem }) => (
+                        data?.bookmarks.length > 0 ? data?.bookmarks?.map((bookmark: { job: IJobItem }) => (
                             <RecommendedJobCard key={bookmark.job.id} job={bookmark.job} />
                         ))
+                            :
+                            <p className='text-xs text-center'>Jobs you bookmark will show here</p>
+
                     )}
                 </section>
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={data?.pagination?.totalPages || 1}
-                    onPageChange={handlePageChange}
-                />
+                {
+                    data?.bookmarks.length > 0 &&
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={data?.pagination?.totalPages || 1}
+                        onPageChange={handlePageChange}
+                    />
+                }
             </section>
         </section>
     );

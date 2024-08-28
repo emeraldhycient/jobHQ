@@ -32,7 +32,7 @@ const RecommendedJobs: FC<RecommendedJobsProps> = ({ jobs = [], isLoading }) => 
                                 <RecommendedJobCard job={job} key={index} />
                             ))
                         ) : (
-                            <p>No recommended jobs available at the moment.</p>
+                            <p className='text-xs text-center'>No recommended jobs available at the moment.</p>
                         )}
                     </section>
             }

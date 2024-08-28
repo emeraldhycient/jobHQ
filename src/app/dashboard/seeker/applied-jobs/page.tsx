@@ -45,13 +45,16 @@ const AppliedJobsPage = () => {
           {isLoading ? (
             <SkeletonLoader count={5} />
           ) : (
-            data?.jobs?.map((job: AppliedJobItem) => (
-              <AppliedCard key={job.id} job={job} />
-            ))
+            data?.jobs.length > 0 ?
+              data?.jobs?.map((job: AppliedJobItem) => (
+                <AppliedCard key={job.id} job={job} />
+              ))
+              :
+              <p className='text-xs text-center'>Jobs you have applied to will show here</p>
           )}
         </Suspense>
         {
-          totalPages > currentPage ?
+          data?.jobs &&  totalPages > currentPage ?
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}

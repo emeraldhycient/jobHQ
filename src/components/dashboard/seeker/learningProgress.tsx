@@ -22,9 +22,11 @@ const LearningProgress: FC<LearningProgressProps> = ({ courses, isLoading }) => 
             <section className='space-y-4'>
                 {
                     !isLoading ?
-                        courses.map((course) => (
+                       courses.length > 0 ? courses.map((course) => (
                             <PathCard key={course.id} title={course.title} data={course} />
-                        ))
+                       ))
+                            :
+                            <p className='text-xs text-center'>Generated learning paths will appear here</p>
                         :
                         <LearningSkeletonLoader />
                 }

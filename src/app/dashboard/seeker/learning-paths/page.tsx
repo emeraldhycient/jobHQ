@@ -85,7 +85,7 @@ const DashboardPage = () => {
           <PathCard key={course.id} title={course.title} data={course} />
           ))
             :
-              <p>Nothing found</p>
+              <p className='text-xs text-center'>Generate learning paths to see it here</p>
             :
             <LearningSkeletonLoader/>
       }

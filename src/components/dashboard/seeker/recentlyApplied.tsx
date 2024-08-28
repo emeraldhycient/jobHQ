@@ -158,7 +158,6 @@ console.log({jobs})
                                 </TableCell>
                             </TableRow>
                         )) : <TableRow
-                            
                             className={`border-b-8 border-gray-5 bg-gray-7 text-gray-1 rounded-[20px] my-4`}
                         >
                                 <p className='text-xs text-center'>Jobs you have applied to will show here</p>
