@@ -52,7 +52,7 @@ function Login() {
 
     if (isError) {
         console.log({profileError})
-        toast.success(profileError?.message);
+        toast.error(profileError?.message);
     }
 
     // useEffect to handle setting the user profile
