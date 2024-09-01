@@ -43,12 +43,17 @@ function Login() {
     });
 
     // useQuery to fetch user profile data
-    const { data: userData, isLoading: profileLoading, error: profileError } = useQuery({
+    const { data: userData, isLoading: profileLoading, error: profileError,isError } = useQuery({
         queryKey: ['profile'],
         queryFn: () => AuthService.profile(), 
         refetchOnWindowFocus: false,
         enabled: shouldFetchProfile, 
     });
+
+    if (isError) {
+        console.log({profileError})
+        toast.success(profileError?.message);
+    }
 
     // useEffect to handle setting the user profile
     useEffect(() => {
