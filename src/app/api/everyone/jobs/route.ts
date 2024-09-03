@@ -37,8 +37,8 @@ export async function GET(req: NextRequest) {
                 limit,
             },
         }, { status: 200 });
-    } catch (error) {
+    } catch (error:any) {
         console.error('Failed to fetch jobs:', error);
-        return NextResponse.json({ message: 'Failed to fetch jobs', error }, { status: 500 });
+        return NextResponse.json({ message: error?.message ?? 'Failed to fetch jobs', error }, { status: 500 });
     }
 }

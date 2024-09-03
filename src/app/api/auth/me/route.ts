@@ -30,8 +30,8 @@ export async function GET(req: NextRequest) {
 
             return NextResponse.json({message: 'user found', user: {...user,userType: "Employer"}}, { status: 200 });
         }
-    } catch (error:any) {
+    } catch (error: any) {
         console.error(error);
-        return NextResponse.json({ message: 'Internal Server Error', error:error?.message }, { status: 500 });
+        return NextResponse.json({ message: error?.message ?? 'Internal Server Error', error }, { status: 500 });
     }
 }

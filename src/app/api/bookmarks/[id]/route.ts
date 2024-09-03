@@ -23,8 +23,8 @@ export async function DELETE(req: NextRequest, { params }: any) {
         });
 
         return NextResponse.json({ message: 'Bookmark removed successfully' }, { status: 200 });
-    } catch (error) {
-        console.error('Failed to remove bookmark:', error);
-        return NextResponse.json({ message: 'Failed to remove bookmark', error }, { status: 500 });
+    } catch (error: any) {
+        console.error(error);
+        return NextResponse.json({ message: error?.message ?? 'Internal Server Error', error }, { status: 500 });
     }
 }

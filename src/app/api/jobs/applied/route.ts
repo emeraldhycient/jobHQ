@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
             },
         }, { status: 200 });
 
-    } catch (error) {
-        return NextResponse.json({ message: "Something went wrong", error }, { status: 500 });
+    } catch (error:any) {
+        return NextResponse.json({ message:error?.message ?? "Something went wrong", error }, { status: 500 });
     }
 }

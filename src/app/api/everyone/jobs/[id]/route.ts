@@ -18,8 +18,8 @@ export async function GET(req: Request, { params }: any) {
 
 
         return NextResponse.json(job, { status: 200 });
-    } catch (error) {
+    } catch (error:any) {
         console.error('Failed to fetch job:', error);
-        return NextResponse.json({ message: 'Failed to fetch job', error }, { status: 500 });
+        return NextResponse.json({ message: error?.message ?? 'Failed to fetch job', error }, { status: 500 });
     }
 }

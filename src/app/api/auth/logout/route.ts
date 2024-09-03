@@ -13,8 +13,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
         });
 
         return response;
-    } catch (error) {
-        console.error('Logout error:', error);
-        return NextResponse.json({ message: 'Internal Server Error', error }, { status: 500 });
+    } catch (error: any) {
+        console.error(error);
+        return NextResponse.json({ message: error?.message ?? 'Internal Server Error', error }, { status: 500 });
     }
 }

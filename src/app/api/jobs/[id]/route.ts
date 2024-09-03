@@ -56,9 +56,9 @@ export async function GET(req: Request, { params }: any) {
             ...job,
             isBookmarked, // Include the bookmark status
         }, { status: 200 });
-    } catch (error) {
+    } catch (error:any) {
         console.error('Failed to fetch job:', error);
-        return NextResponse.json({ message: 'Failed to fetch job', error }, { status: 500 });
+        return NextResponse.json({ message: error?.message ?? 'Failed to fetch job', error }, { status: 500 });
     }
 }
 
@@ -85,8 +85,8 @@ export async function PUT(req: Request, { params }:any) {
         });
 
         return NextResponse.json(updatedJob, { status: 200 });
-    } catch (error) {
-        return NextResponse.json({ message: 'Failed to update job' ,error}, { status: 500 });
+    } catch (error:any) {
+        return NextResponse.json({ message:error?.message ?? 'Failed to update job' ,error}, { status: 500 });
     }
 }
 
@@ -108,7 +108,7 @@ export async function DELETE(req: Request, { params }:any) {
         });
 
         return NextResponse.json({ message: 'Job deleted successfully' }, { status: 200 });
-    } catch (error) {
-        return NextResponse.json({ message: 'Failed to delete job',error }, { status: 500 });
+    } catch (error:any) {
+        return NextResponse.json({ message:error?.message ?? 'Failed to delete job',error }, { status: 500 });
     }
 }

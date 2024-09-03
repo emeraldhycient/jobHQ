@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({ success: true, data: { resumes, coverLetters } });
     } catch (error: any) {
-        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+        return NextResponse.json({ success: false, error: error, message:error?.message ?? "An error occured fetching resumes"}, { status: 500 });
     }
 }
 
@@ -32,6 +32,6 @@ export async function DELETE(req: NextRequest) {
 
         return NextResponse.json({ success: true, message: `${type} deleted successfully` });
     } catch (error: any) {
-        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+        return NextResponse.json({ success: false, error: error,message:error?.message ?? "An error occured deleting document" }, { status: 500 });
     }
 }

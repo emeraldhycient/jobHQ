@@ -24,9 +24,9 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json({ message: 'Job bookmarked successfully', bookmark }, { status: 201 });
-    } catch (error) {
+    } catch (error:any) {
         console.error('Error bookmarking job:', error);
-        return NextResponse.json({ message: 'Failed to bookmark job', error }, { status: 500 });
+        return NextResponse.json({ message: error?.message ?? 'Failed to bookmark job', error }, { status: 500 });
     }
 }
 
@@ -88,8 +88,8 @@ export async function GET(req: NextRequest) {
                 limit,
             },
         }, { status: 200 });
-    } catch (error) {
+    } catch (error:any) {
         console.error('Failed to fetch bookmarks:', error);
-        return NextResponse.json({ message: 'Failed to fetch bookmarks', error }, { status: 500 });
+        return NextResponse.json({ message: error?.message ?? 'Failed to fetch bookmarks', error }, { status: 500 });
     }
 }
